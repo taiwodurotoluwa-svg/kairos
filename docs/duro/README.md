@@ -2,7 +2,7 @@
 
 * **Developer:** Durotoluwa Taiwo (`taiwodurotoluwa-svg`)
 * **Role:** Backend Engine, PyMuPDF, Open-Weight Model Orchestration, NLI Pipeline, FastAPI.
-* **Goal:** Deliver a rock-solid, fully-tested, reproducible Python backend for ScholarMesh.
+* **Goal:** Deliver a rock-solid, fully-tested, reproducible Python backend for Kairos.
 
 ---
 
@@ -51,7 +51,10 @@
 * **Branch:** `durot/task-d4-api-endpoints`
 * **Files to create/modify:** `backend/app/main.py`, `backend/app/api/routes.py`, `backend/data/sample_trios/`
 * **Scope:**
-  * `POST /api/synthesize`: Accepts 3–5 uploaded files, coordinates extractor $ightarrow$ LLM $ightarrow$ referee $ightarrow$ response.
+  * `POST /api/synthesize`: Accepts 3–5 uploaded files, coordinates extractor $
+ightarrow$ LLM $
+ightarrow$ referee $
+ightarrow$ response.
   * `GET /api/sample/{dataset_id}`: Serves instant pre-baked high-fidelity responses for Demo Day (Radiology, LLMs, Microgrids).
   * `GET /api/health`: Health status.
   * Add CORS middleware for Next.js frontend (`http://localhost:3000`).

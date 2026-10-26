@@ -1,10 +1,10 @@
 ---
 version: 1.0.0
-project: ScholarMesh
+project: Kairos
 aesthetic: Academic Editorial Dark Mode (Developer-grade, Clean, High Contrast)
 ---
 
-# DESIGN.md — ScholarMesh Design System
+# DESIGN.md — Kairos Design System
 
 A modern, high-contrast editorial dark theme built for academic clarity. Uses deep navy-blacks, crisp borders, high-legibility typography, and high-impact semantic badges.
 

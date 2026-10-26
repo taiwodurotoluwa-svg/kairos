@@ -1,6 +1,6 @@
 # 01-Architecture & End-to-End Pipeline
 
-This document defines the technical data pipeline for **ScholarMesh**.
+This document defines the technical data pipeline for **Kairos**.
 
 ```mermaid
 flowchart TD

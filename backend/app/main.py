@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-ScholarMesh FastAPI Backend
+Kairos FastAPI Backend
 OPEN//BUILD Hackathon 2026
 """
 
@@ -10,7 +10,7 @@ import os, json
 from typing import List
 
 app = FastAPI(
-    title="ScholarMesh API",
+    title="Kairos API",
     description="Multi-Paper Comparative Synthesis & Contradiction Graph",
     version="1.0.0"
 )
@@ -30,7 +30,7 @@ SAMPLE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "s
 def health_check():
     return {
         "status": "healthy",
-        "service": "ScholarMesh Backend",
+        "service": "Kairos Backend",
         "open_weight_model": os.getenv("OPEN_WEIGHT_MODEL", "meta-llama/Llama-3.1-8B-Instruct"),
         "version": "1.0.0"
     }

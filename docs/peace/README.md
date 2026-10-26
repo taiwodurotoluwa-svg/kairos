@@ -2,7 +2,7 @@
 
 * **Developer:** Oluwanifemi Peace (`Peaceyy28`)
 * **Role:** Frontend UI/UX, Cytoscape Contradiction Graph, Comparison Matrix, Consensus Dashboard.
-* **Goal:** Build an aesthetic, intuitive, and responsive web application for ScholarMesh.
+* **Goal:** Build an aesthetic, intuitive, and responsive web application for Kairos.
 
 ---
 

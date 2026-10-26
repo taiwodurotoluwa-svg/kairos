@@ -1,4 +1,4 @@
-# ScholarMesh 🔬🕸️
+# Kairos 🔬🕸️
 ### Multi-Paper Comparative Synthesis & Contradiction Mapping Engine
 
 > **OPEN//BUILD Hackathon 2026** — *"AI belongs to everyone. Build for a world you understand. Make it open."*  
@@ -10,7 +10,7 @@
 When university students, medical trainees, and researchers write a literature review or investigate a topic, they have to read 3 to 10 dense papers across multiple browser tabs. Manually comparing their datasets, methodologies, and findings takes dozens of hours, and human readers frequently miss subtle contradictions where Paper A claims an intervention succeeds while Paper B proves it fails on real-world data.
 
 ## The Solution
-**ScholarMesh** lets users drop 3 to 5 PDF research papers into a web dashboard. Instead of a generic chatbot, it performs multi-document extraction and generates:
+**Kairos** lets users drop 3 to 5 PDF research papers into a web dashboard. Instead of a generic chatbot, it performs multi-document extraction and generates:
 1. **Side-by-Side Comparison Matrix:** Compare datasets, models, metrics, and core conclusions across all papers at a glance.
 2. **Interactive Contradiction Node Graph:** A visual network where claims are connected by **Green edges** (Agreements / Entailment) and **Red edges** (Contradictions / Conflicts). Clicking an edge reveals the exact verbatim quote and the AI Referee's explanation for the divergence.
 3. **Consensus Executive Summary:** A synthesized overview outlining where the literature agrees versus where ongoing scientific dispute remains.
@@ -19,7 +19,7 @@ When university students, medical trainees, and researchers write a literature r
 
 ## Meaningful Open-Weight AI Architecture
 
-In accordance with the hackathon theme, ScholarMesh is built exclusively on **open-weight models**:
+In accordance with the hackathon theme, Kairos is built exclusively on **open-weight models**:
 
 ```
 [Uploaded PDFs (3-5)]
@@ -69,7 +69,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 ---
 
 ## Pre-Loaded Demo Datasets (Instant 5-Second Test)
-To allow judges to evaluate the product without uploading their own papers, ScholarMesh provides 3 built-in academic trios:
+To allow judges to evaluate the product without uploading their own papers, Kairos provides 3 built-in academic trios:
 1. **Deep Learning in Medical Imaging:** Benchmark lab vs. real-world clinical dataset divergence.
 2. **LLM Hallucination Mitigation:** RAG vs. Fine-Tuning accuracy contradictions.
 3. **Renewable Micro-Grid Reliability:** Solar-battery stability simulations in West Africa.

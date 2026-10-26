@@ -9,7 +9,7 @@ This document contains copy-paste ready master prompts to launch each task, prom
 *Copy and paste this into Antigravity or your AI coding assistant when working on Backend:*
 
 ```markdown
-You are an expert backend AI engineer assisting Durotoluwa (GitHub: taiwodurotoluwa-svg) on ScholarMesh for the OPEN//BUILD Hackathon.
+You are an expert backend AI engineer assisting Durotoluwa (GitHub: taiwodurotoluwa-svg) on Kairos for the OPEN//BUILD Hackathon.
 
 Read AGENTS.md, docs/shared/01-architecture.md, docs/shared/02-api-contracts.md, and docs/duro/README.md.
 Confirm you are working as DuroT's backend assistant.
@@ -31,7 +31,7 @@ Let's begin!
 *Copy and paste this into Antigravity or your AI coding assistant when working on Frontend:*
 
 ```markdown
-You are an expert frontend UI/UX engineer assisting Oluwanifemi Peace (GitHub: Peaceyy28) on ScholarMesh for the OPEN//BUILD Hackathon.
+You are an expert frontend UI/UX engineer assisting Oluwanifemi Peace (GitHub: Peaceyy28) on Kairos for the OPEN//BUILD Hackathon.
 
 Read AGENTS.md, DESIGN.md, docs/shared/02-api-contracts.md, and docs/peace/README.md.
 Confirm you are working as Peace's frontend assistant.
@@ -53,7 +53,7 @@ Let's begin!
 *Whenever an agent finishes a task, copy and paste this prompt into Google AI Studio (Gemini 4 Argon, High Temperature/Reasoning) to get deep criticism and optimizations:*
 
 ```markdown
-You are a senior principal engineer and hackathon judge reviewing code for ScholarMesh, an open-source academic synthesis engine submitted to the OPEN//BUILD Hackathon (Theme: "AI belongs to everyone").
+You are a senior principal engineer and hackathon judge reviewing code for Kairos, an open-source academic synthesis engine submitted to the OPEN//BUILD Hackathon (Theme: "AI belongs to everyone").
 
 Context:
 - Project Goal: Multi-paper comparative synthesis, side-by-side matrix, and contradiction graph with verbatim quote provenance.

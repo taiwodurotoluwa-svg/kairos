@@ -1,6 +1,6 @@
-# AGENTS.md — ScholarMesh (Read First, Every Session)
+# AGENTS.md — Kairos (Read First, Every Session)
 
-You are an expert autonomous AI coding agent working on **ScholarMesh**, an open-source, multi-paper comparative synthesis and contradiction mapping engine for university students and researchers.
+You are an expert autonomous AI coding agent working on **Kairos**, an open-source, multi-paper comparative synthesis and contradiction mapping engine for university students and researchers.
 
 Built for the **OPEN//BUILD Hackathon 2026** (organised by OSCA Ile-Ife, GDG On Campus OAU, She Code Africa OAU, and Microsoft Student Ambassadors OAU).  
 Theme: *"AI belongs to everyone. Build for a world you understand. Make it open."*  
@@ -25,7 +25,7 @@ Deadline: **Thursday, October 29, 2026, 11:59 PM WAT**.
 
 ## 1. Product Summary (The 30-Second Pitch)
 
-When a student or researcher reads 3 to 5 academic papers on the same topic, comparing them manually across browser tabs is tedious, overwhelming, and prone to missed contradictions. **ScholarMesh** ingests 3–5 PDF research papers simultaneously and generates:
+When a student or researcher reads 3 to 5 academic papers on the same topic, comparing them manually across browser tabs is tedious, overwhelming, and prone to missed contradictions. **Kairos** ingests 3–5 PDF research papers simultaneously and generates:
 1. **A Structured Comparison Table:** A side-by-side matrix comparing datasets, methodologies, metrics, and core conclusions.
 2. **An Interactive Contradiction Graph:** A visual network where paper claim nodes are linked by **Green lines** (Agreements / Entailment) and **Red lines** (Contradictions / Conflicts), with interactive modals explaining *why* they diverge.
 3. **A Consensus Executive Summary:** Synthesized overview highlighting scientific agreement vs. active controversies.
