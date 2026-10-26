@@ -1,8 +1,29 @@
-# Cross-Teammate Requests & Interface Log
+# Cross-Developer Requests and Contract Change Log
 
-Use this document to propose and confirm contract changes between DuroT (Backend) and Peace (Frontend).
+Use this file for **anything one developer needs from the other**, and for every contract change. Agents never edit the other developer's workspace; they add a row here and tell their human.
 
-| ID | From | To | Request Description | Status | Resolution |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| REQ-01 | DuroT | Peace | Initial schema published in `docs/shared/02-api-contracts.md`. Please review field names. | APPROVED | Peace adopted TypeScript interfaces in Task P1. |
-| REQ-02 | Peace | DuroT | Ensure `/api/sample/{dataset_id}` returns instantly without calling external APIs during live demo. | APPROVED | DuroT will store pre-computed JSON files in `backend/data/sample_trios/`. |
+## How to use
+1. Add a new row at the **bottom** of the table. IDs are sequential: `REQ-001`, `REQ-002`, ...
+2. `Type`: `CONTRACT` (shape/enum/endpoint change), `FIXTURE`, `ENV`, `BUG`, `INFO`, `DEPLOY`.
+3. `Status`: `OPEN` → `ACKNOWLEDGED` → `DONE` or `REJECTED` (with reason in `Resolution`).
+4. **A `CONTRACT` change is only `DONE` when** both humans approved, `docs/shared/02-api-contracts.md` and both `schemas.py` and `types.ts` are updated, `schema_version` is bumped and `test_contract.py` passes.
+5. Keep entries short, concrete and dated (WAT).
+
+## Log
+
+| ID | Date (WAT) | From → To | Type | Request | Status | Resolution |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| REQ-001 | 2026-10-26 | DuroT → Peace | CONTRACT | Contract `1.0.0` is published in `docs/shared/02-api-contracts.md`. Please review field names, enums and the four semantic signals before P1 finishes. | OPEN | |
+| REQ-002 | 2026-10-26 | DuroT → Peace | FIXTURE | `fixtures/contract_sample.json` (3 synthetic papers) is available now so you can start P1 immediately. Larger 8/6/6-paper placeholder fixtures arrive with D1. | DONE | Committed with the documentation set. |
+| REQ-003 | 2026-10-26 | Peace → DuroT | FIXTURE | P3 needs the **8-paper** placeholder fixture early (spec: ≥ 2 edges of each relation, ≥ 2 gaps, cross-references valid). Please merge D1 fixtures first and notify here. | OPEN | |
+| REQ-004 | 2026-10-26 | DuroT → Peace | INFO | Every fixture has `fixture_provenance`. Show a persistent banner for `SYNTHETIC_PLACEHOLDER`. Demo Day presets will be `REAL_PIPELINE_OUTPUT` only. | OPEN | |
+| REQ-005 | 2026-10-26 | Peace → DuroT | ENV | `public/fixtures` holds committed copies of `/fixtures/*.json` (Vercel root = `frontend`). When you change a fixture, tell me so I run `npm run sync:fixtures` and commit; `check:fixtures` will fail otherwise. | OPEN | |
+| REQ-006 | 2026-10-26 | Peace → DuroT | DEPLOY | Once the backend is deployed (D5), post the base URL here and add the Vercel origin to `CORS_ALLOW_ORIGINS`. | OPEN | |
+| REQ-007 | 2026-10-26 | DuroT → Peace | CONTRACT | Analysis uses `POST /analyze` (202 + `analysis_id`) → SSE `GET /analyze/{id}/events` (`progress`/`complete`/`failed`) → `GET /analyze/{id}`. If SSE is blocked, poll `GET /analyze/{id}` every 1.5 s. | OPEN | |
+| REQ-008 | 2026-10-26 | DuroT → Peace | INFO | Both of us choose the 3 demo topics and the real, openly licensed papers for each (D5 step 7). Draft `fixtures/presets_manifest.json` together by Wed 28 Oct. Do **not** invent arXiv ids. | OPEN | |
+
+## Request template (copy a row)
+
+```markdown
+| REQ-0NN | YYYY-MM-DD | From → To | TYPE | What exactly you need and why it blocks you | OPEN | |
+```

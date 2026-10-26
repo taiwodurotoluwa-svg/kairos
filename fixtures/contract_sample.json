@@ -1,0 +1,362 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "demo-contract_sample",
+  "mode": "DEMO",
+  "preset_id": "contract_sample",
+  "fixture_provenance": "SYNTHETIC_PLACEHOLDER",
+  "generated_at": "2026-10-26T21:00:00Z",
+  "papers": [
+    {
+      "paper_id": "p1",
+      "short_label": "P1",
+      "citation_label": "Example A (2024)",
+      "palette_index": 0,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "example_paper_a.pdf",
+      "title": "Example Paper A: 4-bit Quantization Preserves Instruction-Following",
+      "authors": ["Example Author A"],
+      "year": 2024,
+      "page_count": 12,
+      "sections_found": ["ABSTRACT", "METHODOLOGY", "RESULTS", "CONCLUSION"],
+      "dataset": "MMLU 5-shot and Alpaca-Eval (synthetic placeholder)",
+      "sample_size": "n=14,042 MMLU questions",
+      "methodology": "GPTQ 4-bit weight-only quantization of a 7B decoder model",
+      "primary_metric": "MMLU accuracy drop of 0.8 points vs FP16",
+      "limitations": "English-only evaluation; context length up to 2k tokens",
+      "core_conclusion": "4-bit weight-only quantization preserves accuracy within one point.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p2",
+      "short_label": "P2",
+      "citation_label": "Example B (2025)",
+      "palette_index": 1,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "example_paper_b.pdf",
+      "title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+      "authors": ["Example Author B", "Example Author C"],
+      "year": 2025,
+      "page_count": 14,
+      "sections_found": ["ABSTRACT", "EXPERIMENTAL_SETUP", "RESULTS", "CONCLUSION"],
+      "dataset": "LongBench subset (synthetic placeholder)",
+      "sample_size": "n=3,750 long-context prompts",
+      "methodology": "AWQ 4-bit quantization evaluated at 32k context",
+      "primary_metric": "Average LongBench score drop of 7.9 points",
+      "limitations": "Single model family; no calibration ablation",
+      "core_conclusion": "Quantization materially degrades long-context reasoning.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p3",
+      "short_label": "P3",
+      "citation_label": "Example C (2025)",
+      "palette_index": 2,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "example_paper_c.pdf",
+      "title": "Example Paper C: Calibration Data Explains Quantization Variance",
+      "authors": ["Example Author D"],
+      "year": 2025,
+      "page_count": 10,
+      "sections_found": ["ABSTRACT", "METHODOLOGY", "RESULTS", "LIMITATIONS", "CONCLUSION"],
+      "dataset": "MMLU and LongBench with three calibration corpora (synthetic placeholder)",
+      "sample_size": "3 calibration sets x 2 benchmarks",
+      "methodology": "GPTQ 4-bit with varied calibration corpora",
+      "primary_metric": "Up to 6.1 point accuracy variance across calibration sets",
+      "limitations": "English-only calibration corpora",
+      "core_conclusion": "Calibration choice, not bit-width alone, drives accuracy variance.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "p1-c1",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "short-context accuracy",
+      "statement": "4-bit GPTQ loses under one point of MMLU accuracy versus FP16.",
+      "metric_value": "0.8 points",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Example Paper A: 4-bit Quantization Preserves Instruction-Following",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "4-bit GPTQ quantization reduced MMLU accuracy by only 0.8 points relative to the FP16 baseline."
+      }
+    },
+    {
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "deployment recommendation",
+      "statement": "4-bit weight-only quantization is safe for general-purpose deployment.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Example Paper A: 4-bit Quantization Preserves Instruction-Following",
+        "section": "CONCLUSION",
+        "page_number": 9,
+        "verbatim_quote": "We conclude that 4-bit weight-only quantization is safe for general-purpose deployment."
+      }
+    },
+    {
+      "claim_id": "p2-c1",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "long-context accuracy",
+      "statement": "AWQ 4-bit loses 7.9 LongBench points at 32k context.",
+      "metric_value": "7.9 points",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "At 32k context, AWQ 4-bit models lost 7.9 points on average on LongBench."
+      }
+    },
+    {
+      "claim_id": "p2-c2",
+      "paper_id": "p2",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "deployment recommendation",
+      "statement": "4-bit quantization is not safe to assume for long-context deployment.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+        "section": "CONCLUSION",
+        "page_number": 10,
+        "verbatim_quote": "4-bit quantization should not be assumed safe for long-context deployment."
+      }
+    },
+    {
+      "claim_id": "p3-c1",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "calibration sensitivity",
+      "statement": "LongBench accuracy varies by up to 6.1 points depending on the calibration corpus.",
+      "metric_value": "6.1 points",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Example Paper C: Calibration Data Explains Quantization Variance",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Switching the calibration corpus changed LongBench accuracy by up to 6.1 points at identical bit-width."
+      }
+    },
+    {
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "claim_type": "LIMITATION",
+      "topic_hint": "multilingual coverage",
+      "statement": "Only English calibration corpora were tested, so multilingual behavior is untested.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Example Paper C: Calibration Data Explains Quantization Variance",
+        "section": "LIMITATIONS",
+        "page_number": 8,
+        "verbatim_quote": "All calibration corpora in this study were English-only; multilingual behavior is untested."
+      }
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cl-1",
+      "label": "Accuracy impact of 4-bit quantization",
+      "claim_ids": ["p1-c1", "p2-c1", "p3-c1"],
+      "paper_ids": ["p1", "p2", "p3"],
+      "mean_similarity": 0.72
+    },
+    {
+      "cluster_id": "cl-2",
+      "label": "Deployment safety of 4-bit quantization",
+      "claim_ids": ["p1-c2", "p2-c2"],
+      "paper_ids": ["p1", "p2"],
+      "mean_similarity": 0.91
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "e-p1c1-p2c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p2-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Example Paper A: 4-bit Quantization Preserves Instruction-Following",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "4-bit GPTQ quantization reduced MMLU accuracy by only 0.8 points relative to the FP16 baseline."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "At 32k context, AWQ 4-bit models lost 7.9 points on average on LongBench."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.86,
+      "cosine_similarity": 0.78,
+      "explanation": "Example A (2024) measured short-context MMLU with GPTQ while Example B (2025) measured 32k-context LongBench with AWQ, so the 0.8 vs 7.9 point gaps reflect different benchmarks, context lengths and quantizers rather than a true conflict.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c2-p2c2",
+      "source_claim_id": "p1-c2",
+      "target_claim_id": "p2-c2",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Example Paper A: 4-bit Quantization Preserves Instruction-Following",
+        "section": "CONCLUSION",
+        "page_number": 9,
+        "verbatim_quote": "We conclude that 4-bit weight-only quantization is safe for general-purpose deployment."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+        "section": "CONCLUSION",
+        "page_number": 10,
+        "verbatim_quote": "4-bit quantization should not be assumed safe for long-context deployment."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.93,
+      "cosine_similarity": 0.91,
+      "explanation": "Example A (2024) concludes 4-bit quantization is safe for general deployment while Example B (2025) warns it should not be assumed safe for long-context deployment; both answer the same deployment-safety question with opposite recommendations.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p2c1-p3c1",
+      "source_claim_id": "p2-c1",
+      "target_claim_id": "p3-c1",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "Example Paper B: Quantization Degrades Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "At 32k context, AWQ 4-bit models lost 7.9 points on average on LongBench."
+      },
+      "target": {
+        "paper_id": "p3",
+        "paper_title": "Example Paper C: Calibration Data Explains Quantization Variance",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Switching the calibration corpus changed LongBench accuracy by up to 6.1 points at identical bit-width."
+      },
+      "relation": "AGREE",
+      "confidence": 0.74,
+      "cosine_similarity": 0.71,
+      "explanation": "Example B (2025) and Example C (2025) both report multi-point LongBench score changes tied to 4-bit quantization setup, consistent with long-context accuracy being sensitive to quantization choices.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "gaps": [
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c2",
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "statement": "Only English calibration corpora were tested, so multilingual behavior is untested.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Example Paper C: Calibration Data Explains Quantization Variance",
+        "section": "LIMITATIONS",
+        "page_number": 8,
+        "verbatim_quote": "All calibration corpora in this study were English-only; multilingual behavior is untested."
+      },
+      "best_match_similarity": 0.41,
+      "reason": "No claim in any other uploaded paper addresses multilingual quantization behavior (best cross-paper cosine similarity 0.41 is below the 0.65 threshold)."
+    }
+  ],
+  "consensus": {
+    "consensus_score": 50,
+    "executive_summary": "The three papers agree that 4-bit quantization changes accuracy by a measurable amount, but they disagree on how safe it is. Example A (2024) finds negligible loss on short-context MMLU and calls 4-bit safe; Example B (2025) finds a 7.9 point LongBench drop at 32k context and warns against assuming safety. Example C (2025) suggests calibration data explains much of the variance. Multilingual behavior is untested in every paper.",
+    "agreed_findings": [
+      "Long-context accuracy is sensitive to 4-bit quantization choices (Example B 2025, Example C 2025)."
+    ],
+    "top_contradictions": [
+      {
+        "edge_id": "e-p1c2-p2c2",
+        "headline": "Is 4-bit quantization safe to deploy? Example A says yes, Example B says not for long context."
+      }
+    ],
+    "gap_ids": ["gap-p3-c2"],
+    "recommended_next_steps": [
+      "Re-run Example A's short-context benchmark at 32k context with the same quantizer.",
+      "Repeat Example B's evaluation with multiple calibration corpora as in Example C.",
+      "Add multilingual calibration and evaluation sets."
+    ]
+  },
+  "stats": {
+    "paper_count": 3,
+    "claim_count": 6,
+    "cross_paper_pairs_total": 12,
+    "candidate_pairs": 3,
+    "referee_pairs_evaluated": 3,
+    "referee_calls": 1,
+    "pair_reduction_pct": 75.0,
+    "stage_latency_ms": {
+      "ingestion_ms": 410,
+      "extraction_ms": 3120,
+      "embedding_ms": 38,
+      "clustering_ms": 6,
+      "referee_ms": 1480,
+      "consensus_ms": 1210,
+      "total_ms": 6264
+    }
+  },
+  "models": [
+    {
+      "role": "EXTRACTION",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "EMBEDDING",
+      "model_id": "BAAI/bge-small-en-v1.5",
+      "provider": "fastembed-local",
+      "license": "MIT",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "parameter_count": "33M"
+    },
+    {
+      "role": "REFEREE",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "CONSENSUS_WRITER",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    }
+  ],
+  "warnings": [
+    "SYNTHETIC_PLACEHOLDER: this payload is invented to illustrate the contract. Do not present it as real research."
+  ]
+}

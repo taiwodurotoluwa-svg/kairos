@@ -1,0 +1,27 @@
+# AI-Assistance Disclosure Log
+
+OPEN//BUILD 2026 requires teams to disclose significant AI-assisted work and to understand everything they submit. One row per milestone (append only). Be specific and truthful. See `AGENTS.md` §8.
+
+## Tools used on this project
+
+| Tool | Purpose |
+| :--- | :--- |
+| Antigravity IDE with Claude / Gemini coding agents | Drafting code, tests and documentation under human direction |
+| Gemini Argon 4 (Google AI Studio, Thinking = High, Temperature 0.2) | Independent code-review gate before every merge |
+| Runtime models (not development tools) | `meta-llama/Llama-3.1-8B-Instruct`, `Qwen/Qwen2.5-7B-Instruct`, `meta-llama/Llama-3.2-3B-Instruct`, `BAAI/bge-small-en-v1.5` |
+
+## Milestone log
+
+| Milestone | Human | Tool / model used | What the AI did | What the human changed or verified |
+| :--- | :--- | :--- | :--- | :--- |
+| Docs | DuroT | Antigravity (Claude Sonnet 5.5) | Drafted AGENTS.md, DESIGN.md, README.md, shared docs, playbooks, prompts, contract sample | Chose scope, team split, name "Kairos", reviewed content |
+| D1 | DuroT | | | |
+| D2 | DuroT | | | |
+| D3 | DuroT | | | |
+| D4 | DuroT | | | |
+| D5 | DuroT | | | |
+| P1 | Peace | | | |
+| P2 | Peace | | | |
+| P3 | Peace | | | |
+| P4 | Peace | | | |
+| P5 | Peace | | | |

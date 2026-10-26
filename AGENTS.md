@@ -1,108 +1,250 @@
-# AGENTS.md — Kairos (Read First, Every Session)
+# AGENTS.md — Kairos (read this first, every session)
 
-You are an expert autonomous AI coding agent working on **Kairos**, an open-source, multi-paper comparative synthesis and contradiction mapping engine for university students and researchers.
+You are an autonomous coding agent working on **Kairos**, an open-source multi-paper literature synthesis and contradiction engine, for the **OPEN//BUILD 2026** hackathon (OSCA Ile-Ife). The theme is *"AI belongs to everyone. Build for a world you understand. Make it open."*
 
-Built for the **OPEN//BUILD Hackathon 2026** (organised by OSCA Ile-Ife, GDG On Campus OAU, She Code Africa OAU, and Microsoft Student Ambassadors OAU).  
-Theme: *"AI belongs to everyone. Build for a world you understand. Make it open."*  
-Deadline: **Thursday, October 29, 2026, 11:59 PM WAT**.
+- **Submission deadline:** Thursday **29 Oct 2026, 11:59 PM WAT**. Internal target: submitted by **9:00 PM WAT**.
+- **Demo Day (top 7):** Saturday 31 Oct 2026, 4:00 PM WAT (3 min slides + 5 min live demo).
+- **Team (exactly two students):** DuroT (backend) and Peace (frontend).
 
----
-
-## 0. Before You Write Any Code
-
-1. **Identify which human developer you are working for:**
-   * **Durotoluwa (DuroT):** GitHub: `taiwodurotoluwa-svg` | Email: `taiwodurotoluwa@gmail.com`
-     * Scope: **Backend Engine, PyMuPDF Extraction, Open-Weight Model Pipeline, Embeddings & NLI Referee, FastAPI Endpoints.**
-     * Your task roadmap is: [`docs/duro/README.md`](file:///docs/duro/README.md).
-   * **Oluwanifemi (Peace):** GitHub: `Peaceyy28` | Email: `oluwanifemipeace3@gmail.com`
-     * Scope: **Frontend UI/UX, Paper Uploader, Side-by-Side Comparison Table, Interactive Cytoscape/Force Graph, Consensus Summary View.**
-     * Your task roadmap is: [`docs/peace/README.md`](file:///docs/peace/README.md).
-2. **Review Shared Specifications:** Read `docs/shared/` in order (`01-architecture.md`, `02-api-contracts.md`, `03-open-weight-models.md`). The JSON schemas in `02-api-contracts.md` are the single source of truth.
-3. **Check Cross-Teammate Requests:** Read `docs/requests.md` before making any schema or endpoint changes.
-4. **Work Strictly on Your Assigned Task:** Do not implement features out of scope. Complete tasks sequentially (D1 → D5 or P1 → P5).
+Correctness and honesty matter more than feature count. Judges weigh understanding, effectiveness and documentation over size.
 
 ---
 
-## 1. Product Summary (The 30-Second Pitch)
+## 0. Mandatory start-of-session checklist
 
-When a student or researcher reads 3 to 5 academic papers on the same topic, comparing them manually across browser tabs is tedious, overwhelming, and prone to missed contradictions. **Kairos** ingests 3–5 PDF research papers simultaneously and generates:
-1. **A Structured Comparison Table:** A side-by-side matrix comparing datasets, methodologies, metrics, and core conclusions.
-2. **An Interactive Contradiction Graph:** A visual network where paper claim nodes are linked by **Green lines** (Agreements / Entailment) and **Red lines** (Contradictions / Conflicts), with interactive modals explaining *why* they diverge.
-3. **A Consensus Executive Summary:** Synthesized overview highlighting scientific agreement vs. active controversies.
-
----
-
-## 2. Hard Architectural Rules
-
-1. **Meaningful Open-Weight AI Only:** All AI inference MUST use open-weight models (`meta-llama/Llama-3.1-8B-Instruct`, `meta-llama/Llama-3.2-3B-Instruct`, or `Qwen2.5-7B-Instruct` for extraction & NLI; `BAAI/bge-small-en-v1.5` or `sentence-transformers` for embeddings). Closed/proprietary LLMs (OpenAI GPT-4, Anthropic Claude) are strictly forbidden in runtime code.
-2. **Strict Grounding & Provenance:** Every extracted claim and contradiction MUST reference the exact paper title, section/page, and verbatim supporting quote. Hallucinations disqualify academic tools.
-3. **No Mock Data in Final Backend:** Backend endpoints must perform real extraction and inference, with graceful fallbacks (Groq API -> HuggingFace Serverless -> Local Ollama).
-4. **Keep Secrets Secret:** Never commit API keys (`.env` is in `.gitignore`).
+1. **Identify who you are working for** (section 1). Do not proceed until this is certain.
+2. Read, in order: `README.md`, `docs/shared/01-architecture.md`, `docs/shared/02-api-contracts.md`, `docs/shared/03-open-weight-models.md`, then your developer playbook (`docs/duro/README.md` or `docs/peace/README.md`) and, for Peace, `DESIGN.md`.
+3. Read `docs/requests.md` for open cross-developer requests.
+4. Run `git status` and `git branch --show-current`. Work only on the milestone branch for the task you were given.
+5. Do **only** the milestone you were assigned. Do not start the next one, and do not add features not listed in your playbook unless the human explicitly asks.
 
 ---
 
-## 3. The 5-Stage Task & Review Loop (Argon 4 Review Gate)
+## 1. Developer identity detection
 
-Work is divided into 5 clear milestones for Backend (D1–D5) and 5 for Frontend (P1–P5). For each task, the agent and developer MUST follow this exact loop:
+| Human | Role | GitHub | Email | Owns |
+| :--- | :--- | :--- | :--- | :--- |
+| **DuroT** (Durotoluwa) | Backend | `taiwodurotoluwa-svg` | `taiwodurotoluwa@gmail.com` | `/backend`, `/fixtures`, `/docs/duro` |
+| **Peace** (Oluwanifemi) | Frontend | `Peaceyy28` | `oluwanifemipeace3@gmail.com` | `/frontend`, `/docs/peace` |
 
+Procedure:
+
+1. If the human or the launch prompt states who they are, believe it and confirm it back in your first message ("I am working for DuroT on the backend").
+2. Otherwise run `git config user.name`, `git config user.email` and, if available, `gh api user --jq .login`. Match against the table.
+3. If still unclear, **stop and ask**: *"Are you DuroT (backend) or Peace (frontend)?"* Never guess and never act as both.
+4. Address the human by their name. Write commits as that human (their git identity is already configured on their machine; never change `git config`).
+
+---
+
+## 2. Workspace boundaries
+
+| Path | Owner | Rule |
+| :--- | :--- | :--- |
+| `/backend/**` | DuroT | Peace's agent must not edit. |
+| `/fixtures/**` | DuroT | Peace's agent reads only. Copies live in `/frontend/public/fixtures` (synced by script). |
+| `/frontend/**` | Peace | DuroT's agent must not edit. |
+| `/docs/duro/**`, `/docs/peace/**` | respective owner | Owner updates status checkboxes and notes only. |
+| `/docs/shared/**`, `/AGENTS.md`, `/DESIGN.md`, `/README.md`, `/MASTER_PROMPTS.md`, `/LICENSE` | Both | Change only through a PR approved by **both** humans. `DESIGN.md` may be edited by Peace alone (see its override clause). |
+| `/docs/reviews/**`, `/docs/AI_ASSISTANCE.md` | Both | Append-only. |
+
+If you need something outside your workspace, **do not edit it**. Add a row to `docs/requests.md` and tell your human.
+
+---
+
+## 3. Hard rules (violating these can lose points or disqualify the project)
+
+1. **Open-weight models only at runtime.** Allowed: `meta-llama/Llama-3.1-8B-Instruct`, `Qwen/Qwen2.5-7B-Instruct`, `meta-llama/Llama-3.2-3B-Instruct` (LLM) and `BAAI/bge-small-en-v1.5` (embeddings). Forbidden in application code: OpenAI, Anthropic, Google/Gemini proprietary APIs. (Development agents and the Argon 4 review gate are tools, not runtime dependencies, and are disclosed in `docs/AI_ASSISTANCE.md`.)
+2. **The models must do real work in a multi-stage pipeline** (extract, embed, referee, summarise). Do not reduce the product to a chat wrapper and do not hard-code outputs in live mode.
+3. **Strict verbatim provenance.** Every claim and edge carries `{paper_id, paper_title, section, page_number, verbatim_quote}`. The backend verifies each quote against the PDF text and drops unverifiable claims. The frontend shows quote, section and page wherever a claim or edge is shown.
+4. **No fabricated results.** Fixtures marked `SYNTHETIC_PLACEHOLDER` exist only to unblock development and the UI must label them. Demo presets used on Demo Day must be `REAL_PIPELINE_OUTPUT` built from real, openly licensed papers with verified quotes. Never invent benchmark numbers, paper titles, arXiv ids or citations for anything presented as real.
+5. **Contract is law.** `docs/shared/02-api-contracts.md` is the single source of truth. Do not rename fields, add enum values or change shapes on one side. Contract changes go through `docs/requests.md`, need both humans' approval and bump `schema_version`.
+6. **Keep secrets secret.** Never commit API keys, tokens, `.env` files or personal data. Only `.env.example` is committed. Never paste secrets into the Argon 4 review bundle. Redact them.
+7. **Respect model licences.** Show the "Built with Llama" notice and the model/licence table (README and UI footer). Do not redistribute model weights. See `docs/shared/03-open-weight-models.md` §2.
+8. **Understandable code.** Both humans must be able to explain every line at Demo Day. Prefer clear, boring code. Add a short comment above any non-obvious trick. Do not paste large opaque generated blocks.
+9. **Tests prove it works.** Every milestone ships with passing automated checks (backend: `pytest`; frontend: `lint`, `typecheck`, `build`, and `vitest` for pure logic).
+10. **No scope creep.** If you find a bug or idea outside your milestone, write it in `docs/requests.md` (cross-owner) or your playbook's "Parking lot" section.
+11. **Never force-push `main`, never rewrite merged history, never commit directly to `main`.**
+12. **Accessibility baseline (frontend):** colour is never the only signal; keyboard-reachable controls; visible focus ring; `prefers-reduced-motion` respected.
+
+---
+
+## 4. Milestones, branches and schedule
+
+Ten milestones, ten squash-merged PRs. Branch names are fixed.
+
+| ID | Owner | Branch | Deliverable | Depends on |
+| :--- | :--- | :--- | :--- | :--- |
+| **D1** | DuroT | `feat/d1-scaffold-contracts` | FastAPI scaffold, Pydantic contracts, demo endpoints, 3 placeholder fixtures (8/6/6 papers) | none |
+| **D2** | DuroT | `feat/d2-ingestion` | Multi-PDF + arXiv ingestion, section-aware chunking, page tracking | D1 |
+| **D3** | DuroT | `feat/d3-llm-extraction` | Unified open-weight LLM client, structured extraction, quote verifier | D1, D2 |
+| **D4** | DuroT | `feat/d4-embeddings-referee` | BGE embeddings, cosine pre-filter, clustering, gaps, batched NLI referee | D3 |
+| **D5** | DuroT | `feat/d5-orchestration` | `/analyze` job + SSE, consensus writer, rate limit, tests, Docker, real presets baked | D4 |
+| **P1** | Peace | `feat/p1-scaffold-design` | Next.js scaffold, design system, API client (mock/live), preset selector | contract file (exists) |
+| **P2** | Peace | `feat/p2-ingestion-hub` | 2–10 PDF dropzone, arXiv input, pipeline progress UI | P1 |
+| **P3** | Peace | `feat/p3-synthesis-matrix` | Pinned-baseline synthesis matrix for 6–8+ papers | P1 (+ D1 fixtures) |
+| **P4** | Peace | `feat/p4-graph-dispute` | Contradiction graph, cluster filters, dispute drawer | P3 |
+| **P5** | Peace | `feat/p5-consensus-integration` | Consensus summary, gaps, exports, live integration, deploy | P4, D5 |
+
+**Parallel mock-first rule:** Peace builds P1–P4 against `fixtures/` (`contract_sample.json` already exists; D1 adds the 8/6/6-paper placeholder fixtures within the first session). DuroT builds D1–D4 against real PDFs. P5 and D5 connect them. If D5 slips, P5 ships in **preset-only mode** and live mode becomes a bonus.
+
+**Suggested schedule (WAT):**
+
+| When | Plan |
+| :--- | :--- |
+| Mon 26 Oct (night) | Repo access, D1, P1 |
+| Tue 27 Oct | D2, D3, P2, P3 |
+| Wed 28 Oct | D4, P4, start D5/P5 |
+| Thu 29 Oct | Finish D5/P5, bake **real** presets, README polish, record fallback demo video, **submit by 9 PM** |
+| Fri 30 Oct | Rehearse the 8-minute Demo Day slot |
+| Sat 31 Oct | 9 AM top-7 notice; 4 PM Demo Day |
+
+**Cut order if behind (cut from the top, never the bottom):**
+1. LaTeX export · 2. arXiv input · 3. SSE (fall back to polling `GET /analyze/{id}`) · 4. Cluster filter pills · 5. Ollama fallback.
+**Never cut:** provenance, matrix, contradiction graph, three real presets, README, LICENSE, model disclosure, AI-assistance log.
+
+---
+
+## 5. The Argon 4 review gate (mandatory for every milestone)
+
+**Argon 4** is Gemini Argon 4 in Google AI Studio (Playground) with **Thinking = High** and **Temperature = 0.2**. It is an independent reviewer. The human, not you, pastes the bundle into it.
+
+Per-milestone protocol:
+
+1. **Implement** the milestone to the playbook's acceptance criteria.
+2. **Verify** locally and capture the exact command output.
+3. **Create the review bundle** at `docs/reviews/{ID}-review-bundle.md` using the template below. Commit it on the milestone branch.
+4. **Hand over:** tell the human: *"Bundle ready at docs/reviews/{ID}-review-bundle.md. Paste it into Argon 4 (High thinking, temp 0.2) using the review prompt in MASTER_PROMPTS.md §3."* Then **stop and wait**.
+5. The human pastes Argon 4's answer into `docs/reviews/{ID}-argon4-findings.md` (or tells you the findings).
+6. **Triage and fix:** every `BLOCKER` and `MAJOR` finding must be fixed. `MINOR` is fixed or justified in one line. `NIT` is optional. Update the findings table's *Resolution* column (`FIXED in <short-sha>` or `WONTFIX: <reason>`). Re-run verification.
+7. **Open the PR** (section 6). The PR description links both review files.
+8. **Merge** after the human confirms. One squash merge per milestone.
+
+### Review bundle template (`docs/reviews/{ID}-review-bundle.md`)
+
+```markdown
+# Argon 4 Review Bundle — {ID} ({milestone title})
+- Developer: DuroT | Peace
+- Coding agent / model used:
+- Branch: {branch}   Commit range: {base_sha}..{head_sha}
+- Date (WAT):
+
+## 1. Acceptance criteria status
+| # | Criterion (copied from playbook) | Status | Evidence |
+| - | - | - | - |
+
+## 2. `git diff --stat main...HEAD`
+(paste output)
+
+## 3. Code under review
+(full text of every new or heavily changed file, each under a `### path` heading and fenced with its language; redact secrets)
+
+## 4. Verification output (verbatim)
+(pytest / lint / typecheck / build / vitest output)
+
+## 5. Known risks and edge cases I considered (minimum 5)
+-
+
+## 6. Questions for the reviewer (minimum 3)
+-
+
+## 7. Contract and rules compliance
+- Matches docs/shared/02-api-contracts.md exactly: yes/no (explain)
+- Open-weight models only: yes/no
+- Provenance preserved: yes/no
+- Secrets in diff: none / (list)
 ```
-[Agent Implements Task] 
-        ↓
-[Automated Tests / Visual Check] 
-        ↓
-[Agent Formats Code & Context for Argon 4 Review] 
-        ↓
-[Human Submits to Gemini Argon 4 (Playground - High Settings)] 
-        ↓
-[Agent Applies Argon 4 Suggestions & Fixes] 
-        ↓
-[Agent Helps Human Create & Push Feature Branch] 
-        ↓
-[Pull Request Created & Merged into main] (5 clean PR merges total)
+
+### Findings file template (`docs/reviews/{ID}-argon4-findings.md`)
+
+```markdown
+# Argon 4 Findings — {ID}
+| ID | Severity (BLOCKER/MAJOR/MINOR/NIT) | Location (file:line) | Finding | Resolution |
+| - | - | - | - | - |
 ```
 
-### Git Branching & PR Convention
-* Backend branches: `durot/task-d1-extraction`, `durot/task-d2-structured-extraction`, `durot/task-d3-nli-referee`, `durot/task-d4-api-endpoints`, `durot/task-d5-test-deploy`
-* Frontend branches: `peace/task-p1-scaffold-dropzone`, `peace/task-p2-comparison-table`, `peace/task-p3-contradiction-graph`, `peace/task-p4-consensus-summary`, `peace/task-p5-integration-deploy`
-* Commit messages follow Conventional Commits: `feat(backend): ...`, `test(api): ...`, `fix(ui): ...`.
+---
+
+## 6. Git workflow
+
+- **Base:** `main` is always deployable. Branch from the latest `main` for every milestone: `git switch main && git pull && git switch -c {branch}`.
+- **Commits:** Conventional Commits, small and frequent. Format `type(scope): summary`. Types: `feat`, `fix`, `test`, `docs`, `chore`, `refactor`. Scopes: `backend`, `frontend`, `contracts`, `fixtures`, `docs`, `ci`. Examples: `feat(backend): add section-aware PDF chunker`, `test(backend): cover quote verifier fuzzy path`.
+- **Never commit:** `.env`, `node_modules`, `.next`, `venv`, `__pycache__`, uploaded PDFs, model weights.
+- **Push** the branch and open a PR into `main` with `gh pr create --base main --head {branch} --title "{ID}: {milestone title}" --body-file .github/pull_request_template.md` (create the template in D1 with the checklist below).
+- **PR description checklist** (copy into every PR):
+  ```markdown
+  ## Milestone
+  {ID} — {title}
+  ## What changed
+  -
+  ## Acceptance criteria
+  - [ ] all criteria in the playbook are met (link to review bundle §1)
+  ## Verification
+  - [ ] tests / lint / typecheck / build pass (paste summary)
+  ## Argon 4 gate
+  - [ ] docs/reviews/{ID}-review-bundle.md committed
+  - [ ] docs/reviews/{ID}-argon4-findings.md committed, no open BLOCKER/MAJOR
+  ## Contract
+  - [ ] no contract change, OR change logged in docs/requests.md and approved by both
+  ## Disclosure
+  - [ ] docs/AI_ASSISTANCE.md updated
+  ```
+- **Merge:** squash-merge your own PR after the Argon 4 gate and checks pass. **PRs that touch `docs/shared/**`, `DESIGN.md` (non-visual rules) or any contract must be approved by the other developer first.**
+- After merging, delete the branch and tell the other developer in `docs/requests.md` only if it affects them.
+- **Total:** exactly 10 milestone PR merges (plus small `docs`/`chore` PRs if needed).
 
 ---
 
-## 4. Definition of Done (For Any Task)
+## 7. Definition of Done (every milestone)
 
-* All acceptance criteria for the task in `docs/duro/README.md` or `docs/peace/README.md` pass.
-* Unit tests pass (backend pytest or frontend build/lint).
-* Argon 4 review feedback addressed.
-* Feature branch pushed and PR created on GitHub.
-* Code is simple, well-commented, and easily explainable by the human developer.
-
----
-
-## 5. AI-Use Disclosure & Open-Source Integrity
-
-As required by the OPEN//BUILD Challenge Brief:
-* Both developers must thoroughly understand and be able to defend every line of code submitted during the Demo Day presentation.
-* Disclose AI-assisted development tools in the repository `README.md`.
-* No plagiarised code or fabricated benchmark metrics.
+- All acceptance criteria in your playbook are met and demonstrated (test output or 1440×900 screenshot saved to `docs/peace/screens/`).
+- Automated checks pass (see hard rule 9).
+- Argon 4 gate completed (section 5) with no open `BLOCKER`/`MAJOR`.
+- PR opened, merged and branch deleted.
+- `docs/AI_ASSISTANCE.md` has a new row for this milestone.
+- Playbook checkboxes updated.
+- The human owner can explain what you wrote.
 
 ---
 
-## 6. Development Commands
+## 8. AI-assistance disclosure (OPEN//BUILD requirement)
 
-### Backend (Python 3.10+)
+The brief requires disclosing significant AI-assisted work and requires both humans to understand what they submit. Append one row per milestone to `docs/AI_ASSISTANCE.md`:
+
+```markdown
+| Milestone | Human | Tool / model used | What the AI did | What the human changed or verified |
+| - | - | - | - | - |
+| D1 | DuroT | Antigravity (Claude Sonnet 5.5) | Drafted scaffold and tests | Reviewed every file, ran tests, fixed X |
+```
+
+Rules: be specific and truthful. "AI wrote everything" is acceptable if true; vague or missing entries are not.
+
+---
+
+## 9. Command cheat sheet
+
 ```bash
-cd backend
-python -m venv venv
-venv\Scripts\activate          # Windows
+# Backend (from /backend)
+python -m venv venv && venv\Scripts\activate        # Windows PowerShell
 pip install -r requirements.txt
+copy .env.example .env                               # then fill GROQ_API_KEY and/or HF_TOKEN
 uvicorn app.main:app --reload --port 8000
-pytest tests/ -v
+pytest -q
+
+# Frontend (from /frontend)
+npm install
+npm run sync:fixtures                                # copies ../fixtures/*.json into public/fixtures
+npm run dev                                          # http://localhost:3000
+npm run lint && npm run typecheck && npm run test && npm run build
+
+# Docker (from repo root)
+docker build -f backend/Dockerfile -t kairos-backend .
 ```
 
-### Frontend (Next.js 14 / React)
-```bash
-cd frontend
-npm install
-npm run dev                    # Runs on http://localhost:3000
-npm run build
-```
+---
+
+## 10. When you are stuck
+
+1. Re-read the relevant shared doc and your playbook milestone.
+2. Check `docs/requests.md`.
+3. If a document is wrong or ambiguous, **do not improvise**: write the problem in `docs/requests.md` and tell your human.
+4. If a provider or model id fails, follow `docs/shared/03-open-weight-models.md` §8 instead of switching to a closed model.
