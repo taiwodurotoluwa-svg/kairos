@@ -1,0 +1,1046 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "demo-microgrids",
+  "mode": "DEMO",
+  "preset_id": "microgrids",
+  "fixture_provenance": "SYNTHETIC_PLACEHOLDER",
+  "generated_at": "2026-10-26T21:00:00Z",
+  "papers": [
+    {
+      "paper_id": "p1",
+      "short_label": "P1",
+      "citation_label": "Adeyemi (2024)",
+      "palette_index": 0,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p1_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+      "authors": [
+        "S. Adeyemi",
+        "K. Adeleke"
+      ],
+      "year": 2024,
+      "page_count": 13,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Southwest Nigeria Rural Grid Pilot (n=450 households)",
+      "sample_size": "n=500",
+      "methodology": "Centralized LiFePO4 battery bank with droop control",
+      "primary_metric": "Frequency fluctuation kept within +/- 0.15 Hz",
+      "limitations": "High capital expenditure limits rural community adoption.",
+      "core_conclusion": "Lithium storage banks with droop-controlled inverters maintain grid frequency under sudden solar dropoffs.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p2",
+      "short_label": "P2",
+      "citation_label": "Nwosu (2024)",
+      "palette_index": 1,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p2_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+      "authors": [
+        "E. Nwosu",
+        "J. Becker"
+      ],
+      "year": 2024,
+      "page_count": 15,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Tropical Climate Testbed (38C ambient avg)",
+      "sample_size": "n=800",
+      "methodology": "Vanadium redox flow battery with passive convective cooling",
+      "primary_metric": "Capacity retention of 98.4% over 1,200 deep cycles",
+      "limitations": "Low energy density requires 3x physical footprint vs Lithium.",
+      "core_conclusion": "Vanadium flow batteries exhibit superior thermal resilience in tropical climates without active air conditioning.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p3",
+      "short_label": "P3",
+      "citation_label": "Hassan (2024)",
+      "palette_index": 2,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p3_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+      "authors": [
+        "M. Hassan",
+        "A. Bello"
+      ],
+      "year": 2024,
+      "page_count": 12,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "12-Node Distributed Microgrid Simulation & Field Trial",
+      "sample_size": "n=1100",
+      "methodology": "Decentralized peer-to-peer reactive power sharing",
+      "primary_metric": "Voltage sag reduced by 34% at terminal feeder nodes",
+      "limitations": "Communication latency spikes destabilize synchronization.",
+      "core_conclusion": "Decentralized droop control eliminates single points of failure in remote agricultural microgrids.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p4",
+      "short_label": "P4",
+      "citation_label": "Kiplagat (2025)",
+      "palette_index": 3,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p4_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+      "authors": [
+        "D. Kiplagat",
+        "F. Ochieng"
+      ],
+      "year": 2025,
+      "page_count": 14,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Sub-Saharan Grain Milling Co-op Data (n=12 mini-grids)",
+      "sample_size": "n=1400",
+      "methodology": "Dynamic time-of-use tariff scheduling with automated demand response",
+      "primary_metric": "31% Reduction in evening peak generator fuel consumption",
+      "limitations": "Requires smart meters and reliable mobile GSM data coverage.",
+      "core_conclusion": "Automated demand response significantly lowers reliance on backup diesel generation during low solar hours.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p5",
+      "short_label": "P5",
+      "citation_label": "Mensah (2025)",
+      "palette_index": 4,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p5_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+      "authors": [
+        "K. Mensah",
+        "B. Mensah"
+      ],
+      "year": 2025,
+      "page_count": 16,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "West African Monsoon Solar Farm Dataset",
+      "sample_size": "n=1700",
+      "methodology": "LSTM neural network forecasting paired with mixed-integer linear programming",
+      "primary_metric": "19% Improvement in battery state-of-charge reserve margins",
+      "limitations": "Computational latency requires cloud connectivity or edge TPU.",
+      "core_conclusion": "Short-horizon cloud prediction enables preemptive battery charging before monsoon cloud cover arrival.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p6",
+      "short_label": "P6",
+      "citation_label": "Diop (2025)",
+      "palette_index": 5,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p6_microgrids_placeholder.pdf",
+      "title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+      "authors": [
+        "M. Diop",
+        "L. Sow"
+      ],
+      "year": 2025,
+      "page_count": 11,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Sahelian Environmental Chamber Stress Test (45C peak)",
+      "sample_size": "n=2000",
+      "methodology": "Phase-change material (PCM) passive thermal envelopes",
+      "primary_metric": "Cell temperature rise constrained to 6.2C during peak discharge",
+      "limitations": "PCM materials add 15% to battery pack initial weight.",
+      "core_conclusion": "Passive phase-change cooling extends battery lifespan in arid desert zones without parasitic electrical load.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "p1-c1",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P1 achieves Frequency fluctuation kept within +/- 0.15 Hz.",
+      "metric_value": "Frequency fluctuation kept within +/- 0.15 Hz",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage yielded Frequency fluctuation kept within +/- 0.15 Hz."
+      }
+    },
+    {
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P1 implements Centralized LiFePO4 battery bank with droop control.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Centralized LiFePO4 battery bank with droop control to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p1-c3",
+      "paper_id": "p1",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P1 concludes: Lithium storage banks with droop-controlled inverters maintain grid frequency under sudden solar dropoffs.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "CONCLUSION",
+        "page_number": 12,
+        "verbatim_quote": "In conclusion, our research indicates: Lithium storage banks with droop-controlled inverters maintain grid frequency under sudden solar dropoffs."
+      }
+    },
+    {
+      "claim_id": "p1-c4",
+      "paper_id": "p1",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P1 identifies limitation: High capital expenditure limits rural community adoption.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "LIMITATIONS",
+        "page_number": 11,
+        "verbatim_quote": "A significant deployment hurdle remains: High capital expenditure limits rural community adoption."
+      }
+    },
+    {
+      "claim_id": "p1-c5",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P1 verifies operational metrics under Southwest Nigeria Rural Grid Pilot (n=450 households).",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Southwest Nigeria Rural Grid Pilot (n=450 households)."
+      }
+    },
+    {
+      "claim_id": "p2-c1",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P2 achieves Capacity retention of 98.4% over 1,200 deep cycles.",
+      "metric_value": "Capacity retention of 98.4% over 1,200 deep cycles",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance yielded Capacity retention of 98.4% over 1,200 deep cycles."
+      }
+    },
+    {
+      "claim_id": "p2-c2",
+      "paper_id": "p2",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P2 implements Vanadium redox flow battery with passive convective cooling.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Vanadium redox flow battery with passive convective cooling to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p2-c3",
+      "paper_id": "p2",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P2 concludes: Vanadium flow batteries exhibit superior thermal resilience in tropical climates without active air conditioning.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "In conclusion, our research indicates: Vanadium flow batteries exhibit superior thermal resilience in tropical climates without active air conditioning."
+      }
+    },
+    {
+      "claim_id": "p2-c4",
+      "paper_id": "p2",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P2 identifies limitation: Low energy density requires 3x physical footprint vs Lithium.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "LIMITATIONS",
+        "page_number": 13,
+        "verbatim_quote": "A significant deployment hurdle remains: Low energy density requires 3x physical footprint vs Lithium."
+      }
+    },
+    {
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P2 verifies operational metrics under Tropical Climate Testbed (38C ambient avg).",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Tropical Climate Testbed (38C ambient avg)."
+      }
+    },
+    {
+      "claim_id": "p3-c1",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P3 achieves Voltage sag reduced by 34% at terminal feeder nodes.",
+      "metric_value": "Voltage sag reduced by 34% at terminal feeder nodes",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids yielded Voltage sag reduced by 34% at terminal feeder nodes."
+      }
+    },
+    {
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P3 implements Decentralized peer-to-peer reactive power sharing.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Decentralized peer-to-peer reactive power sharing to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p3-c3",
+      "paper_id": "p3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P3 concludes: Decentralized droop control eliminates single points of failure in remote agricultural microgrids.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, our research indicates: Decentralized droop control eliminates single points of failure in remote agricultural microgrids."
+      }
+    },
+    {
+      "claim_id": "p3-c4",
+      "paper_id": "p3",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P3 identifies limitation: Communication latency spikes destabilize synchronization.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "LIMITATIONS",
+        "page_number": 10,
+        "verbatim_quote": "A significant deployment hurdle remains: Communication latency spikes destabilize synchronization."
+      }
+    },
+    {
+      "claim_id": "p3-c5",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P3 verifies operational metrics under 12-Node Distributed Microgrid Simulation & Field Trial.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under 12-Node Distributed Microgrid Simulation & Field Trial."
+      }
+    },
+    {
+      "claim_id": "p4-c1",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P4 achieves 31% Reduction in evening peak generator fuel consumption.",
+      "metric_value": "31% Reduction in evening peak generator fuel consumption",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters yielded 31% Reduction in evening peak generator fuel consumption."
+      }
+    },
+    {
+      "claim_id": "p4-c2",
+      "paper_id": "p4",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P4 implements Dynamic time-of-use tariff scheduling with automated demand response.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Dynamic time-of-use tariff scheduling with automated demand response to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p4-c3",
+      "paper_id": "p4",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P4 concludes: Automated demand response significantly lowers reliance on backup diesel generation during low solar hours.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, our research indicates: Automated demand response significantly lowers reliance on backup diesel generation during low solar hours."
+      }
+    },
+    {
+      "claim_id": "p4-c4",
+      "paper_id": "p4",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P4 identifies limitation: Requires smart meters and reliable mobile GSM data coverage.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "LIMITATIONS",
+        "page_number": 12,
+        "verbatim_quote": "A significant deployment hurdle remains: Requires smart meters and reliable mobile GSM data coverage."
+      }
+    },
+    {
+      "claim_id": "p4-c5",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P4 verifies operational metrics under Sub-Saharan Grain Milling Co-op Data (n=12 mini-grids).",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Sub-Saharan Grain Milling Co-op Data (n=12 mini-grids)."
+      }
+    },
+    {
+      "claim_id": "p5-c1",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P5 achieves 19% Improvement in battery state-of-charge reserve margins.",
+      "metric_value": "19% Improvement in battery state-of-charge reserve margins",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads yielded 19% Improvement in battery state-of-charge reserve margins."
+      }
+    },
+    {
+      "claim_id": "p5-c2",
+      "paper_id": "p5",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P5 implements LSTM neural network forecasting paired with mixed-integer linear programming.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates LSTM neural network forecasting paired with mixed-integer linear programming to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p5-c3",
+      "paper_id": "p5",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P5 concludes: Short-horizon cloud prediction enables preemptive battery charging before monsoon cloud cover arrival.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "CONCLUSION",
+        "page_number": 15,
+        "verbatim_quote": "In conclusion, our research indicates: Short-horizon cloud prediction enables preemptive battery charging before monsoon cloud cover arrival."
+      }
+    },
+    {
+      "claim_id": "p5-c4",
+      "paper_id": "p5",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P5 identifies limitation: Computational latency requires cloud connectivity or edge TPU.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "LIMITATIONS",
+        "page_number": 14,
+        "verbatim_quote": "A significant deployment hurdle remains: Computational latency requires cloud connectivity or edge TPU."
+      }
+    },
+    {
+      "claim_id": "p5-c5",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P5 verifies operational metrics under West African Monsoon Solar Farm Dataset.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under West African Monsoon Solar Farm Dataset."
+      }
+    },
+    {
+      "claim_id": "p6-c1",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Grid Stability & Metrics",
+      "statement": "P6 achieves Cell temperature rise constrained to 6.2C during peak discharge.",
+      "metric_value": "Cell temperature rise constrained to 6.2C during peak discharge",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks yielded Cell temperature rise constrained to 6.2C during peak discharge."
+      }
+    },
+    {
+      "claim_id": "p6-c2",
+      "paper_id": "p6",
+      "claim_type": "METHOD",
+      "topic_hint": "Control Architecture",
+      "statement": "P6 implements Phase-change material (PCM) passive thermal envelopes.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Phase-change material (PCM) passive thermal envelopes to ensure stable operating conditions."
+      }
+    },
+    {
+      "claim_id": "p6-c3",
+      "paper_id": "p6",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Core Recommendation",
+      "statement": "P6 concludes: Passive phase-change cooling extends battery lifespan in arid desert zones without parasitic electrical load.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "CONCLUSION",
+        "page_number": 10,
+        "verbatim_quote": "In conclusion, our research indicates: Passive phase-change cooling extends battery lifespan in arid desert zones without parasitic electrical load."
+      }
+    },
+    {
+      "claim_id": "p6-c4",
+      "paper_id": "p6",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Barrier",
+      "statement": "P6 identifies limitation: PCM materials add 15% to battery pack initial weight.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "LIMITATIONS",
+        "page_number": 9,
+        "verbatim_quote": "A significant deployment hurdle remains: PCM materials add 15% to battery pack initial weight."
+      }
+    },
+    {
+      "claim_id": "p6-c5",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Field Validation",
+      "statement": "P6 verifies operational metrics under Sahelian Environmental Chamber Stress Test (45C peak).",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Sahelian Environmental Chamber Stress Test (45C peak)."
+      }
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cl-1",
+      "label": "Microgrid Frequency Stability & Economic Dispatch",
+      "claim_ids": [
+        "p1-c1",
+        "p1-c3",
+        "p3-c1",
+        "p4-c1",
+        "p4-c3",
+        "p5-c3"
+      ],
+      "paper_ids": [
+        "p1",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "mean_similarity": 0.75
+    },
+    {
+      "cluster_id": "cl-2",
+      "label": "Tropical Thermal Resilience & Chemistry Alternatives",
+      "claim_ids": [
+        "p2-c1",
+        "p2-c3",
+        "p6-c1",
+        "p6-c3"
+      ],
+      "paper_ids": [
+        "p2",
+        "p6"
+      ],
+      "mean_similarity": 0.71
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "e-p1c3-p2c3",
+      "source_claim_id": "p1-c3",
+      "target_claim_id": "p2-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "CONCLUSION",
+        "page_number": 12,
+        "verbatim_quote": "In conclusion, our research indicates: Lithium storage banks with droop-controlled inverters maintain grid frequency under sudden solar dropoffs."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "In conclusion, our research indicates: Vanadium flow batteries exhibit superior thermal resilience in tropical climates without active air conditioning."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.88,
+      "cosine_similarity": 0.79,
+      "explanation": "Adeyemi (2024) advocates centralized lithium storage for frequency stability, whereas Nwosu (2024) argues flow batteries are far superior in tropical heat due to lithium thermal degradation.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c2-p3c2",
+      "source_claim_id": "p1-c2",
+      "target_claim_id": "p3-c2",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Centralized LiFePO4 battery bank with droop control to ensure stable operating conditions."
+      },
+      "target": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our design incorporates Decentralized peer-to-peer reactive power sharing to ensure stable operating conditions."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.91,
+      "cosine_similarity": 0.76,
+      "explanation": "Adeyemi relies on a centralized master storage bank, whereas Hassan proves decentralized peer-to-peer droop control is superior for avoiding single points of failure.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c1-p3c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p3-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage yielded Frequency fluctuation kept within +/- 0.15 Hz."
+      },
+      "target": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids yielded Voltage sag reduced by 34% at terminal feeder nodes."
+      },
+      "relation": "AGREE",
+      "confidence": 0.89,
+      "cosine_similarity": 0.74,
+      "explanation": "Both Adeyemi (2024) and Hassan (2024) confirm that droop-controlled inverter logic maintains terminal feeder voltage and frequency within allowable bounds.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p4c3-p5c3",
+      "source_claim_id": "p4-c3",
+      "target_claim_id": "p5-c3",
+      "source": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, our research indicates: Automated demand response significantly lowers reliance on backup diesel generation during low solar hours."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "CONCLUSION",
+        "page_number": 15,
+        "verbatim_quote": "In conclusion, our research indicates: Short-horizon cloud prediction enables preemptive battery charging before monsoon cloud cover arrival."
+      },
+      "relation": "AGREE",
+      "confidence": 0.87,
+      "cosine_similarity": 0.72,
+      "explanation": "Both Kiplagat (2025) and Mensah (2025) find that predictive scheduling algorithms reduce backup diesel fuel consumption by 19-31%.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p2c1-p6c1",
+      "source_claim_id": "p2-c1",
+      "target_claim_id": "p6-c1",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance yielded Capacity retention of 98.4% over 1,200 deep cycles."
+      },
+      "target": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks yielded Cell temperature rise constrained to 6.2C during peak discharge."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.86,
+      "cosine_similarity": 0.73,
+      "explanation": "Nwosu solves tropical battery degradation by switching chemistry to vanadium flow, whereas Diop retains lithium chemistry but wraps packs in phase-change material.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p3c1-p4c1",
+      "source_claim_id": "p3-c1",
+      "target_claim_id": "p4-c1",
+      "source": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 3: Decentralized Inverter Droop Control in Rural Grids yielded Voltage sag reduced by 34% at terminal feeder nodes."
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Field measurements verify that Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters yielded 31% Reduction in evening peak generator fuel consumption."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.84,
+      "cosine_similarity": 0.7,
+      "explanation": "Hassan achieves grid stability through electrical droop control (voltage sag -34%), whereas Kiplagat achieves stability through behavioral economics and time-of-use tariffs.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c4-p6c4",
+      "source_claim_id": "p1-c4",
+      "target_claim_id": "p6-c4",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: Solar Microgrid Frequency Stability with Lithium Storage",
+        "section": "LIMITATIONS",
+        "page_number": 11,
+        "verbatim_quote": "A significant deployment hurdle remains: High capital expenditure limits rural community adoption."
+      },
+      "target": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "LIMITATIONS",
+        "page_number": 9,
+        "verbatim_quote": "A significant deployment hurdle remains: PCM materials add 15% to battery pack initial weight."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.85,
+      "cosine_similarity": 0.68,
+      "explanation": "Adeyemi highlights the high cost of active air conditioning for lithium banks, whereas Diop demonstrates zero-power passive phase-change envelopes.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p4c4-p5c4",
+      "source_claim_id": "p4-c4",
+      "target_claim_id": "p5-c4",
+      "source": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Peak Shaving Economics in Off-Grid Agricultural Clusters",
+        "section": "LIMITATIONS",
+        "page_number": 12,
+        "verbatim_quote": "A significant deployment hurdle remains: Requires smart meters and reliable mobile GSM data coverage."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Predictive Dispatch Algorithms for High-Variability Loads",
+        "section": "LIMITATIONS",
+        "page_number": 14,
+        "verbatim_quote": "A significant deployment hurdle remains: Computational latency requires cloud connectivity or edge TPU."
+      },
+      "relation": "AGREE",
+      "confidence": 0.83,
+      "cosine_similarity": 0.67,
+      "explanation": "Both Kiplagat and Mensah acknowledge that advanced scheduling algorithms depend heavily on reliable telecommunications and local edge compute.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "gaps": [
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p2-c5",
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "statement": "Nwosu (2024) evaluates vanadium electrolyte supply chain costs and recycling logistics, a chemical lifecycle dimension unaddressed by other papers.",
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: Flow Battery Cycling Under Tropical Solar Irradiance",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Tropical Climate Testbed (38C ambient avg)."
+      },
+      "best_match_similarity": 0.4,
+      "reason": "No other paper in this set evaluates vanadium chemical electrolyte sourcing and end-of-life recycling."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p6-c5",
+      "claim_id": "p6-c5",
+      "paper_id": "p6",
+      "statement": "Diop (2025) benchmarks physical phase-change material weight penalty on mobile transportable power units in Sahelian conditions.",
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Thermal Degradation Mitigation in Distributed Battery Banks",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Auxiliary field tests confirm performance under Sahelian Environmental Chamber Stress Test (45C peak)."
+      },
+      "best_match_similarity": 0.37,
+      "reason": "No other paper in this set evaluates physical thermal material weights and containerized transport logistics."
+    }
+  ],
+  "consensus": {
+    "consensus_score": 56,
+    "executive_summary": "Synthesis of 6 solar microgrid research papers demonstrates strong agreement that predictive demand scheduling and droop inverter control prevent brownouts during sudden solar irradiance dropoffs. However, a sharp technological conflict divides battery storage strategies: centralized lithium banks offer superior frequency stabilization (Adeyemi 2024), but suffer rapid thermal degradation in tropical ambient heat (>38C), where vanadium flow batteries and passive phase-change cooling envelopes provide dramatically higher cycling longevity (Nwosu 2024, Diop 2025).",
+    "agreed_findings": [
+      "Inverter droop control stabilizes feeder voltage and frequency across remote off-grid nodes (Adeyemi 2024, Hassan 2024).",
+      "Predictive load dispatch reduces reliance on backup fossil generators by up to 31% (Kiplagat 2025, Mensah 2025)."
+    ],
+    "top_contradictions": [
+      {
+        "edge_id": "e-p1c3-p2c3",
+        "headline": "Storage chemistry controversy: Adeyemi (2024) favors lithium for frequency control, while Nwosu (2024) shows flow batteries prevent tropical thermal decay."
+      }
+    ],
+    "gap_ids": [
+      "gap-p2-c5",
+      "gap-p6-c5"
+    ],
+    "recommended_next_steps": [
+      "Field-test hybrid lithium-flow storage architectures to capture both fast frequency response and thermal longevity.",
+      "Integrate passive phase-change thermal barriers directly into rural battery casing standards.",
+      "Develop offline edge dispatch heuristics that do not require cellular GSM connectivity."
+    ]
+  },
+  "stats": {
+    "paper_count": 6,
+    "claim_count": 30,
+    "cross_paper_pairs_total": 375,
+    "candidate_pairs": 24,
+    "referee_pairs_evaluated": 8,
+    "referee_calls": 2,
+    "pair_reduction_pct": 93.6,
+    "stage_latency_ms": {
+      "ingestion_ms": 710,
+      "extraction_ms": 4650,
+      "embedding_ms": 59,
+      "clustering_ms": 10,
+      "referee_ms": 1900,
+      "consensus_ms": 1180,
+      "total_ms": 8509
+    }
+  },
+  "models": [
+    {
+      "role": "EXTRACTION",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "EMBEDDING",
+      "model_id": "BAAI/bge-small-en-v1.5",
+      "provider": "fastembed-local",
+      "license": "MIT",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "parameter_count": "33M"
+    },
+    {
+      "role": "REFEREE",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "CONSENSUS_WRITER",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    }
+  ],
+  "warnings": [
+    "This dataset is synthetic placeholder data for hackathon development. Honest open-source disclosure."
+  ]
+}

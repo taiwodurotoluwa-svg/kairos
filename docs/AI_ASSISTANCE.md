@@ -15,7 +15,7 @@ OPEN//BUILD 2026 requires teams to disclose significant AI-assisted work and to 
 | Milestone | Human | Tool / model used | What the AI did | What the human changed or verified |
 | :--- | :--- | :--- | :--- | :--- |
 | Docs | DuroT | Antigravity (Claude Sonnet 5.5) | Drafted AGENTS.md, DESIGN.md, README.md, shared docs, playbooks, prompts, contract sample | Chose scope, team split, name "Kairos", reviewed content |
-| D1 | DuroT | | | |
+| D1 | DuroT | Antigravity (Gemini 3.8 Flash) | Scaffolded FastAPI backend, Pydantic v2 schemas, health & demo endpoints, test suite, and fixture generator | Verified 10/10 test suite passing, CORS configs, and endpoint responses |
 | D2 | DuroT | | | |
 | D3 | DuroT | | | |
 | D4 | DuroT | | | |
