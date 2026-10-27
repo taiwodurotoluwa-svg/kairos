@@ -1,5 +1,15 @@
 from functools import lru_cache
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _resolve_default_fixtures_dir() -> str:
+    # Look relative to repo root (when running from repo root or backend/)
+    backend_root = Path(__file__).resolve().parent.parent.parent
+    candidate = backend_root / "fixtures"
+    if candidate.exists():
+        return str(candidate)
+    return "../fixtures"
 
 
 class Settings(BaseSettings):
@@ -8,7 +18,7 @@ class Settings(BaseSettings):
     app_env: str = "development"
     app_version: str = "1.0.0"
     cors_allow_origins: str = "http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500,http://localhost:5173"
-    fixtures_dir: str = "../fixtures"
+    fixtures_dir: str = _resolve_default_fixtures_dir()
 
     min_papers: int = 2
     max_papers: int = 10
@@ -27,7 +37,7 @@ class Settings(BaseSettings):
     hf_token: str = ""
     hf_model: str = "meta-llama/Llama-3.1-8B-Instruct"
     hf_base_url: str = "https://router.huggingface.co/v1"
-    ollama_base_url: str = "http://localhost:11434/v1"
+    ollama_base_url: str = ""  # Default empty so /health is not falsely green when Ollama is not configured
     ollama_model: str = "llama3.2:3b"
     llm_timeout_seconds: float = 45.0
     llm_max_retries: int = 2

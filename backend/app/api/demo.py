@@ -1,4 +1,4 @@
-import json
+from functools import lru_cache
 from pathlib import Path
 from fastapi import APIRouter
 from app.config import get_settings
@@ -27,13 +27,28 @@ def _resolve_fixture_path(filename: str) -> Path:
     return candidate1
 
 
+@lru_cache(maxsize=16)
 def _load(preset_id: str) -> AnalysisResult:
     if preset_id not in PRESETS:
         raise KairosError(ErrorCode.PRESET_NOT_FOUND, f"Unknown preset '{preset_id}'.", 404)
     path = _resolve_fixture_path(PRESETS[preset_id][0])
     if not path.exists():
         raise KairosError(ErrorCode.PRESET_NOT_FOUND, f"Preset file for '{preset_id}' is missing.", 404)
-    return AnalysisResult.model_validate(json.loads(path.read_text(encoding="utf-8")))
+    try:
+        return AnalysisResult.model_validate_json(path.read_bytes())
+    except KairosError:
+        raise
+    except Exception as exc:
+        raise KairosError(ErrorCode.INTERNAL_ERROR, f"Invalid fixture '{preset_id}': {exc}", 500) from exc
+
+
+def warm_demo_cache() -> None:
+    """Pre-warm cached demo presets so Demo Day playback has sub-millisecond response."""
+    for pid in PRESETS:
+        try:
+            _load(pid)
+        except Exception:
+            pass
 
 
 @router.get("/demo", response_model=list[DemoPresetSummary])
@@ -42,7 +57,7 @@ def list_presets() -> list[DemoPresetSummary]:
     for pid, (_, title, desc, domain) in PRESETS.items():
         try:
             r = _load(pid)
-        except KairosError:
+        except Exception:
             continue
         out.append(DemoPresetSummary(preset_id=pid, title=title, description=desc, domain=domain,
                                      paper_count=len(r.papers), fixture_provenance=r.fixture_provenance))

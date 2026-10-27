@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -5,8 +6,15 @@ from app.api import demo, health
 from app.config import get_settings
 from app.errors import install_error_handlers
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    demo.warm_demo_cache()
+    yield
+
+
 settings = get_settings()
-app = FastAPI(title="Kairos API", version=settings.app_version)
+app = FastAPI(title="Kairos API", version=settings.app_version, lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,

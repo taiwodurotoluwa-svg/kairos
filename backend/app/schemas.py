@@ -1,11 +1,12 @@
-# backend/app/schemas.py
 from __future__ import annotations
+import re
+# backend/app/schemas.py
 
 from datetime import datetime
 from enum import Enum
-from typing import Literal, Optional
+from typing import Literal, Optional, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 SCHEMA_VERSION = "1.0.0"
 
@@ -113,8 +114,8 @@ class Provenance(ContractModel):
 
 
 class PaperMetadata(ContractModel):
-    paper_id: str = Field(pattern=r"^p[0-9]{1,2}$")  # "p1".."p10", stable order of upload
-    short_label: str = Field(pattern=r"^P[0-9]{1,2}$")  # "P1".."P10"
+    paper_id: str = Field(pattern=r"^p([1-9]|10)$")  # "p1".."p10", stable order of upload
+    short_label: str = Field(pattern=r"^P([1-9]|10)$")  # "P1".."P10"
     citation_label: str  # e.g. "Smith et al. (2024)"; "Example A (2024)" in placeholders
     palette_index: int = Field(ge=0, le=9)  # index into the 10-colour paper palette
     source: PaperSource
@@ -166,6 +167,21 @@ class ClaimComparisonEdge(ContractModel):
     explanation: str = Field(min_length=10, max_length=500)
     cluster_id: Optional[str] = None
     referee_model: str
+
+    @model_validator(mode="after")
+    def validate_edge_direction_and_no_self_loop(self) -> Self:
+        if self.source_claim_id == self.target_claim_id:
+            raise ValueError(f"Self-loop edge is forbidden: {self.source_claim_id}")
+        s_match = re.match(r"^p([0-9]+)", self.source_claim_id)
+        t_match = re.match(r"^p([0-9]+)", self.target_claim_id)
+        if s_match and t_match:
+            s_num, t_num = int(s_match.group(1)), int(t_match.group(1))
+            if s_num >= t_num:
+                raise ValueError(
+                    f"source_claim_id must belong to a lower-numbered paper than target_claim_id: "
+                    f"{self.source_claim_id} (p{s_num}) vs {self.target_claim_id} (p{t_num})"
+                )
+        return self
 
 
 class ResearchGap(ContractModel):
@@ -266,8 +282,8 @@ class ProgressEvent(ContractModel):
 class JobCreated(ContractModel):
     analysis_id: str
     status: JobStatus
-    events_url: str  # "/api/v1/analyze/{analysis_id}/events"
-    result_url: str  # "/api/v1/analyze/{analysis_id}"
+    events_url: str = Field(pattern=r"^/api/v1/analyze/.*")
+    result_url: str = Field(pattern=r"^/api/v1/analyze/.*")
 
 
 class JobState(ContractModel):
