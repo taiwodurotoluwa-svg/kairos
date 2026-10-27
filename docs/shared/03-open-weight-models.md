@@ -122,7 +122,7 @@ BGE similarity scores are compressed into a high range, so a default cannot be t
 
 | Date | Pairs | Chosen threshold | Precision | Recall | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| _(D4 fills this in)_ | | | | | |
+| 2026-10-27 | 36 | 0.70 | 1.000 | 0.950 | BAAI/bge-small-en-v1.5 on 20 related / 16 unrelated pairs across LLM, radiology, microgrids. Highest threshold with recall >= 0.85 (F1=0.974). |
 
 Until then the working default is **0.65**.
 

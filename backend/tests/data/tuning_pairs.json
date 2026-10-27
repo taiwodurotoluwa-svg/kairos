@@ -1,0 +1,470 @@
+[
+  {
+    "pair_id": "tp-01",
+    "topic": "LLM 4-bit Quantization",
+    "claim_a": {
+      "topic_hint": "4-bit weight-only quantization perplexity",
+      "statement": "AWQ achieves negligible perplexity degradation (<0.1 on WikiText-2) across LLaMA-7B to 70B models."
+    },
+    "claim_b": {
+      "topic_hint": "Post-training quantization perplexity on WikiText",
+      "statement": "GPTQ 4-bit post-training quantization preserves WikiText-2 perplexity within 0.15 points of the 16-bit baseline."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-02",
+    "topic": "LLM 4-bit Quantization",
+    "claim_a": {
+      "topic_hint": "INT4 activation outlier handling",
+      "statement": "SmoothQuant scales activation outliers per channel to enable INT8/INT4 matrix multiplication without accuracy collapse."
+    },
+    "claim_b": {
+      "topic_hint": "Weight clipping for outlier mitigation",
+      "statement": "OmniQuant optimizes equivalent transformation scales and clipping thresholds to protect salient outlier channels."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-03",
+    "topic": "LLM Inference Throughput",
+    "claim_a": {
+      "topic_hint": "PagedAttention vLLM serving throughput",
+      "statement": "PagedAttention increases serving throughput by 2.5x to 4x by eliminating memory fragmentation in the KV cache."
+    },
+    "claim_b": {
+      "topic_hint": "KV cache memory management",
+      "statement": "Dynamic memory pooling in TensorRT-LLM reduces KV cache memory consumption by up to 60%, boosting batch throughput."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-04",
+    "topic": "LLM Quantization Conflict",
+    "claim_a": {
+      "topic_hint": "Zero-shot reasoning degradation under INT4",
+      "statement": "4-bit quantization causes severe 12% accuracy drop on GSM8K multi-step reasoning benchmarks for models under 13B."
+    },
+    "claim_b": {
+      "topic_hint": "GSM8K performance preservation under 4-bit",
+      "statement": "Careful outlier-aware 4-bit quantization retains over 98% of full-precision reasoning accuracy on GSM8K."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-05",
+    "topic": "LLM Fine-tuning Efficiency",
+    "claim_a": {
+      "topic_hint": "QLoRA memory savings on 65B models",
+      "statement": "QLoRA reduces 65B model fine-tuning memory from >780GB to under 48GB without sacrificing 16-bit task performance."
+    },
+    "claim_b": {
+      "topic_hint": "Parameter-efficient 4-bit LoRA tuning",
+      "statement": "Combining NF4 quantization with Low-Rank Adapters matches full-rank 16-bit fine-tuning performance across academic benchmarks."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-06",
+    "topic": "Radiology AI Pneumothorax Detection",
+    "claim_a": {
+      "topic_hint": "CheXNet AUC on chest radiographs",
+      "statement": "CheXNet achieves an AUC of 0.8887 on pneumothorax detection, matching practicing radiologists on the ChestX-ray14 test set."
+    },
+    "claim_b": {
+      "topic_hint": "Pneumothorax classification performance",
+      "statement": "Our ensemble DenseNet architecture demonstrates an AUROC of 0.892 for pneumothorax identification on frontal chest X-rays."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-07",
+    "topic": "Radiology AI vs Radiologist Agreement",
+    "claim_a": {
+      "topic_hint": "Multi-reader radiologist agreement comparison",
+      "statement": "The model achieved higher sensitivity than all six thoracic radiologists on subtle pneumothorax lesions."
+    },
+    "claim_b": {
+      "topic_hint": "Radiologist superiority over deep learning",
+      "statement": "Board-certified radiologists outperformed automated algorithms by 8% in specificity on complex multi-pathology cases."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-08",
+    "topic": "Radiology AI External Generalization",
+    "claim_a": {
+      "topic_hint": "Cross-institutional generalization drop",
+      "statement": "Model AUROC drops from 0.89 to 0.74 when tested on external hospital datasets due to confounding imaging acquisition artifacts."
+    },
+    "claim_b": {
+      "topic_hint": "Multi-site dataset performance degradation",
+      "statement": "Out-of-distribution evaluation across two independent hospital systems revealed a 0.12 reduction in diagnostic AUROC."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-09",
+    "topic": "Radiology Vision Transformers",
+    "claim_a": {
+      "topic_hint": "Vision Transformer representation for chest X-rays",
+      "statement": "Self-supervised Vision Transformers pretrained on 100k radiographs outperform supervised CNN backbones on 11 of 14 findings."
+    },
+    "claim_b": {
+      "topic_hint": "CNN versus ViT diagnostic benchmark",
+      "statement": "DenseNet-121 matches or exceeds ViT-Base in diagnostic AUROC when fine-tuned with standard data augmentations."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-10",
+    "topic": "Microgrid Frequency Stability",
+    "claim_a": {
+      "topic_hint": "Virtual synchronous generator frequency nadir",
+      "statement": "Virtual synchronous generator control limits frequency nadir to 49.65 Hz following a 20% generation loss event."
+    },
+    "claim_b": {
+      "topic_hint": "Synthetic inertia in low-inertia grids",
+      "statement": "Inverter-based synthetic inertia improves the rate of change of frequency (RoCoF) from 1.8 Hz/s to 0.4 Hz/s."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-11",
+    "topic": "Microgrid Battery Degradation",
+    "claim_a": {
+      "topic_hint": "Lithium-ion cycle life under peak shaving",
+      "statement": "High-rate peak shaving cycles degrade battery capacity to 80% state-of-health in under 3.2 years in islanded mode."
+    },
+    "claim_b": {
+      "topic_hint": "Battery aging under hybrid solar-storage",
+      "statement": "Smart state-of-charge management extends battery operating life beyond 7.5 years under equivalent islanded demand profiles."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-12",
+    "topic": "Microgrid Droop Control",
+    "claim_a": {
+      "topic_hint": "P-f droop control active power sharing error",
+      "statement": "Conventional P-f droop control suffers active power sharing error exceeding 8% across non-identical feeder impedances."
+    },
+    "claim_b": {
+      "topic_hint": "Adaptive droop active power balance",
+      "statement": "Virtual impedance-enhanced droop eliminates line resistance mismatch and caps active power deviation below 1.5%."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-13",
+    "topic": "LLM FP8 vs INT8 Precision",
+    "claim_a": {
+      "topic_hint": "FP8 E4M3 quantization on Hopper GPUs",
+      "statement": "Native FP8 matrix multiplication delivers 2x speedup over FP16 with less than 0.05 perplexity increase on LLaMA-2."
+    },
+    "claim_b": {
+      "topic_hint": "INT8 versus FP8 inference accuracy",
+      "statement": "FP8 formats match INT8 inference speed while significantly outperforming INT8 in high-variance outlier preservation."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-14",
+    "topic": "Cardiomegaly Detection",
+    "claim_a": {
+      "topic_hint": "Cardiothoracic ratio deep learning assessment",
+      "statement": "Automated cardiomegaly screening achieves 0.94 sensitivity when cardiothoracic ratio exceeds 0.50."
+    },
+    "claim_b": {
+      "topic_hint": "Enlarged cardiac silhouette AUROC",
+      "statement": "The deep residual network scored 0.925 AUROC for detecting enlarged heart pathology across 45,000 frontal examinations."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-15",
+    "topic": "Islanded Microgrid Voltage Recovery",
+    "claim_a": {
+      "topic_hint": "Fault ride-through voltage restoration time",
+      "statement": "Grid-forming inverters restore microgrid bus voltage to within 5% of nominal in under 85 milliseconds following a symmetrical fault."
+    },
+    "claim_b": {
+      "topic_hint": "Transient voltage response post-fault",
+      "statement": "Voltage overshoot during islanded grid reconnection remained below 10% with a settling duration of 110 ms."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-16",
+    "topic": "LLM Context Window Compression",
+    "claim_a": {
+      "topic_hint": "StreamingLLM attention sink token retention",
+      "statement": "Preserving the first 4 attention sink tokens enables stable infinite-length text generation without perplexity divergence."
+    },
+    "claim_b": {
+      "topic_hint": "Attention sink preservation for long context",
+      "statement": "Retaining initial prompt tokens maintains language model stability across 4M token continuous generation streams."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-17",
+    "topic": "Radiology Pleural Effusion Staging",
+    "claim_a": {
+      "topic_hint": "Pleural effusion classification F1 score",
+      "statement": "The model achieved an F1 score of 0.86 on moderate-to-severe pleural effusion detection on lateral radiographs."
+    },
+    "claim_b": {
+      "topic_hint": "Pleural fluid diagnostic accuracy",
+      "statement": "Dual-view chest radiograph analysis improved pleural effusion sensitivity by 7.4% compared to frontal-only assessment."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-18",
+    "topic": "Solar Inverter Harmonic Distortion",
+    "claim_a": {
+      "topic_hint": "Total harmonic distortion at high PV penetration",
+      "statement": "Total harmonic voltage distortion reached 4.8% at the point of common coupling under 70% photovoltaic penetration."
+    },
+    "claim_b": {
+      "topic_hint": "THD compliance in distribution microgrids",
+      "statement": "Active power filter damping maintained total harmonic distortion below IEEE 519 standard 5% limit across all operating conditions."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-19",
+    "topic": "LLM Speculative Decoding",
+    "claim_a": {
+      "topic_hint": "Draft model acceptance rate in speculative decoding",
+      "statement": "A 68M parameter draft model achieves 72% acceptance rate, speeding up 70B target model inference by 2.3x."
+    },
+    "claim_b": {
+      "topic_hint": "Speculative execution speedup on LLaMA",
+      "statement": "Speculative decoding with verified tree verification accelerates generation by 2.1x to 2.8x without altering output distribution."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-20",
+    "topic": "Radiology AI Model Calibration",
+    "claim_a": {
+      "topic_hint": "Expected calibration error in chest pathology",
+      "statement": "Temperature scaling reduced expected calibration error from 14.2% to 2.1% across 14 thoracic disease categories."
+    },
+    "claim_b": {
+      "topic_hint": "Probability calibration of diagnostic predictions",
+      "statement": "Brier score and calibration curves improved substantially after post-hoc Platt scaling on out-of-domain validation splits."
+    },
+    "label": "related"
+  },
+  {
+    "pair_id": "tp-21",
+    "topic": "Cross-Domain Unrelated (LLM vs Radiology)",
+    "claim_a": {
+      "topic_hint": "4-bit weight-only quantization perplexity",
+      "statement": "AWQ achieves negligible perplexity degradation (<0.1 on WikiText-2) across LLaMA-7B to 70B models."
+    },
+    "claim_b": {
+      "topic_hint": "CheXNet AUC on chest radiographs",
+      "statement": "CheXNet achieves an AUC of 0.8887 on pneumothorax detection, matching practicing radiologists on the ChestX-ray14 test set."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-22",
+    "topic": "Cross-Domain Unrelated (LLM vs Microgrids)",
+    "claim_a": {
+      "topic_hint": "PagedAttention vLLM serving throughput",
+      "statement": "PagedAttention increases serving throughput by 2.5x to 4x by eliminating memory fragmentation in the KV cache."
+    },
+    "claim_b": {
+      "topic_hint": "Virtual synchronous generator frequency nadir",
+      "statement": "Virtual synchronous generator control limits frequency nadir to 49.65 Hz following a 20% generation loss event."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-23",
+    "topic": "Cross-Domain Unrelated (Radiology vs Microgrids)",
+    "claim_a": {
+      "topic_hint": "CheXNet AUC on chest radiographs",
+      "statement": "CheXNet achieves an AUC of 0.8887 on pneumothorax detection, matching practicing radiologists on the ChestX-ray14 test set."
+    },
+    "claim_b": {
+      "topic_hint": "Lithium-ion cycle life under peak shaving",
+      "statement": "High-rate peak shaving cycles degrade battery capacity to 80% state-of-health in under 3.2 years in islanded mode."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-24",
+    "topic": "Cross-Domain Unrelated (LLM vs Radiology)",
+    "claim_a": {
+      "topic_hint": "QLoRA memory savings on 65B models",
+      "statement": "QLoRA reduces 65B model fine-tuning memory from >780GB to under 48GB without sacrificing 16-bit task performance."
+    },
+    "claim_b": {
+      "topic_hint": "Cardiothoracic ratio deep learning assessment",
+      "statement": "Automated cardiomegaly screening achieves 0.94 sensitivity when cardiothoracic ratio exceeds 0.50."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-25",
+    "topic": "Cross-Domain Unrelated (LLM vs Microgrids)",
+    "claim_a": {
+      "topic_hint": "Zero-shot reasoning degradation under INT4",
+      "statement": "4-bit quantization causes severe 12% accuracy drop on GSM8K multi-step reasoning benchmarks for models under 13B."
+    },
+    "claim_b": {
+      "topic_hint": "P-f droop control active power sharing error",
+      "statement": "Conventional P-f droop control suffers active power sharing error exceeding 8% across non-identical feeder impedances."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-26",
+    "topic": "Cross-Domain Unrelated (Radiology vs LLM)",
+    "claim_a": {
+      "topic_hint": "Cross-institutional generalization drop",
+      "statement": "Model AUROC drops from 0.89 to 0.74 when tested on external hospital datasets due to confounding imaging acquisition artifacts."
+    },
+    "claim_b": {
+      "topic_hint": "StreamingLLM attention sink token retention",
+      "statement": "Preserving the first 4 attention sink tokens enables stable infinite-length text generation without perplexity divergence."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-27",
+    "topic": "Cross-Domain Unrelated (Microgrids vs Radiology)",
+    "claim_a": {
+      "topic_hint": "Fault ride-through voltage restoration time",
+      "statement": "Grid-forming inverters restore microgrid bus voltage to within 5% of nominal in under 85 milliseconds following a symmetrical fault."
+    },
+    "claim_b": {
+      "topic_hint": "Expected calibration error in chest pathology",
+      "statement": "Temperature scaling reduced expected calibration error from 14.2% to 2.1% across 14 thoracic disease categories."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-28",
+    "topic": "Within-Domain Unrelated (LLM subtopics)",
+    "claim_a": {
+      "topic_hint": "FlashAttention GPU kernel memory tiling",
+      "statement": "Tiling attention computation across GPU SRAM reduces HBM reads from O(N^2) to O(N), yielding 3x training speedup."
+    },
+    "claim_b": {
+      "topic_hint": "Direct Preference Optimization loss formulation",
+      "statement": "DPO implicitly optimizes the RLHF reward function directly over preference pairs without training a separate reward model."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-29",
+    "topic": "Within-Domain Unrelated (Radiology subtopics)",
+    "claim_a": {
+      "topic_hint": "Tuberculosis cavity segmentation Dice score",
+      "statement": "3D U-Net segmenter achieves 0.81 Dice similarity coefficient on apical cavitary lesions in low-dose CT."
+    },
+    "claim_b": {
+      "topic_hint": "Pediatric bone age regression MAE",
+      "statement": "Automated skeletal maturity assessment yields mean absolute error of 6.2 months on left hand radiographs."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-30",
+    "topic": "Within-Domain Unrelated (Microgrids subtopics)",
+    "claim_a": {
+      "topic_hint": "Cyber-attack false data injection detection",
+      "statement": "Kalman filter-based state estimation flags malicious sensor bias injection within 3 control cycles."
+    },
+    "claim_b": {
+      "topic_hint": "Wind turbine blade pitch angle optimization",
+      "statement": "Adaptive aerodynamic pitch regulation smooths generator output torque oscillations during gust events above 15 m/s."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-31",
+    "topic": "Cross-Domain Unrelated (Microgrids vs LLM)",
+    "claim_a": {
+      "topic_hint": "Total harmonic distortion at high PV penetration",
+      "statement": "Total harmonic voltage distortion reached 4.8% at the point of common coupling under 70% photovoltaic penetration."
+    },
+    "claim_b": {
+      "topic_hint": "Draft model acceptance rate in speculative decoding",
+      "statement": "A 68M parameter draft model achieves 72% acceptance rate, speeding up 70B target model inference by 2.3x."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-32",
+    "topic": "Cross-Domain Unrelated (Radiology vs Microgrids)",
+    "claim_a": {
+      "topic_hint": "Pleural effusion classification F1 score",
+      "statement": "The model achieved an F1 score of 0.86 on moderate-to-severe pleural effusion detection on lateral radiographs."
+    },
+    "claim_b": {
+      "topic_hint": "Adaptive droop active power balance",
+      "statement": "Virtual impedance-enhanced droop eliminates line resistance mismatch and caps active power deviation below 1.5%."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-33",
+    "topic": "Cross-Domain Unrelated (LLM vs Radiology)",
+    "claim_a": {
+      "topic_hint": "FP8 E4M3 quantization on Hopper GPUs",
+      "statement": "Native FP8 matrix multiplication delivers 2x speedup over FP16 with less than 0.05 perplexity increase on LLaMA-2."
+    },
+    "claim_b": {
+      "topic_hint": "Vision Transformer representation for chest X-rays",
+      "statement": "Self-supervised Vision Transformers pretrained on 100k radiographs outperform supervised CNN backbones on 11 of 14 findings."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-34",
+    "topic": "Within-Domain Unrelated (LLM subtopics)",
+    "claim_a": {
+      "topic_hint": "Multilingual tokenizer fertility ratio",
+      "statement": "Expanding vocabulary to 128k tokens reduces token fertility on low-resource Indic languages by 42%."
+    },
+    "claim_b": {
+      "topic_hint": "INT4 activation outlier handling",
+      "statement": "SmoothQuant scales activation outliers per channel to enable INT8/INT4 matrix multiplication without accuracy collapse."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-35",
+    "topic": "Cross-Domain Unrelated (Microgrids vs Radiology)",
+    "claim_a": {
+      "topic_hint": "Battery aging under hybrid solar-storage",
+      "statement": "Smart state-of-charge management extends battery operating life beyond 7.5 years under equivalent islanded demand profiles."
+    },
+    "claim_b": {
+      "topic_hint": "Radiologist superiority over deep learning",
+      "statement": "Board-certified radiologists outperformed automated algorithms by 8% in specificity on complex multi-pathology cases."
+    },
+    "label": "unrelated"
+  },
+  {
+    "pair_id": "tp-36",
+    "topic": "Within-Domain Unrelated (Radiology subtopics)",
+    "claim_a": {
+      "topic_hint": "Enlarged cardiac silhouette AUROC",
+      "statement": "The deep residual network scored 0.925 AUROC for detecting enlarged heart pathology across 45,000 frontal examinations."
+    },
+    "claim_b": {
+      "topic_hint": "Diffusion model synthetic CT generation FID",
+      "statement": "Conditional latent diffusion synthesized pelvic CT slices with Frechet Inception Distance of 11.4 against real scans."
+    },
+    "label": "unrelated"
+  }
+]

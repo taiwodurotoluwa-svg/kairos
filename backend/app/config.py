@@ -47,7 +47,7 @@ class Settings(BaseSettings):
     embedding_backend: str = "fastembed"
     embedding_model: str = "BAAI/bge-small-en-v1.5"
 
-    similarity_threshold: float = 0.65
+    similarity_threshold: float = 0.70
     top_k_per_paper: int = 2
     max_referee_pairs: int = 60
     referee_pairs_per_call: int = 4

@@ -10,6 +10,14 @@ from app.errors import install_error_handlers
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     demo.warm_demo_cache()
+    settings = get_settings()
+    if settings.embedding_backend == "fastembed":
+        try:
+            from app.services.embeddings import get_embedder
+
+            get_embedder(settings)
+        except Exception:
+            pass
     yield
 
 
