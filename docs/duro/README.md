@@ -332,13 +332,13 @@ Deterministic (seeded) generator producing `demo_radiology_8papers.json` (8 pape
 - Output validates against `AnalysisResult` and passes the cross-reference checks below.
 
 ### Acceptance criteria (D1)
-- [ ] `schemas.py` identical to contract §1; `SCHEMA_VERSION == "1.0.0"`.
-- [ ] `pytest` passes, including `test_contract.py`: every file in `fixtures/*.json` validates against `AnalysisResult`; every `claim.paper_id`, `cluster_id`, `edge.*_claim_id`, `gap.claim_id`, `consensus.*_ids` resolves; edge quotes equal claim quotes; `edge_id` follows the contract rule; `cross_paper_pairs_total` and `pair_reduction_pct` recompute correctly; `consensus_score` equals the formula; latency parts sum to `total_ms`.
-- [ ] `GET /api/v1/health`, `GET /api/v1/demo`, `GET /api/v1/demo/{id}` work; unknown id → 404 `PRESET_NOT_FOUND` with `ErrorResponse` shape.
-- [ ] Three placeholder fixtures exist (8/6/6 papers) and are valid.
-- [ ] CORS allows `http://localhost:3000`.
-- [ ] Early starter files removed; no secrets committed; `.env.example` complete.
-- [ ] PR template and Argon 4 files committed.
+- [x] `schemas.py` identical to contract §1; `SCHEMA_VERSION == "1.0.0"`.
+- [x] `pytest` passes, including `test_contract.py`: every file in `fixtures/*.json` validates against `AnalysisResult`; every `claim.paper_id`, `cluster_id`, `edge.*_claim_id`, `gap.claim_id`, `consensus.*_ids` resolves; edge quotes equal claim quotes; `edge_id` follows the contract rule; `cross_paper_pairs_total` and `pair_reduction_pct` recompute correctly; `consensus_score` equals the formula; latency parts sum to `total_ms`.
+- [x] `GET /api/v1/health`, `GET /api/v1/demo`, `GET /api/v1/demo/{id}` work; unknown id → 404 `PRESET_NOT_FOUND` with `ErrorResponse` shape.
+- [x] Three placeholder fixtures exist (8/6/6 papers) and are valid.
+- [x] CORS allows `http://localhost:3000`.
+- [x] Early starter files removed; no secrets committed; `.env.example` complete.
+- [x] PR template and Argon 4 files committed.
 
 ### Argon 4 checklist (D1)
 Contract parity with the doc (field by field), fixture honesty banners, cross-reference test strength, CORS/headers, error shape, startup with missing fixtures, settings defaults vs `.env.example`.
