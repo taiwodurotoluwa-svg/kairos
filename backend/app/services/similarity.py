@@ -54,6 +54,7 @@ def build_research_gaps(
     result: list[ResearchGap] = []
     for idx in gap_indices:
         claim = claims[idx]
+        claim.is_research_gap = True  # F-02: mutate claim in-place
         max_cross_sim = float(sim[idx].max()) if sim.shape[0] > 0 else 0.0
         best_sim = max(0.0, min(1.0, max_cross_sim))
         result.append(
@@ -169,6 +170,10 @@ def build_clusters(
     - mean_similarity is the mean pairwise cosine similarity within the cluster.
     """
     n = len(claims)
+    claim_map = {c.claim_id: c for c in claims}
+    for c in claims:
+        c.cluster_id = None  # F-02: default in-place mutation
+
     claim_id_to_cluster: dict[str, str | None] = {c.claim_id: None for c in claims}
 
     if n < 2 or emb.shape[0] < 2:
@@ -186,7 +191,12 @@ def build_clusters(
             continue
 
         cluster_claims_list = [claims[i] for i in indices]
-        distinct_papers = sorted(list({c.paper_id for c in cluster_claims_list}))
+
+        # F-05: sort distinct papers numerically by paper number (e.g. p2 before p10)
+        distinct_papers = sorted(
+            {c.paper_id for c in cluster_claims_list},
+            key=lambda pid: int("".join(ch for ch in pid if ch.isdigit()) or 0),
+        )
 
         # Contract discard rule: cluster must span >= 2 distinct papers
         if len(distinct_papers) < 2:
@@ -236,5 +246,7 @@ def build_clusters(
         topic_clusters.append(topic_cluster)
         for cid in item["claim_ids"]:
             claim_id_to_cluster[cid] = c_id
+            if cid in claim_map:
+                claim_map[cid].cluster_id = c_id  # F-02: mutate claim in-place
 
     return topic_clusters, claim_id_to_cluster

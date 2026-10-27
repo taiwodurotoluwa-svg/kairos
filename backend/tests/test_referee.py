@@ -1,13 +1,17 @@
 from __future__ import annotations
 
 import asyncio
+from unittest.mock import AsyncMock, MagicMock, patch
 from typing import Any
 import numpy as np
 import pytest
 
+from app.config import Settings
+from app.errors import KairosError
 from app.schemas import (
     ClaimComparisonEdge,
     ClaimType,
+    ErrorCode,
     ExtractedClaim,
     PaperMetadata,
     PaperSource,
@@ -15,6 +19,8 @@ from app.schemas import (
     RelationType,
     SectionName,
 )
+from app.services.llm.client import LLMClient
+from app.services.llm.providers import Provider
 from app.services.referee import (
     RawRefereeItem,
     RawRefereeOutput,
@@ -28,19 +34,34 @@ class MockRefereeLLMClient:
         self.responses = list(responses)
         self.calls: list[dict] = []
         self.last_used_model = "test-referee-model"
+        self.last_used_provider = "mock-provider"
+        self.call_count = 0
 
-    async def complete_json(self, system_prompt: str, user_prompt: str, output_schema: Any = None):
-        self.calls.append({"system_prompt": system_prompt, "user_prompt": user_prompt})
+    async def complete_json(
+        self,
+        *,
+        system: str,
+        user: str,
+        max_tokens: int = 900,
+        temperature: float = 0.0,
+        validate: Any = None,
+    ) -> tuple[Any, str, str]:
+        self.calls.append({"system": system, "user": user, "max_tokens": max_tokens, "temperature": temperature})
+        self.call_count += 1
         if not self.responses:
-            return RawRefereeOutput(results=[])
+            return RawRefereeOutput(results=[]), self.last_used_provider, self.last_used_model
 
         resp = self.responses.pop(0)
         if isinstance(resp, Exception):
             raise resp
 
-        if output_schema:
-            return output_schema.model_validate(resp)
-        return resp
+        if validate:
+            res = validate(resp)
+        elif isinstance(resp, dict):
+            res = RawRefereeOutput.model_validate(resp)
+        else:
+            res = resp
+        return res, self.last_used_provider, self.last_used_model
 
 
 def _make_paper(paper_id: str, label: str = "Author et al. (2024)") -> PaperMetadata:
@@ -368,3 +389,94 @@ def test_evaluate_claim_pairs_cluster_id_propagation_and_explanation_bounds():
     assert edge.cluster_id == "cl-1"
     # Explanation must be clamped to 500 characters
     assert len(edge.explanation) == 500
+
+
+def test_real_llm_client_integration():
+    """Verify integration with actual LLMClient instance (F-01)."""
+    settings = Settings()
+    provider = Provider(
+        name="test-groq",
+        base_url="https://api.test/v1",
+        api_key="gsk_test_key",
+        model="llama-3.1-8b-instant",
+        license_name="Meta Llama 3.1 Community License",
+        license_url="https://llama.meta.com/llama3/license/",
+    )
+    real_client = LLMClient(settings, providers=[provider])
+
+    p1 = _make_paper("p1")
+    p2 = _make_paper("p2")
+    c1 = _make_claim("p1", "p1-c1", "Statement 1 from paper 1 of valid length.")
+    c2 = _make_claim("p2", "p2-c1", "Statement 2 from paper 2 of valid length.")
+
+    claims = [c1, c2]
+    papers = [p1, p2]
+    sim = np.array([[-1.0, 0.85], [0.85, -1.0]])
+    candidate_indices = [(0, 1)]
+
+    fake_json = (
+        '{"results":[{"pair_id":"e-p1c1-p2c1","relation":"AGREE","confidence":0.93,'
+        '"explanation":"Both papers confirm substantial speedups on benchmarks."}]}'
+    )
+
+    mock_resp = MagicMock()
+    mock_resp.choices = [MagicMock(message=MagicMock(content=fake_json))]
+
+    with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
+        mock_instance = AsyncMock()
+        mock_instance.chat.completions.create.return_value = mock_resp
+        mock_openai_cls.return_value.__aenter__.return_value = mock_instance
+
+        edges = asyncio.run(
+            evaluate_claim_pairs(
+                candidate_indices=candidate_indices,
+                claims=claims,
+                papers=papers,
+                sim=sim,
+                llm_client=real_client,
+                batch_size=4,
+            )
+        )
+
+        assert len(edges) == 1
+        assert edges[0].edge_id == "e-p1c1-p2c1"
+        assert edges[0].relation == RelationType.AGREE
+        assert edges[0].confidence == 0.93
+        assert edges[0].referee_model == "llama-3.1-8b-instant"
+        assert real_client.call_count == 1
+        assert real_client.last_used_model == "llama-3.1-8b-instant"
+        assert real_client.last_used_provider == "test-groq"
+
+
+def test_evaluate_claim_pairs_kairos_error_no_retry_storm():
+    """Verify that when all providers fail, KairosError is raised immediately without retries (F-03)."""
+    p1 = _make_paper("p1")
+    p2 = _make_paper("p2")
+    c1 = _make_claim("p1", "p1-c1", "Statement 1 from paper 1 of valid length.")
+    c2 = _make_claim("p2", "p2-c1", "Statement 2 from paper 2 of valid length.")
+
+    claims = [c1, c2]
+    papers = [p1, p2]
+    sim = np.array([[-1.0, 0.85], [0.85, -1.0]])
+    candidate_indices = [(0, 1)]
+
+    # Mock client raising KairosError on the first batch
+    client = MockRefereeLLMClient([
+        KairosError(ErrorCode.LLM_PROVIDER_UNAVAILABLE, "All providers unavailable", 503)
+    ])
+
+    with pytest.raises(KairosError) as exc_info:
+        asyncio.run(
+            evaluate_claim_pairs(
+                candidate_indices=candidate_indices,
+                claims=claims,
+                papers=papers,
+                sim=sim,
+                llm_client=client,
+                batch_size=4,
+            )
+        )
+
+    assert exc_info.value.status_code == 503
+    # Exactly 1 call was made; no individual retries attempted!
+    assert client.call_count == 1

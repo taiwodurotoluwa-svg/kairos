@@ -8,6 +8,7 @@ import numpy as np
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from app.config import Settings, get_settings
+from app.errors import KairosError
 from app.schemas import (
     ClaimComparisonEdge,
     ExtractedClaim,
@@ -142,8 +143,10 @@ async def evaluate_claim_pairs(
 
     Features:
     - Batches pairs by batch_size (default from settings).
-    - Runs concurrent calls via LLMClient semaphore.
+    - Calls LLMClient.complete_json with Stage 3 parameters (temperature=0.0, max_tokens=900).
+    - Unpacks (RawRefereeOutput, provider_name, model_id) tuple (F-01).
     - Drops UNRELATED pairs per contract §5.3.
+    - Prevents retry storms on provider failure by bubbling KairosError immediately (F-03).
     - Retries missing, malformed, or invalid pairs once as single-pair calls.
     - Produces contract-compliant ClaimComparisonEdge objects ordered by confidence descending.
     """
@@ -177,18 +180,27 @@ async def evaluate_claim_pairs(
     for k in range(0, len(pair_order), batch_size):
         batches.append(pair_order[k : k + batch_size])
 
+    last_model_id = getattr(llm_client, "last_used_model", "open-weight-referee") or "open-weight-referee"
+
     async def _run_batch(batch_edge_ids: list[str]) -> tuple[list[str], Any]:
         batch_payloads = [pair_meta[eid]["payload"] for eid in batch_edge_ids]
         user_prompt = REFEREE_USER_PROMPT_TEMPLATE.format(
             pairs_json=json.dumps(batch_payloads, indent=2)
         )
         try:
-            res = await llm_client.complete_json(
-                system_prompt=REFEREE_SYSTEM_PROMPT,
-                user_prompt=user_prompt,
-                output_schema=RawRefereeOutput,
+            # F-01: Call LLMClient.complete_json with keyword-only arguments and Stage 3 parameters
+            res, provider_name, model_id = await llm_client.complete_json(
+                system=REFEREE_SYSTEM_PROMPT,
+                user=user_prompt,
+                max_tokens=900,
+                temperature=0.0,
+                validate=RawRefereeOutput.model_validate,
             )
-            return batch_edge_ids, res
+            return batch_edge_ids, (res, provider_name, model_id)
+        except KairosError as ke:
+            # F-03: Provider failure, do not hide under generic Exception
+            logger.error("Referee batch provider failure: %s", ke)
+            return batch_edge_ids, ke
         except Exception as exc:
             logger.warning("Batch referee call failed (%s): %s", batch_edge_ids, exc)
             return batch_edge_ids, exc
@@ -201,11 +213,18 @@ async def evaluate_claim_pairs(
     pairs_to_retry: set[str] = set()
 
     for batch_edge_ids, result in batch_outputs:
+        if isinstance(result, KairosError):
+            # F-03: Provider unavailable, bubble up immediately instead of 60 individual retries
+            raise result
+
         if isinstance(result, Exception):
             pairs_to_retry.update(batch_edge_ids)
             continue
 
-        raw_output: RawRefereeOutput = result
+        raw_output, provider_name, model_id = result
+        if model_id:
+            last_model_id = model_id
+
         returned_map = {item.pair_id: item for item in raw_output.results}
 
         for eid in batch_edge_ids:
@@ -221,34 +240,40 @@ async def evaluate_claim_pairs(
     if pairs_to_retry:
         logger.info("Retrying %d referee pairs individually", len(pairs_to_retry))
 
-        async def _retry_single(eid: str) -> tuple[str, RawRefereeItem | None]:
+        async def _retry_single(eid: str) -> tuple[str, RawRefereeItem | None, str | None]:
             single_payload = [pair_meta[eid]["payload"]]
             user_prompt = REFEREE_USER_PROMPT_TEMPLATE.format(
                 pairs_json=json.dumps(single_payload, indent=2)
             )
             try:
-                res: RawRefereeOutput = await llm_client.complete_json(
-                    system_prompt=REFEREE_SYSTEM_PROMPT,
-                    user_prompt=user_prompt,
-                    output_schema=RawRefereeOutput,
+                res, provider_name, model_id = await llm_client.complete_json(
+                    system=REFEREE_SYSTEM_PROMPT,
+                    user=user_prompt,
+                    max_tokens=900,
+                    temperature=0.0,
+                    validate=RawRefereeOutput.model_validate,
                 )
                 for it in res.results:
                     if it.pair_id == eid and it.relation in VALID_RELATIONS and it.confidence is not None:
-                        return eid, it
-                return eid, None
+                        return eid, it, model_id
+                return eid, None, model_id
+            except KairosError as ke:
+                logger.error("Single-pair retry provider failure for %s: %s", eid, ke)
+                raise
             except Exception as exc:
                 logger.warning("Single-pair retry failed for %s: %s", eid, exc)
-                return eid, None
+                return eid, None, None
 
         retry_tasks = [_retry_single(eid) for eid in sorted(pairs_to_retry)]
         retry_results = await asyncio.gather(*retry_tasks)
-        for eid, item in retry_results:
+        for eid, item, model_id in retry_results:
+            if model_id:
+                last_model_id = model_id
             if item is not None:
                 resolved_items[eid] = item
 
     # Assemble edges
     edges: list[ClaimComparisonEdge] = []
-    model_name = getattr(llm_client, "last_used_model", "open-weight-referee")
 
     for eid in pair_order:
         item = resolved_items.get(eid)
@@ -289,7 +314,7 @@ async def evaluate_claim_pairs(
             cosine_similarity=round(max(0.0, min(1.0, sim_val)), 4),
             explanation=explanation,
             cluster_id=edge_cluster_id,
-            referee_model=model_name,
+            referee_model=last_model_id,
         )
         edges.append(edge)
 

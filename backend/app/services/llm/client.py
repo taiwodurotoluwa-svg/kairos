@@ -52,6 +52,9 @@ class LLMClient:
         self.providers = providers if providers is not None else build_provider_chain(settings)
         self.sem = asyncio.Semaphore(settings.llm_max_concurrency)
         self.disabled: set[str] = set()
+        self.last_used_model: str = ""
+        self.last_used_provider: str = ""
+        self.call_count: int = 0
 
     async def complete_json(
         self,
@@ -115,6 +118,9 @@ class LLMClient:
                         text = resp.choices[0].message.content or ""
                         parsed = parse_json_object(text)
                         validated = validate(parsed)
+                        self.last_used_model = p.model
+                        self.last_used_provider = p.name
+                        self.call_count += 1
                         return validated, p.name, p.model
 
                     except (InvalidJSON, ValueError) as err:

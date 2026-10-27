@@ -1,10 +1,19 @@
 from __future__ import annotations
 
+import asyncio
 import numpy as np
 import pytest
 
-from app.schemas import ClaimType, ExtractedClaim, Provenance, SectionName
+from app.schemas import (
+    ClaimType,
+    ExtractedClaim,
+    PaperMetadata,
+    PaperSource,
+    Provenance,
+    SectionName,
+)
 from app.services.embeddings import DeterministicStubEmbedder, FastEmbedEmbedder
+from app.services.referee import evaluate_claim_pairs
 from app.services.similarity import (
     build_clusters,
     build_research_gaps,
@@ -15,6 +24,28 @@ from app.services.similarity import (
     cosine_matrix,
     find_gaps,
 )
+
+
+def _make_dummy_paper(paper_id: str) -> PaperMetadata:
+    num = int("".join(c for c in paper_id if c.isdigit()) or 1)
+    return PaperMetadata(
+        paper_id=paper_id,
+        short_label=f"P{num}",
+        citation_label=f"Author et al. ({paper_id})",
+        palette_index=(num - 1) % 10,
+        source=PaperSource.UPLOAD,
+        title=f"Study on {paper_id}",
+        authors=["Author One"],
+        year=2024,
+        page_count=10,
+        dataset="ImageNet / ChestX-ray14",
+        methodology="Deep Learning",
+        primary_metric="AUROC",
+        limitations="Sample size",
+        core_conclusion="Empirical evidence demonstrated",
+        sections_found=["RESULTS"],
+        extraction_model="test-model",
+    )
 
 
 def _make_dummy_claim(
@@ -117,7 +148,7 @@ def test_find_gaps_before_capping():
     gaps = find_gaps(sim, threshold)
     assert gaps == [0]
 
-    # Verify build_research_gaps constructs contract-compliant models
+    # Verify build_research_gaps constructs contract-compliant models and sets is_research_gap in-place (F-02)
     claims = [
         _make_dummy_claim("p1", "p1-c1", "Isolated Topic", "A claim without peers."),
         _make_dummy_claim("p1", "p1-c2", "Shared Topic", "A claim with peers."),
@@ -132,6 +163,11 @@ def test_find_gaps_before_capping():
     assert gap.paper_id == "p1"
     assert gap.best_match_similarity == 0.40
     assert "0.40" in gap.reason
+
+    # In-place mutation check (F-02)
+    assert claims[0].is_research_gap is True
+    assert claims[1].is_research_gap is False
+    assert claims[2].is_research_gap is False
 
 
 def test_candidate_pairs_selection_top_k_and_capping():
@@ -222,13 +258,101 @@ def test_cluster_claims_discard_rules():
     assert c1.label == "Cluster A Central"
     assert 0.0 <= c1.mean_similarity <= 1.0
 
-    # Discarded claims have None in mapping
-    assert claim_id_to_cluster["p1-c1"] == "cl-1"
-    assert claim_id_to_cluster["p1-c2"] == "cl-1"
-    assert claim_id_to_cluster["p2-c1"] == "cl-1"
-    assert claim_id_to_cluster["p2-c2"] is None
-    assert claim_id_to_cluster["p2-c3"] is None
-    assert claim_id_to_cluster["p3-c1"] is None
+    # In-place claim.cluster_id check (F-02)
+    assert claims[0].cluster_id == "cl-1"
+    assert claims[1].cluster_id == "cl-1"
+    assert claims[2].cluster_id == "cl-1"
+    assert claims[3].cluster_id is None
+    assert claims[4].cluster_id is None
+    assert claims[5].cluster_id is None
+
+
+def test_cluster_paper_ids_numeric_sorting():
+    """Verify that paper IDs in TopicCluster are sorted numerically, e.g. ['p2', 'p10'] not ['p10', 'p2'] (F-05)."""
+    claims = [
+        _make_dummy_claim("p10", "p10-c1", "Cluster Topic", "Claim from paper 10"),
+        _make_dummy_claim("p2", "p2-c1", "Cluster Topic", "Claim from paper 2"),
+    ]
+    emb = np.array([[1.0, 0.0], [0.99, 0.05]], dtype=np.float32)
+    emb = emb / np.linalg.norm(emb, axis=1, keepdims=True)
+
+    topic_clusters, _ = build_clusters(emb, claims, distance_threshold=0.35)
+    assert len(topic_clusters) == 1
+    # Numeric sorting check: p2 must appear before p10!
+    assert topic_clusters[0].paper_ids == ["p2", "p10"]
+
+
+def test_end_to_end_claim_mutation_invariant():
+    """Verify end-to-end mutation: build_gaps -> build_clusters -> evaluate_claim_pairs propagates flags and cluster_id (F-02)."""
+    p1 = _make_dummy_paper("p1")
+    p2 = _make_dummy_paper("p2")
+
+    c1 = _make_dummy_claim("p1", "p1-c1", "Topic A", "Statement 1 in cluster A from paper 1.")
+    c2 = _make_dummy_claim("p2", "p2-c1", "Topic A", "Statement 2 in cluster A from paper 2.")
+    c3 = _make_dummy_claim("p1", "p1-c2", "Isolated", "Isolated statement with no peers in other papers.")
+
+    claims = [c1, c2, c3]
+    papers = [p1, p2]
+
+    # Embeddings: c1 and c2 are identical (sim = 1.0), c3 is orthogonal
+    emb = np.array(
+        [
+            [1.0, 0.0, 0.0],
+            [1.0, 0.0, 0.0],
+            [0.0, 0.0, 1.0],
+        ],
+        dtype=np.float32,
+    )
+    paper_idx = np.array([0, 1, 0], dtype=int)
+    sim = cosine_matrix(emb, paper_idx)
+
+    # 1. build_research_gaps
+    gap_indices = find_gaps(sim, threshold=0.70)
+    assert gap_indices == [2]
+    build_research_gaps(gap_indices, claims, sim)
+
+    assert claims[0].is_research_gap is False
+    assert claims[1].is_research_gap is False
+    assert claims[2].is_research_gap is True  # Mutated in place!
+
+    # 2. build_clusters
+    topic_clusters, _ = build_clusters(emb, claims, distance_threshold=0.35)
+    assert len(topic_clusters) == 1
+    assert claims[0].cluster_id == "cl-1"  # Mutated in place!
+    assert claims[1].cluster_id == "cl-1"  # Mutated in place!
+    assert claims[2].cluster_id is None
+
+    # 3. evaluate_claim_pairs
+    class DummyMockLLM:
+        last_used_model = "test-model"
+        async def complete_json(self, **kwargs):
+            from app.services.referee import RawRefereeOutput
+            fake_json = {
+                "results": [
+                    {
+                        "pair_id": "e-p1c1-p2c1",
+                        "relation": "AGREE",
+                        "confidence": 0.95,
+                        "explanation": "Both claims support the same empirical finding under comparable setups.",
+                    }
+                ]
+            }
+            return RawRefereeOutput.model_validate(fake_json), "mock-provider", "test-model"
+
+    candidate_idx, _ = candidate_pairs(sim, paper_idx, threshold=0.70, top_k=2, max_pairs=10)
+    edges = asyncio.run(
+        evaluate_claim_pairs(
+            candidate_indices=candidate_idx,
+            claims=claims,
+            papers=papers,
+            sim=sim,
+            llm_client=DummyMockLLM(),
+        )
+    )
+
+    assert len(edges) == 1
+    # Edge automatically inherited the shared cluster_id!
+    assert edges[0].cluster_id == "cl-1"
 
 
 def test_numerical_edge_cases():
