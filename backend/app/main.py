@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import demo, health
+from app.api import analyze, demo, health
 from app.config import get_settings
 from app.errors import install_error_handlers
 
@@ -33,3 +33,4 @@ app.add_middleware(
 install_error_handlers(app)
 app.include_router(health.router, prefix="/api/v1")
 app.include_router(demo.router, prefix="/api/v1")
+app.include_router(analyze.router, prefix="/api/v1")
