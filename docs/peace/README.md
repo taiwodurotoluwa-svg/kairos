@@ -32,6 +32,30 @@ frontend/
 
 ---
 
+## Argon 4 Frontend Review Protocol (P1–P5)
+
+Argon 4 (Gemini 1.5 Pro with High Thinking, temperature 0.2 in Google AI Studio) reviews **every frontend milestone** before clean code is committed to GitHub.
+
+### What Argon 4 evaluates for Peace's frontend:
+| Milestone | Frontend Focus Areas for Argon 4 |
+| :--- | :--- |
+| **P1: Shell & Design System** | Semantic HTML5 tags, CSS custom properties (`:root`), dark mode aesthetics, preset dropdown reactivity, responsive layout down to 375px, synthetic placeholder warning banner. |
+| **P2: Ingestion Hub** | Drag-and-drop dropzone usability, client-side PDF file validation (max 10 files, 20MB limit), arXiv ID/URL input hygiene, pipeline progress state visualization. |
+| **P3: Sticky Comparison Matrix** | Pinned baseline paper column stability during horizontal scroll (6–8+ papers), four-signal badge accessibility (icon + color + text label), hover popovers, quote provenance rendering. |
+| **P4: Cytoscape Graph & Drawer** | Interactive node-link canvas rendering, force-directed `cose` physics performance, distinct signal edge styles (dashed ruby, solid emerald), slide-over dispute drawer focus trap, side-by-side claim quotes. |
+| **P5: Consensus & Integration** | Consensus score ring gauge, research gaps display, live FastAPI vs offline mock toggle, error toast notifications, Markdown/JSON export, keyboard accessibility (tab navigation, escape key to close drawer). |
+
+### Per-Milestone Review Steps for Peace:
+1. Finish the milestone code in `frontend/`.
+2. Test in browser (`http://127.0.0.1:5500`) and ensure **0 console errors**.
+3. Export code, UI verification checklist, and critique questions into `reviews/P{n}_review.txt` (the prompt is embedded at the top).
+4. **Do NOT commit the review file to git.** (It is ignored by `.gitignore`).
+5. Upload or paste `reviews/P{n}_review.txt` into Argon 4.
+6. Address any BLOCKER or MAJOR critique points in `frontend/`.
+7. Commit and push clean, production-ready code to GitHub!
+
+---
+
 ## Core Rules & Contracts
 1. **Contract Parity:** Consume JSON exactly matching `docs/shared/02-api-contracts.md`. All model fields are `snake_case`.
 2. **Offline-First:** P1–P4 build entirely against mock fixtures in `frontend/fixtures/`. The API client automatically tries `http://localhost:8000/api/v1/demo/{preset_id}` and falls back to local `./fixtures/{preset_id}.json` if the backend is offline.

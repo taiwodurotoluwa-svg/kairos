@@ -104,9 +104,14 @@ Ten milestones, ten squash-merged PRs. Branch names are fixed.
 
 ---
 
-## 5. The Argon 4 review gate (mandatory for every milestone)
+## 5. The Argon 4 review gate (mandatory for BOTH backend and frontend milestones)
 
-**Argon 4** is Gemini Argon 4 in Google AI Studio (Playground) with **Thinking = High** and **Temperature = 0.2**. It is an independent reviewer. The human, not you, pastes the bundle into it.
+**Argon 4** is Gemini Argon 4 (Gemini 1.5 Pro) in Google AI Studio with **Thinking = High** and **Temperature = 0.2**. It serves as the independent quality referee for **BOTH DuroT (Backend D1–D5)** and **Peace (Frontend P1–P5)**.
+
+Every single milestone—backend API or frontend UI—must pass through Argon 4 before its clean code is committed and merged.
+
+- **Backend Milestones (`D1`–`D5`):** Argon 4 reviews FastAPI endpoints, Pydantic schema contracts, PyMuPDF extraction, open-weight LLM integration, BGE embeddings, and NLI contradiction refereeing.
+- **Frontend Milestones (`P1`–`P5`):** Argon 4 reviews Vanilla HTML5 semantics, Dark Academic Observatory CSS styling, responsive mobile layouts, sticky baseline matrix UX, Cytoscape.js graph rendering, dispute drawer evidence cards, and accessibility (WCAG AA).
 
 Per-milestone protocol:
 

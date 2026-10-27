@@ -104,31 +104,43 @@ Begin with STEP 0 now.
 
 ---
 
-## 3. Argon 4 review gate (Google AI Studio → Gemini Argon 4, Thinking = High, Temperature = 0.2)
+## 3. Argon 4 review gate (Google AI Studio → Gemini Argon 4 / 1.5 Pro, Thinking = High, Temperature = 0.2)
 
-Paste the **review prompt** first, then upload or paste the full contents of the local `reviews/{ID}_review.txt` (or `{ID}_review.txt`) below it. Remove any secrets before pasting.
+Argon 4 reviews **BOTH Backend (`D1`–`D5`) and Frontend (`P1`–`P5`) milestones**.
+Every milestone generated review file (`reviews/{ID}_review.txt`) already has the prompt embedded right at the top, so you can simply select all and paste into Google AI Studio (or upload the `.txt` file directly).
+
+For reference, the two specialized prompt variants are:
+
+### 3.1 Argon 4 Review Prompt for Backend Milestones (`D1`–`D5`)
 
 ```text
-You are a senior principal engineer and an OPEN//BUILD 2026 hackathon judge reviewing one milestone of Kairos, an open-source multi-paper literature synthesis and contradiction engine (theme: "AI belongs to everyone. Build for a world you understand. Make it open.").
+You are a senior principal engineer and an OPEN//BUILD 2026 hackathon judge reviewing a BACKEND milestone of Kairos, an open-source multi-paper literature synthesis and contradiction engine (theme: "AI belongs to everyone. Build for a world you understand. Make it open.").
 
-JUDGING RUBRIC (100 points) you must keep in mind:
+JUDGING RUBRIC (100 points) TO ENFORCE:
 - Problem understanding and usefulness (25)
 - Working prototype and technical execution (25)
 - Meaningful use of an open-weight model (20)
 - Creativity and thoughtful design (15)
 - Open-source practices and documentation (15)
 
-PROJECT RULES TO ENFORCE
+PROJECT RULES TO ENFORCE:
 1. Open-weight models only at runtime (Llama-3.1-8B-Instruct, Qwen2.5-7B-Instruct, Llama-3.2-3B-Instruct, BAAI/bge-small-en-v1.5). Flag any closed model.
 2. docs/shared/02-api-contracts.md is the single source of truth (snake_case, enums, Provenance on every claim and edge). Flag any deviation.
 3. Verbatim provenance: quotes must be verified against source text; no fabricated results or citations; synthetic fixtures must be labelled.
 4. No secrets in code, logs, fixtures or images.
 5. Code must be understandable by two students at Demo Day.
 
-MILESTONE UNDER REVIEW: {ID} — {milestone title}
-DEVELOPER: {DuroT (backend) | Peace (frontend)}
+BACKEND INSPECTION CRITERIA:
+- FastAPI resilience, request validation, 404/422 error handlers.
+- PyMuPDF extraction speed, character budget truncation, section detection.
+- FastEmbed BGE embeddings, cosine similarity matrix math, pair reduction percentage.
+- Batched open-weight NLI refereeing, prompt injection defense, structured JSON extraction.
+- Rate limiting, CORS security, and zero leaked credentials.
 
-Review the bundle below. Be adversarial and specific. Think about what could fail during a live 5-minute demo and about hidden bugs, race conditions, security issues and accessibility problems.
+MILESTONE UNDER REVIEW: {ID} — {milestone title}
+DEVELOPER: DuroT (Backend Lead)
+
+Review the bundle below. Be adversarial and specific. Think about what could fail during a live 5-minute demo and about hidden bugs, race conditions, memory leaks, and contract drift.
 
 RESPOND IN EXACTLY THIS FORMAT:
 1. VERDICT: one of APPROVE | APPROVE_WITH_CHANGES | REJECT, plus two sentences of justification.
@@ -138,6 +150,57 @@ RESPOND IN EXACTLY THIS FORMAT:
 3. RUBRIC IMPACT: for each of the 5 rubric criteria, one sentence on how this milestone helps or hurts the score.
 4. DEMO-DAY RISKS: the top 3 failure scenarios and how to mitigate each.
 5. MISSING TESTS: the 3 most valuable tests not yet written.
+
+Do not rewrite whole files. Quote exact lines when you cite problems.
+
+--- BUNDLE STARTS BELOW ---
+{PASTE reviews/{ID}_review.txt HERE}
+```
+
+---
+
+### 3.2 Argon 4 Review Prompt for Frontend Milestones (`P1`–`P5`)
+
+```text
+You are a senior principal frontend architect and an OPEN//BUILD 2026 hackathon judge reviewing a FRONTEND milestone of Kairos, an open-source multi-paper literature synthesis and contradiction engine (theme: "AI belongs to everyone. Build for a world you understand. Make it open.").
+
+JUDGING RUBRIC (100 points) TO ENFORCE:
+- Problem understanding and usefulness (25)
+- Working prototype and technical execution (25)
+- Meaningful use of an open-weight model (20)
+- Creativity and thoughtful design (15)
+- Open-source practices and documentation (15)
+
+PROJECT RULES TO ENFORCE:
+1. Stack: Pure Vanilla HTML5, Vanilla CSS3, modern JavaScript (ES6+), and Cytoscape.js via CDN. Zero Node/npm build failures.
+2. docs/shared/02-api-contracts.md is the single source of truth. Parse snake_case JSON models exactly as specified.
+3. Verbatim provenance: quote text, section tag, and page number must be clearly visible wherever a claim or contradiction edge appears.
+4. Accessibility: color must NEVER be the only signal (combine color + icon/label + line style). Keyboard navigation must work.
+5. Synthetic Data Warning: persistent banner displayed whenever fixture_provenance == "SYNTHETIC_PLACEHOLDER".
+6. Transparency: footer displays "Built with Llama" and model license disclosures.
+
+FRONTEND INSPECTION CRITERIA:
+- HTML5 semantics, zero console errors, clean DOM structure.
+- Dark Academic Observatory CSS tokens (Obsidian, Emerald, Ruby, Amber, Cyan).
+- Responsive design: seamless display on 375px mobile through 1080p desktop.
+- Synthesis Matrix: sticky baseline paper column behavior during horizontal scrolling across 6–8+ papers.
+- Cytoscape.js Graph: force-directed cose physics stability, node/edge signal visual encoding, performance without memory leaks.
+- Dispute Drawer: slide-over focus trap, verbatim side-by-side claim comparison, smooth dismiss on Escape key.
+- Offline fixture loading fallback when backend is offline.
+
+MILESTONE UNDER REVIEW: {ID} — {milestone title}
+DEVELOPER: Peace (Frontend Lead)
+
+Review the bundle below. Be adversarial and specific. Think about UI breakage during a live 5-minute demo, mobile layout quirks, graph canvas freezes, accessibility violations, and missing error states.
+
+RESPOND IN EXACTLY THIS FORMAT:
+1. VERDICT: one of APPROVE | APPROVE_WITH_CHANGES | REJECT, plus two sentences of justification.
+2. FINDINGS TABLE (markdown): | ID | Severity (BLOCKER/MAJOR/MINOR/NIT) | Location (file:line) | Finding | Exact suggested fix (minimal diff) |
+   - BLOCKER = breaks contract, demo breakage, or illegible/broken layout.
+   - MAJOR = UX flaw, accessibility failure, or missing provenance quote.
+3. RUBRIC IMPACT: for each of the 5 rubric criteria, one sentence on how this milestone helps or hurts the score.
+4. DEMO-DAY RISKS: the top 3 UI failure scenarios and how to mitigate each.
+5. ACCESSIBILITY & RESPONSIVENESS AUDIT: top 3 improvements for mobile and keyboard navigation.
 
 Do not rewrite whole files. Quote exact lines when you cite problems.
 
