@@ -65,7 +65,7 @@ def verify_quote(
     - Rejects quotes shorter than 10 or longer than 600 chars.
     - Rejects quotes containing model prompt markers [[PAGE or [[SECTION.
     - First attempts exact normalized match on claimed page and adjacent pages.
-    - Falls back to fuzzy partial ratio alignment (rapidfuzz >= fuzzy_min, default: 92).
+    - Falls back to fuzzy partial ratio alignment with span-length parity and short-page guards.
     - If verified, returns (verbatim_true_substring, verified_page_number).
     - If unverified (hallucination or low confidence), returns None.
     """
@@ -99,13 +99,25 @@ def verify_quote(
                 return sl, p
 
     # 2. Fuzzy pass (aligning minor OCR typos, line break wraps, or omitted punctuation)
+    # Guards against short-page false positives where nt is shorter than nq
     best = None
     for p in order:
         nt, im = cache[p]
-        if not nt:
+        if len(nt) < len(nq):
+            # Cannot align a longer quote inside a shorter page text
             continue
+
         al = fuzz.partial_ratio_alignment(nq, nt)
-        if al and al.score >= fuzzy_min and (best is None or al.score > best[0]):
+        req_min = 97 if len(nq) < 40 else fuzzy_min
+        span_len = (al.dest_end - al.dest_start) if al else 0
+
+        # Require high score and span length parity within 20% of quote length
+        if (
+            al
+            and al.score >= req_min
+            and (0.8 * len(nq) <= span_len <= 1.2 * len(nq))
+            and (best is None or al.score > best[0])
+        ):
             best = (al.score, p, im, al.dest_start, al.dest_end)
 
     if best is not None:

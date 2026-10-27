@@ -29,10 +29,18 @@ class RawClaim(BaseModel):
     page_number: int
     verbatim_quote: str
 
+    @field_validator("topic_hint")
+    @classmethod
+    def clamp_topic_hint(cls, v: str) -> str:
+        return v.strip()[:80]
+
     @field_validator("statement")
     @classmethod
     def clamp_statement(cls, v: str) -> str:
-        return v.strip()[:280]
+        cleaned = v.strip()
+        if len(cleaned) < 10:
+            raise ValueError(f"Claim statement too short ({len(cleaned)} chars < 10): '{cleaned}'")
+        return cleaned[:280]
 
     @field_validator("page_number")
     @classmethod
@@ -45,13 +53,27 @@ class RawExtraction(BaseModel):
     title: str = "Untitled Paper"
     authors: list[str] = Field(default_factory=list)
     year: int | None = None
-    dataset: str = "Not reported"
+    dataset: str | None = "Not reported"
     sample_size: str | None = None
-    methodology: str = "Not reported"
-    primary_metric: str = "Not reported"
-    limitations: str = "Not reported"
-    core_conclusion: str = "Not reported"
+    methodology: str | None = "Not reported"
+    primary_metric: str | None = "Not reported"
+    limitations: str | None = "Not reported"
+    core_conclusion: str | None = "Not reported"
     claims: list[RawClaim] = Field(default_factory=list)
+
+    @field_validator("year")
+    @classmethod
+    def valid_year(cls, v: int | None) -> int | None:
+        """Validates that publication year falls within reasonable historical/modern bounds (1900-2100)."""
+        return v if (v is not None and 1900 <= v <= 2100) else None
+
+    @field_validator("dataset", "methodology", "primary_metric", "limitations", "core_conclusion", mode="before")
+    @classmethod
+    def coerce_none_strings(cls, v: Any) -> str:
+        """Coerces null/empty string metadata values to 'Not reported'."""
+        if v is None or not str(v).strip():
+            return "Not reported"
+        return str(v).strip()
 
 
 def _generate_citation_label(authors: list[str], year: int | None, title: str) -> str:
@@ -90,9 +112,12 @@ async def extract_claims_from_paper(
     Returns:
         (PaperMetadata, list[ExtractedClaim], list[warning_strings])
     """
+    # Escape literal >>> in paper text to prevent breaking prompt boundary
+    safe_sectioned_text = sec_paper.text_for_llm.replace(">>>", "> > >")
+
     user_prompt = EXTRACTION_USER_PROMPT_TEMPLATE.format(
         filename=sec_paper.filename or f"{sec_paper.paper_id}.pdf",
-        sectioned_text=sec_paper.text_for_llm,
+        sectioned_text=safe_sectioned_text,
     )
 
     raw_data, provider_name, model_id = await llm_client.complete_json(
@@ -113,7 +138,7 @@ async def extract_claims_from_paper(
     num_match = re.search(r"\d+", sec_paper.paper_id)
     paper_num = int(num_match.group(0)) if num_match else 1
     short_label = f"P{paper_num}"
-    palette_index = (paper_num - 1) % 8
+    palette_index = (paper_num - 1) % 10
 
     paper_meta = PaperMetadata(
         paper_id=sec_paper.paper_id,
@@ -164,7 +189,8 @@ async def extract_claims_from_paper(
             verbatim_quote=true_quote,
         )
 
-        claim_id = f"{sec_paper.paper_id}c{claim_counter}"
+        # Enforce contract hyphen format: {paper_id}-c{n} (e.g. p1-c1)
+        claim_id = f"{sec_paper.paper_id}-c{claim_counter}"
         claim_counter += 1
 
         extracted_claim = ExtractedClaim(

@@ -1,4 +1,5 @@
 import asyncio
+import re
 from unittest.mock import AsyncMock
 import pytest
 from app.schemas import ClaimType, PaperSource, SectionName
@@ -89,15 +90,17 @@ def test_extract_claims_from_paper_success_and_provenance():
         assert meta.title == "Deep Learning in Chest Radiography"
         assert meta.citation_label == "Doe & Smith (2024)"
         assert meta.dataset == "MIMIC-CXR and CheXpert"
+        assert 0 <= meta.palette_index <= 9
 
-        # 2. Claim checks
+        # 2. Claim checks (asserting contract hyphen format: p1-c1, p1-c2)
         assert len(claims) == 2
-        assert claims[0].claim_id == "p1c1"
+        assert claims[0].claim_id == "p1-c1"
+        assert re.match(r"^p([1-9]|10)-c[1-9][0-9]*$", claims[0].claim_id)
         assert claims[0].claim_type == ClaimType.EMPIRICAL_RESULT
         assert claims[0].provenance.page_number == 3
         assert claims[0].provenance.verbatim_quote == "The proposed architecture demonstrated 94.2% diagnostic sensitivity in external validation cohorts."
 
-        assert claims[1].claim_id == "p1c2"
+        assert claims[1].claim_id == "p1-c2"
         assert claims[1].claim_type == ClaimType.CONCLUSION
         assert claims[1].provenance.page_number == 4
 
@@ -158,8 +161,71 @@ def test_extract_claims_drops_hallucinated_quotes_and_warns():
 
         # 1 valid claim kept, 1 hallucinated dropped
         assert len(claims) == 1
-        assert claims[0].claim_id == "p2c1"
+        assert claims[0].claim_id == "p2-c1"
         assert any("dropped 1 unverified" in w for w in warnings)
         assert any("yielded only 1 verified claim" in w for w in warnings)
+
+    asyncio.run(_run())
+
+
+def test_extraction_contract_regex_and_schema_normalization():
+    """Missing Test 1: Verifies claim_id regex compliance and normalization of year=0, null metadata, and 95-char topic hints."""
+    async def _run():
+        page_texts = {
+            1: "Introduction to distributed ledger scalability and throughput metrics. " * 5,
+            2: "Results: Benchmark evaluation demonstrated sustained throughput of 45,000 transactions per second under load.",
+        }
+
+        sec_paper = SectionedPaper(
+            paper_id="p10",
+            title="Distributed Ledger Scalability",
+            text_for_llm="[[PAGE 1]] text\n[[PAGE 2]] Results: Benchmark evaluation demonstrated sustained throughput of 45,000 transactions per second under load.",
+            sections_found=[SectionName.RESULTS],
+            page_texts=page_texts,
+            page_count=2,
+            source=PaperSource.UPLOAD,
+        )
+
+        # Raw extraction with year=0 (invalid), null limitations, null methodology, and 95-char topic_hint
+        long_topic = "very long topic hint describing enterprise blockchain transaction throughput evaluation under extreme workloads"
+        assert len(long_topic) > 80
+
+        mock_raw = RawExtraction(
+            title="Distributed Ledger Scalability",
+            authors=["Satoshi N."],
+            year=0,  # invalid year
+            dataset=None,  # null
+            methodology=None,  # null
+            limitations=None,  # null
+            claims=[
+                RawClaim(
+                    claim_type=ClaimType.EMPIRICAL_RESULT,
+                    topic_hint=long_topic,
+                    statement="Benchmark evaluation demonstrated sustained throughput of 45,000 transactions per second.",
+                    section=SectionName.RESULTS,
+                    page_number=2,
+                    verbatim_quote="Benchmark evaluation demonstrated sustained throughput of 45,000 transactions per second under load.",
+                )
+            ]
+        )
+
+        mock_llm_client = AsyncMock(spec=LLMClient)
+        mock_llm_client.complete_json.return_value = (mock_raw, "groq", "llama-3.1-8b-instant")
+
+        meta, claims, warnings = await extract_claims_from_paper(sec_paper, mock_llm_client)
+
+        # 1. Year normalized to None
+        assert meta.year is None
+        # 2. Null strings coerced to 'Not reported'
+        assert meta.dataset == "Not reported"
+        assert meta.methodology == "Not reported"
+        assert meta.limitations == "Not reported"
+        # 3. Palette index within 0..9
+        assert meta.palette_index == 9
+        # 4. Claim id matches contract regex
+        assert claims[0].claim_id == "p10-c1"
+        assert re.match(r"^p([1-9]|10)-c[1-9][0-9]*$", claims[0].claim_id)
+        # 5. Topic hint clamped to <= 80 chars
+        assert len(claims[0].topic_hint) <= 80
 
     asyncio.run(_run())

@@ -118,3 +118,16 @@ def test_quote_verifier_length_bounds():
     too_long_quote = ("Long text describing detailed experimental setups in immense length. " * 15)
     assert len(too_long_quote) > 600
     assert verify_quote(too_long_quote, pages, claimed_page=1) is None
+
+
+def test_quote_verifier_short_page_long_quote_guard():
+    """Missing Test 2: Verifies that partial_ratio_alignment cannot match a short page fragment inside a long hallucinated quote."""
+    pages = {
+        1: "See Table 1 for details."
+    }
+    long_hallucinated_quote = (
+        "The proposed transformer architecture achieved 99.4% accuracy across all 12 clinical cohorts as shown in Table 1 for details."
+    )
+    # len(pages[1]) is 25 chars, len(quote) is 127 chars
+    res = verify_quote(long_hallucinated_quote, pages, claimed_page=1)
+    assert res is None, "Sparse page fragment must not falsely verify a long hallucinated quote!"

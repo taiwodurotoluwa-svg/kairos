@@ -13,8 +13,9 @@ def parse_json_object(text: str) -> dict[str, Any]:
     Parses a JSON object from raw LLM output:
     1. Strips markdown code fences (```json ... ``` or ``` ... ```).
     2. Locates the outermost JSON object bounds ({ ... }).
-    3. Decodes JSON and ensures the result is a dictionary.
-    4. Raises InvalidJSON with helpful diagnostic context if invalid.
+    3. Decodes JSON using raw_decode to gracefully ignore trailing commentary or extra notes.
+    4. Ensures the decoded result is a dictionary.
+    5. Raises InvalidJSON with diagnostic context if invalid.
     """
     if not text or not isinstance(text, str):
         raise InvalidJSON("Response is empty or not a string.")
@@ -26,18 +27,14 @@ def parse_json_object(text: str) -> dict[str, Any]:
     cleaned = re.sub(r"\n?\s*```\s*$", "", cleaned)
     cleaned = cleaned.strip()
 
-    # Locate outermost { and }
+    # Locate outermost starting {
     start = cleaned.find("{")
-    end = cleaned.rfind("}")
-
-    if start == -1 or end == -1 or start >= end:
+    if start == -1:
         preview = cleaned[:80].replace("\n", " ")
         raise InvalidJSON(f"No JSON object delimiter found in response: '{preview}'")
 
-    json_str = cleaned[start : end + 1]
-
     try:
-        data = json.loads(json_str)
+        data, _ = json.JSONDecoder().raw_decode(cleaned[start:])
     except json.JSONDecodeError as exc:
         raise InvalidJSON(f"JSON decode syntax error: {exc}") from exc
 

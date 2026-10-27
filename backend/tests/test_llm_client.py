@@ -32,6 +32,13 @@ def test_parse_json_object_code_fenced():
     assert res == {"status": "ok", "findings": [1, 2, 3]}
 
 
+def test_parse_json_object_trailing_note_with_braces():
+    """Resolves F-05: Verifies that trailing commentary with braces does not break JSON decoding."""
+    text_with_trailing = '{"claims": []}\nNote: omitted {Fig 1} and {Table 2}.'
+    res = parse_json_object(text_with_trailing)
+    assert res == {"claims": []}
+
+
 def test_parse_json_object_invalid_syntax():
     """Rejects malformed JSON syntax with InvalidJSON."""
     with pytest.raises(InvalidJSON):
@@ -71,6 +78,8 @@ def test_llm_client_success():
         with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
             mock_inst = AsyncMock()
             mock_inst.chat.completions.create.return_value = mock_resp
+            mock_inst.__aenter__.return_value = mock_inst
+            mock_inst.__aexit__.return_value = None
             mock_openai_cls.return_value = mock_inst
 
             data, prov, model = await client.complete_json(
@@ -94,7 +103,6 @@ def test_llm_client_corrective_retry_on_invalid_json():
         provider = Provider("groq", "https://api.groq.com", "fake_key", "llama-3.1-8b-instant", "MIT", "http://mit.edu")
         client = LLMClient(settings, providers=[provider])
 
-        # Attempt 1 returns broken JSON, Attempt 2 returns valid JSON
         mock_resp1 = MagicMock()
         mock_resp1.choices = [MagicMock(message=MagicMock(content='broken json text { '))]
 
@@ -104,6 +112,8 @@ def test_llm_client_corrective_retry_on_invalid_json():
         with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
             mock_inst = AsyncMock()
             mock_inst.chat.completions.create.side_effect = [mock_resp1, mock_resp2]
+            mock_inst.__aenter__.return_value = mock_inst
+            mock_inst.__aexit__.return_value = None
             mock_openai_cls.return_value = mock_inst
 
             data, prov, model = await client.complete_json(
@@ -135,9 +145,13 @@ def test_llm_client_401_disabling_and_failover():
             mock_client_p1.chat.completions.create.side_effect = AuthenticationError(
                 "Invalid API key", response=MagicMock(status_code=401), body={}
             )
+            mock_client_p1.__aenter__.return_value = mock_client_p1
+            mock_client_p1.__aexit__.return_value = None
 
             mock_client_p2 = AsyncMock()
             mock_client_p2.chat.completions.create.return_value = mock_resp_success
+            mock_client_p2.__aenter__.return_value = mock_client_p2
+            mock_client_p2.__aexit__.return_value = None
 
             mock_openai_cls.side_effect = [mock_client_p1, mock_client_p2]
 
@@ -156,6 +170,41 @@ def test_llm_client_401_disabling_and_failover():
     asyncio.run(_run())
 
 
+def test_llm_client_secret_key_redaction():
+    """Missing Test 3: Verifies that API keys are completely redacted from exception messages and details."""
+    async def _run():
+        settings = Settings(llm_max_concurrency=2, llm_max_retries=1)
+        secret_key = "gsk_secret_live_key_9876543210"
+        p1 = Provider("groq", "https://api.groq.com", secret_key, "llama-3.1-8b-instant", "MIT", "http://mit.edu")
+        client = LLMClient(settings, providers=[p1])
+
+        with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
+            mock_inst = AsyncMock()
+            # Simulate unexpected exception containing raw secret token
+            mock_inst.chat.completions.create.side_effect = RuntimeError(f"Connection failed for bearer {secret_key}")
+            mock_inst.__aenter__.return_value = mock_inst
+            mock_inst.__aexit__.return_value = None
+            mock_openai_cls.return_value = mock_inst
+
+            with pytest.raises(KairosError) as exc_info:
+                await client.complete_json(
+                    system="sys",
+                    user="usr",
+                    max_tokens=500,
+                    temperature=0.1,
+                    validate=lambda d: d,
+                )
+
+            assert exc_info.value.code == ErrorCode.LLM_PROVIDER_UNAVAILABLE
+            # Assert secret key is nowhere in message or details
+            assert secret_key not in exc_info.value.message
+            assert secret_key not in exc_info.value.details["last_error"]
+            # Assert redacted placeholder is present
+            assert "[REDACTED]" in exc_info.value.details["last_error"]
+
+    asyncio.run(_run())
+
+
 def test_llm_client_all_providers_fail():
     """Verifies that exhaustion of all providers raises KairosError(LLM_PROVIDER_UNAVAILABLE)."""
     async def _run():
@@ -166,6 +215,8 @@ def test_llm_client_all_providers_fail():
         with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
             mock_inst = AsyncMock()
             mock_inst.chat.completions.create.side_effect = APITimeoutError(request=MagicMock())
+            mock_inst.__aenter__.return_value = mock_inst
+            mock_inst.__aexit__.return_value = None
             mock_openai_cls.return_value = mock_inst
 
             with pytest.raises(KairosError) as exc_info:
