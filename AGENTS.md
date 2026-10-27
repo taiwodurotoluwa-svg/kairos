@@ -61,7 +61,7 @@ If you need something outside your workspace, **do not edit it**. Add a row to `
 6. **Keep secrets secret.** Never commit API keys, tokens, `.env` files or personal data. Only `.env.example` is committed. Never paste secrets into the Argon 4 review bundle. Redact them.
 7. **Respect model licences.** Show the "Built with Llama" notice and the model/licence table (README and UI footer). Do not redistribute model weights. See `docs/shared/03-open-weight-models.md` §2.
 8. **Understandable code.** Both humans must be able to explain every line at Demo Day. Prefer clear, boring code. Add a short comment above any non-obvious trick. Do not paste large opaque generated blocks.
-9. **Tests prove it works.** Every milestone ships with passing automated checks (backend: `pytest`; frontend: `lint`, `typecheck`, `build`, and `vitest` for pure logic).
+9. **Tests prove it works.** Every milestone ships with passing automated verification (backend: `pytest`; frontend: browser console clean with 0 errors, visual checklist in playbook verified, responsive layout verified).
 10. **No scope creep.** If you find a bug or idea outside your milestone, write it in `docs/requests.md` (cross-owner) or your playbook's "Parking lot" section.
 11. **Never force-push `main`, never rewrite merged history, never commit directly to `main`.**
 12. **Accessibility baseline (frontend):** colour is never the only signal; keyboard-reachable controls; visible focus ring; `prefers-reduced-motion` respected.
@@ -79,7 +79,7 @@ Ten milestones, ten squash-merged PRs. Branch names are fixed.
 | **D3** | DuroT | `feat/d3-llm-extraction` | Unified open-weight LLM client, structured extraction, quote verifier | D1, D2 |
 | **D4** | DuroT | `feat/d4-embeddings-referee` | BGE embeddings, cosine pre-filter, clustering, gaps, batched NLI referee | D3 |
 | **D5** | DuroT | `feat/d5-orchestration` | `/analyze` job + SSE, consensus writer, rate limit, tests, Docker, real presets baked | D4 |
-| **P1** | Peace | `feat/p1-scaffold-design` | Next.js scaffold, design system, API client (mock/live), preset selector | contract file (exists) |
+| **P1** | Peace | `feat/p1-scaffold-design` | Vanilla HTML5/CSS3/JS SPA shell, Obsidian CSS design system, mock fixture loader, preset selector | contract file (exists) |
 | **P2** | Peace | `feat/p2-ingestion-hub` | 2–10 PDF dropzone, arXiv input, pipeline progress UI | P1 |
 | **P3** | Peace | `feat/p3-synthesis-matrix` | Pinned-baseline synthesis matrix for 6–8+ papers | P1 (+ D1 fixtures) |
 | **P4** | Peace | `feat/p4-graph-dispute` | Contradiction graph, cluster filters, dispute drawer | P3 |
@@ -104,22 +104,30 @@ Ten milestones, ten squash-merged PRs. Branch names are fixed.
 
 ---
 
-## 5. The Argon 4 review gate (mandatory for every milestone)
+## 5. The Argon 4 review gate (mandatory for BOTH backend and frontend milestones)
 
-**Argon 4** is Gemini Argon 4 in Google AI Studio (Playground) with **Thinking = High** and **Temperature = 0.2**. It is an independent reviewer. The human, not you, pastes the bundle into it.
+**Argon 4** is Gemini Argon 4 (Gemini 1.5 Pro) in Google AI Studio with **Thinking = High** and **Temperature = 0.2**. It serves as the independent quality referee for **BOTH DuroT (Backend D1–D5)** and **Peace (Frontend P1–P5)**.
+
+Every single milestone—backend API or frontend UI—must pass through Argon 4 before its clean code is committed and merged.
+
+- **Backend Milestones (`D1`–`D5`):** Argon 4 reviews FastAPI endpoints, Pydantic schema contracts, PyMuPDF extraction, open-weight LLM integration, BGE embeddings, and NLI contradiction refereeing.
+- **Frontend Milestones (`P1`–`P5`):** Argon 4 reviews Vanilla HTML5 semantics, Dark Academic Observatory CSS styling, responsive mobile layouts, sticky baseline matrix UX, Cytoscape.js graph rendering, dispute drawer evidence cards, and accessibility (WCAG AA).
 
 Per-milestone protocol:
 
 1. **Implement** the milestone to the playbook's acceptance criteria.
-2. **Verify** locally and capture the exact command output.
-3. **Create the review bundle** at `docs/reviews/{ID}-review-bundle.md` using the template below. Commit it on the milestone branch.
-4. **Hand over:** tell the human: *"Bundle ready at docs/reviews/{ID}-review-bundle.md. Paste it into Argon 4 (High thinking, temp 0.2) using the review prompt in MASTER_PROMPTS.md §3."* Then **stop and wait**.
-5. The human pastes Argon 4's answer into `docs/reviews/{ID}-argon4-findings.md` (or tells you the findings).
-6. **Triage and fix:** every `BLOCKER` and `MAJOR` finding must be fixed. `MINOR` is fixed or justified in one line. `NIT` is optional. Update the findings table's *Resolution* column (`FIXED in <short-sha>` or `WONTFIX: <reason>`). Re-run verification.
-7. **Open the PR** (section 6). The PR description links both review files.
-8. **Merge** after the human confirms. One squash merge per milestone.
+2. **Verify** locally and capture the exact command and test output.
+3. **Bundle into a local text file:** export the complete code of modified files, diff stats, verification logs, and adversarial critique questions to a local file: `reviews/{ID}_review.txt` (or `{ID}_review.txt`).
+   > [!IMPORTANT]
+   > **DO NOT commit or push review files to GitHub.** Review text bundles are local scratchpads ignored by git via `.gitignore`.
+   > **Why `.txt`?** Many AI interfaces and file uploaders (including Google AI Studio) reject certain programming language file extensions (e.g., `.py`, `.ts`, `.sh`) or choke on nested code markdown blocks. A clean `.txt` file is universally accepted, easily pasted, and keeps the public GitHub repository pristine without polluting commit history with massive snapshot dumps.
+4. **Hand over:** tell the human: *"Bundle ready at reviews/{ID}_review.txt. Upload or paste it into Argon 4 (Google AI Studio, High thinking, temp 0.2) using the review prompt in MASTER_PROMPTS.md §3."* Then **stop and wait**.
+5. The human shares Argon 4's critique with the coding agent.
+6. **Triage and fix:** every `BLOCKER` and `MAJOR` finding must be resolved in code before pushing. `MINOR` is fixed or justified. Re-run local verification to ensure everything passes.
+7. **Commit & Push clean code:** once the critique is addressed and tests pass, commit the clean, production-ready code and push the branch to GitHub.
+8. **Open PR & Merge** after the human confirms. One squash merge per milestone.
 
-### Review bundle template (`docs/reviews/{ID}-review-bundle.md`)
+### Local review bundle template (`reviews/{ID}_review.txt` — NOT committed to git)
 
 ```markdown
 # Argon 4 Review Bundle — {ID} ({milestone title})
@@ -154,7 +162,7 @@ Per-milestone protocol:
 - Secrets in diff: none / (list)
 ```
 
-### Findings file template (`docs/reviews/{ID}-argon4-findings.md`)
+### AI critique notes (local feedback workflow)
 
 ```markdown
 # Argon 4 Findings — {ID}
@@ -180,9 +188,9 @@ Per-milestone protocol:
   - [ ] all criteria in the playbook are met (link to review bundle §1)
   ## Verification
   - [ ] tests / lint / typecheck / build pass (paste summary)
-  ## Argon 4 gate
-  - [ ] docs/reviews/{ID}-review-bundle.md committed
-  - [ ] docs/reviews/{ID}-argon4-findings.md committed, no open BLOCKER/MAJOR
+  ## Argon 4 review gate
+  - [ ] local `{ID}_review.txt` generated and reviewed via Argon 4
+  - [ ] all BLOCKER / MAJOR feedback addressed in code
   ## Contract
   - [ ] no contract change, OR change logged in docs/requests.md and approved by both
   ## Disclosure

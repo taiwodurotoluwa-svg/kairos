@@ -22,6 +22,9 @@ Use this file for **anything one developer needs from the other**, and for every
 | REQ-007 | 2026-10-26 | DuroT → Peace | CONTRACT | Analysis uses `POST /analyze` (202 + `analysis_id`) → SSE `GET /analyze/{id}/events` (`progress`/`complete`/`failed`) → `GET /analyze/{id}`. If SSE is blocked, poll `GET /analyze/{id}` every 1.5 s. | OPEN | |
 | REQ-008 | 2026-10-26 | DuroT → Peace | INFO | Both of us choose the 3 demo topics and the real, openly licensed papers for each (D5 step 7). Draft `fixtures/presets_manifest.json` together by Wed 28 Oct. Do **not** invent arXiv ids. | OPEN | |
 
+| REQ-009 | 2026-10-27 | Peace ↔ DuroT | ARCH | Frontend stack simplified from Next.js/Tailwind to Vanilla HTML5, CSS3, ES6 JavaScript, and Cytoscape.js (CDN). Eliminates Node build overhead and allows direct Live Server execution. | DONE | Docs, playbooks and prompts updated across repo. |
+| REQ-010 | 2026-10-27 | DuroT ↔ Peace | WORKFLOW | Milestone review bundles are local `.txt` files (`reviews/{ID}_review.txt`) for Google AI Studio (Argon 4). Never commit or push review files to GitHub. | DONE | Added to `.gitignore`; untracked from git; playbooks updated. |
+
 ## Request template (copy a row)
 
 ```markdown

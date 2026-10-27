@@ -25,3 +25,9 @@ backend/uploads/
 sample_papers/temp/
 .DS_Store
 Thumbs.db
+
+# AI Review Bundles (Local scratch files for Argon 4 review - NEVER committed to git)
+reviews/
+*.review.txt
+D1_review.txt
+*_review.txt

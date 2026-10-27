@@ -6,7 +6,7 @@
 ![License: MIT](https://img.shields.io/badge/license-MIT-10B981)
 ![Open-weight models only](https://img.shields.io/badge/models-open--weight%20only-A78BFA)
 ![Backend](https://img.shields.io/badge/backend-FastAPI%20%2B%20PyMuPDF-0B0F17)
-![Frontend](https://img.shields.io/badge/frontend-Next.js%2014-0B0F17)
+![Frontend](https://img.shields.io/badge/frontend-HTML5%20%7C%20CSS3%20%7C%20JS-0B0F17)
 
 > *AI belongs to everyone. Build for a world you understand. Make it open.* — OPEN//BUILD 2026, organised by Open Source Community Africa (OSCA) Ile-Ife.
 
@@ -67,12 +67,12 @@ kairos/
 ├── MASTER_PROMPTS.md      # bootstrap prompts for agents and the Argon 4 review gate
 ├── LICENSE                # MIT
 ├── backend/               # FastAPI + PyMuPDF + open-weight pipeline  (owner: DuroT)
-├── frontend/              # Next.js 14 + Tailwind + graph UI           (owner: Peace)
+├── frontend/              # Vanilla HTML5 + CSS3 + JS + Cytoscape.js   (owner: Peace)
 ├── fixtures/              # pre-analysed presets + contract sample     (owner: DuroT)
 └── docs/
     ├── shared/            # architecture, API contracts, model strategy
     ├── duro/  peace/      # per-developer execution playbooks
-    ├── reviews/           # Argon 4 review bundles and findings
+    ├── reviews/           # Local Argon 4 AI review text bundles (ignored by git)
     ├── requests.md        # cross-developer contract change log
     └── AI_ASSISTANCE.md   # AI-assistance disclosure log
 ```
@@ -148,5 +148,5 @@ We built Kairos with AI coding agents (Antigravity with Claude and Gemini models
 
 - Kairos source code: **MIT** (see [`LICENSE`](LICENSE)).
 - Models: see the table above. Llama 3.1 / 3.2 are under their respective Meta community licences.
-- Libraries: FastAPI, Pydantic, PyMuPDF (AGPL-3.0 / commercial, used here as a dependency for a non-commercial hackathon prototype; review before commercial redistribution), FastEmbed, scikit-learn, Next.js, Tailwind CSS, react-force-graph.
+- Libraries: FastAPI, Pydantic, PyMuPDF (AGPL-3.0 / commercial, used here as a dependency for a non-commercial hackathon prototype; review before commercial redistribution), FastEmbed, scikit-learn, Cytoscape.js.
 - Demo presets are built from real, openly licensed papers listed in `fixtures/presets_manifest.json` (added in D5). No PDFs are committed unless their licence allows redistribution.
