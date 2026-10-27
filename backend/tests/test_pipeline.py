@@ -171,7 +171,17 @@ async def test_pipeline_happy_path_mocked():
     assert len(result.models) == 4
     assert result.stats.paper_count == 2
     assert result.stats.claim_count == 2
-    assert result.stats.stage_latency_ms.total_ms >= 0
+    lat = result.stats.stage_latency_ms
+    expected_sum = (
+        lat.ingestion_ms
+        + lat.extraction_ms
+        + lat.embedding_ms
+        + lat.clustering_ms
+        + lat.referee_ms
+        + lat.consensus_ms
+    )
+    assert lat.total_ms == expected_sum
+    assert any(m.provider == "fastembed-local" for m in result.models)
 
     # Pydantic contract validation
     validated = AnalysisResult.model_validate(result.model_dump())
@@ -221,3 +231,140 @@ async def test_pipeline_timeout_handling():
     assert rec.state.status == JobStatus.FAILED
     assert rec.state.error is not None
     assert rec.state.error.code == ErrorCode.INTERNAL_ERROR
+
+@pytest.mark.anyio
+async def test_pipeline_zero_claims_paper_exclusion():
+    """Verify that a paper yielding zero verified claims is excluded per 03-open-weight-models.md §6."""
+    settings = Settings(
+        groq_api_key="gsk-test",
+        min_papers=2,
+    )
+    store = JobStore()
+    aid = store.generate_analysis_id()
+    store.create_job(aid)
+
+    mock_batch = IngestedBatch(
+        papers=[
+            _make_dummy_sectioned_paper("p1"),
+            _make_dummy_sectioned_paper("p2"),
+            _make_dummy_sectioned_paper("p3"),
+        ],
+        warnings=[],
+    )
+
+    p1_meta = PaperMetadata(
+        paper_id="p1",
+        short_label="P1",
+        citation_label="Smith et al., 2024",
+        palette_index=0,
+        source=PaperSource.UPLOAD,
+        title="Sample Paper 1",
+        authors=["Smith, J."],
+        page_count=1,
+        sections_found=[SectionName.ABSTRACT, SectionName.RESULTS],
+        dataset="Benchmark A",
+        methodology="Transformer",
+        primary_metric="Accuracy 95%",
+        limitations="None",
+        core_conclusion="Conclusion 1",
+        extraction_model="meta-llama/Llama-3.1-8B-Instruct",
+    )
+    p1_claims = [
+        ExtractedClaim(
+            claim_id="p1-c1",
+            paper_id="p1",
+            claim_type=ClaimType.EMPIRICAL_RESULT,
+            statement="Method achieves 95% accuracy on benchmark A.",
+            topic_hint="model accuracy",
+            provenance=Provenance(
+                paper_id="p1",
+                paper_title="Sample Paper 1",
+                section=SectionName.RESULTS,
+                page_number=1,
+                verbatim_quote="Method yields 95% accuracy.",
+            ),
+        )
+    ]
+
+    p2_meta = PaperMetadata(
+        paper_id="p2",
+        short_label="P2",
+        citation_label="Jones et al., 2024",
+        palette_index=1,
+        source=PaperSource.UPLOAD,
+        title="Sample Paper 2",
+        authors=["Jones, M."],
+        page_count=1,
+        sections_found=[SectionName.ABSTRACT, SectionName.RESULTS],
+        dataset="Benchmark B",
+        methodology="CNN",
+        primary_metric="Accuracy 88%",
+        limitations="None",
+        core_conclusion="Conclusion 2",
+        extraction_model="meta-llama/Llama-3.1-8B-Instruct",
+    )
+    p2_claims = [
+        ExtractedClaim(
+            claim_id="p2-c1",
+            paper_id="p2",
+            claim_type=ClaimType.EMPIRICAL_RESULT,
+            statement="CNN baseline yields 88% accuracy on benchmark B.",
+            topic_hint="baseline performance",
+            provenance=Provenance(
+                paper_id="p2",
+                paper_title="Sample Paper 2",
+                section=SectionName.RESULTS,
+                page_number=1,
+                verbatim_quote="Findings: Method yields 95% accuracy.",
+            ),
+        )
+    ]
+
+    p3_meta = PaperMetadata(
+        paper_id="p3",
+        short_label="P3",
+        citation_label="Hallucinated et al., 2024",
+        palette_index=2,
+        source=PaperSource.UPLOAD,
+        title="Sample Paper 3",
+        authors=["Fake, F."],
+        page_count=1,
+        sections_found=[SectionName.ABSTRACT],
+        dataset="None",
+        methodology="None",
+        primary_metric="None",
+        limitations="None",
+        core_conclusion="None",
+        extraction_model="meta-llama/Llama-3.1-8B-Instruct",
+    )
+
+    async def mock_extract(sec_paper, llm_client, settings=None):
+        if sec_paper.paper_id == "p1":
+            return p1_meta, p1_claims, []
+        if sec_paper.paper_id == "p2":
+            return p2_meta, p2_claims, []
+        # Paper 3 yields 0 claims
+        return p3_meta, [], ["Paper 3 hallucinated quotes dropped"]
+
+    mock_llm = MagicMock()
+    mock_llm.last_used_model = "meta-llama/Llama-3.1-8B-Instruct"
+    mock_llm.last_used_provider = "groq"
+    mock_llm.call_count = 0
+
+    with patch("app.services.pipeline.ingest_all", AsyncMock(return_value=mock_batch)),          patch("app.services.pipeline.extract_claims_from_paper", side_effect=mock_extract):
+
+        result = await run_pipeline(
+            analysis_id=aid,
+            raw_files=[("p1.pdf", b"test"), ("p2.pdf", b"test2"), ("p3.pdf", b"test3")],
+            arxiv_ids=[],
+            job_store=store,
+            settings=settings,
+            llm_client=mock_llm,
+            embedder=DeterministicStubEmbedder(dim=384),
+        )
+
+    # p3 was excluded, surviving 2 papers
+    assert len(result.papers) == 2
+    assert {p.paper_id for p in result.papers} == {"p1", "p2"}
+    assert any("Excluded paper" in w for w in result.warnings)
+

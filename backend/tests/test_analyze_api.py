@@ -193,3 +193,18 @@ def test_stream_events_sse_unknown_job():
     res = client.get("/api/v1/analyze/ana-nonexistent/events")
     assert res.status_code == 404
     assert res.json()["error"]["code"] == ErrorCode.ANALYSIS_NOT_FOUND.value
+
+def test_stream_events_sse_e2e():
+    """Verify SSE event stream returns text/event-stream and emits progress/complete events."""
+    store = get_job_store()
+    aid = store.generate_analysis_id()
+    rec = store.create_job(aid)
+    dummy_res = _make_dummy_analysis_result(aid)
+    rec.complete(dummy_res)
+
+    with client.stream("GET", f"/api/v1/analyze/{aid}/events") as response:
+        assert response.status_code == 200
+        assert "text/event-stream" in response.headers["content-type"]
+        lines = [line for line in response.iter_lines() if line]
+        assert any("complete" in l for l in lines)
+

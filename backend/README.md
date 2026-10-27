@@ -71,7 +71,7 @@ Key environment variables:
 | :--- | :--- | :--- |
 | `GROQ_API_KEY` | API key for Groq Cloud inference | `""` |
 | `GROQ_MODEL` | Primary open-weight model on Groq | `llama-3.1-8b-instant` |
-| `HUGGINGFACE_API_KEY` | Secondary failover API key | `""` |
+| `HF_TOKEN` | Secondary failover API key | `""` |
 | `OLLAMA_BASE_URL` | Local offline Ollama server URL | `http://localhost:11434/v1` |
 | `EMBEDDING_BACKEND` | Embedding backend engine | `fastembed` |
 | `SIMILARITY_THRESHOLD` | Empirical cosine similarity cutoff | `0.70` |
@@ -87,11 +87,11 @@ Key environment variables:
 Returns provider health (`ok` or `degraded`), active LLM provider chain, embedding model readiness, and loaded demo presets.
 
 ### 2. Demo Presets (Zero API Key Mode)
-- `GET /api/v1/demo/presets`: Lists curated multi-paper presets.
+- `GET /api/v1/demo`: Lists curated multi-paper presets.
 - `GET /api/v1/demo/{preset_id}`: Retrieves pre-computed contract-compliant synthesis fixture in < 100 ms.
-  - `demo_radiology_8papers`: 8 chest X-ray deep learning papers.
-  - `demo_llm_quantization_6papers`: 6 post-training quantization papers (AWQ vs GPTQ vs SmoothQuant).
-  - `demo_microgrids_6papers`: 6 islanded microgrid energy management papers (RL vs MPC).
+  - `radiology`: 8 chest X-ray deep learning papers.
+  - `llm_quantization`: 6 post-training quantization papers (AWQ vs GPTQ vs SmoothQuant).
+  - `microgrids`: 6 islanded microgrid energy management papers (RL vs MPC).
 
 ### 3. Multi-Paper Synthesis
 - `POST /api/v1/analyze`: Submit 2 to 10 PDFs (multipart/form-data) and/or arXiv IDs. Returns `202 Accepted` with `analysis_id`, `events_url`, and `result_url`.
@@ -142,7 +142,7 @@ All 97 unit and integration tests execute in < 8 seconds.
 ## Troubleshooting
 
 1. **`LLM_PROVIDER_UNAVAILABLE` on live analyze:**
-   Ensure at least one valid provider key (`GROQ_API_KEY` or `HUGGINGFACE_API_KEY`) is set in `.env`, or that local Ollama is running (`ollama run llama3.2:3b`). Demo presets (`GET /api/v1/demo/{id}`) require zero keys.
+   Ensure at least one valid provider key (`GROQ_API_KEY` or `HF_TOKEN`) is set in `.env`, or that local Ollama is running (`ollama run llama3.2:3b`). Demo presets (`GET /api/v1/demo/{id}`) require zero keys.
 2. **`RATE_LIMITED` (HTTP 429):**
    The live analyze endpoint enforces a default sliding window of 6 requests per minute per IP. Adjust `ANALYZE_RATE_LIMIT_PER_MINUTE` in `.env` if necessary.
 3. **`PDF_PARSE_FAILED` or `NO_TEXT_LAYER`:**

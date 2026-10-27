@@ -22,6 +22,8 @@ from app.services.rate_limit import get_rate_limiter
 logger = logging.getLogger("kairos.api.analyze")
 router = APIRouter(tags=["analyze"])
 
+_BACKGROUND_TASKS: set[asyncio.Task] = set()
+
 
 @router.post(
     "/analyze",
@@ -40,8 +42,14 @@ async def submit_analysis(
     """
     settings = get_settings()
 
-    # Per-IP rate limiting (contract §3.7)
-    client_ip = request.client.host if request.client else "unknown"
+    # Per-IP rate limiting (contract §3.7) with reverse-proxy X-Forwarded-For support
+    forwarded = request.headers.get("x-forwarded-for")
+    if forwarded:
+        client_ip = forwarded.split(",")[0].strip()
+    elif request.client:
+        client_ip = request.client.host
+    else:
+        client_ip = "unknown"
     get_rate_limiter().check_rate_limit(client_ip)
 
     # Read uploaded file contents
@@ -62,21 +70,29 @@ async def submit_analysis(
     # Validate paper limits, file sizes, and PDF magic bytes before starting job
     validate_inputs(files=raw_files, arxiv_ids=parsed_arxiv_ids, settings=settings)
 
-    # Create job in JobStore
+    # Bounded memory: cleanup expired jobs before allocating a new one
     job_store = get_job_store()
+    job_store.cleanup_expired(settings.job_ttl_minutes)
+
     analysis_id = job_store.generate_analysis_id()
     job_store.create_job(analysis_id)
 
-    # Launch pipeline asynchronously in the background
-    asyncio.create_task(
-        run_pipeline(
-            analysis_id=analysis_id,
-            raw_files=raw_files,
-            arxiv_ids=parsed_arxiv_ids,
-            job_store=job_store,
-            settings=settings,
-        )
-    )
+    # Launch pipeline asynchronously with strong reference and unhandled exception guard
+    async def _run_pipeline_background() -> None:
+        try:
+            await run_pipeline(
+                analysis_id=analysis_id,
+                raw_files=raw_files,
+                arxiv_ids=parsed_arxiv_ids,
+                job_store=job_store,
+                settings=settings,
+            )
+        except Exception as exc:
+            logger.info("Background analysis %s finished with exception: %s", analysis_id, exc)
+
+    task = asyncio.create_task(_run_pipeline_background())
+    _BACKGROUND_TASKS.add(task)
+    task.add_done_callback(_BACKGROUND_TASKS.discard)
 
     return JobCreated(
         analysis_id=analysis_id,
@@ -169,10 +185,25 @@ async def get_analysis_result(analysis_id: str) -> Response:
 
     if job.state.status == JobStatus.FAILED:
         err = job.state.error
+        code = err.code if err else ErrorCode.INTERNAL_ERROR
+        message = err.message if err else "Analysis job failed."
+        status_map = {
+            ErrorCode.LLM_PROVIDER_UNAVAILABLE: 503,
+            ErrorCode.TOO_FEW_PAPERS: 400,
+            ErrorCode.TOO_MANY_PAPERS: 400,
+            ErrorCode.INVALID_FILE_TYPE: 400,
+            ErrorCode.FILE_TOO_LARGE: 400,
+            ErrorCode.INVALID_ARXIV_ID: 400,
+            ErrorCode.ARXIV_FETCH_FAILED: 502,
+            ErrorCode.PDF_PARSE_FAILED: 422,
+            ErrorCode.NO_TEXT_LAYER: 422,
+            ErrorCode.RATE_LIMITED: 429,
+        }
+        status_code = status_map.get(code, 500)
         raise KairosError(
-            code=err.code if err else ErrorCode.INTERNAL_ERROR,
-            message=err.message if err else "Analysis job failed.",
-            status_code=500,
+            code=code,
+            message=message,
+            status_code=status_code,
         )
 
     # Return intermediate JobState while queued or running

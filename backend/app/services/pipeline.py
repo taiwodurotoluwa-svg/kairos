@@ -116,34 +116,49 @@ async def run_pipeline(
             message="Extracting scientific claims and verifying quotes against source text...",
         )
 
-        all_papers: list[PaperMetadata] = []
-        all_claims: list[ExtractedClaim] = []
-
-        for idx, sec_paper in enumerate(sectioned_papers):
-            paper_meta, claims, paper_warnings = await extract_claims_from_paper(
-                sec_paper=sec_paper,
+        # Run Stage 1 extractions concurrently (bounded by llm_client.sem)
+        extraction_tasks = [
+            extract_claims_from_paper(
+                sec_paper=sec,
                 llm_client=llm_client,
                 settings=settings,
             )
+            for sec in sectioned_papers
+        ]
+        extraction_results = await asyncio.gather(*extraction_tasks)
+
+        all_papers: list[PaperMetadata] = []
+        all_claims: list[ExtractedClaim] = []
+
+        for paper_meta, claims, paper_warnings in extraction_results:
+            warnings.extend(paper_warnings)
+            if len(claims) == 0:
+                warnings.append(
+                    f"Excluded paper '{paper_meta.citation_label}' ({paper_meta.paper_id}): zero verified claims survived quote verification."
+                )
+                continue
             all_papers.append(paper_meta)
             all_claims.extend(claims)
-            warnings.extend(paper_warnings)
 
-            pct = 25 + int(30 * (idx + 1) / len(sectioned_papers))
-            job_record.publish_progress(
-                stage=PipelineStage.EXTRACTION,
-                status=JobStatus.RUNNING,
-                progress_pct=pct,
-                message=f"Extracted {len(claims)} verified claims from {paper_meta.citation_label}.",
+        # Guard surviving counts per 03-open-weight-models.md §6
+        if len(all_papers) < settings.min_papers or len(all_claims) < 2:
+            raise KairosError(
+                ErrorCode.TOO_FEW_PAPERS,
+                f"Insufficient verified claims extracted across papers ({len(all_papers)} papers and {len(all_claims)} claims survived; minimum is {settings.min_papers} papers and 2 claims).",
+                status_code=400,
             )
 
         job_record.publish_progress(
             stage=PipelineStage.EXTRACTION,
             status=JobStatus.RUNNING,
             progress_pct=55,
-            message=f"Extracted {len(all_claims)} verified claims across {len(all_papers)} papers.",
+            message=f"Extracted {len(all_claims)} verified claims across {len(all_papers)} surviving papers.",
         )
         extraction_ms = int((time.perf_counter() - t1) * 1000)
+
+        # Record active extraction model and provider
+        ext_model = getattr(llm_client, "last_used_model", settings.groq_model) or settings.groq_model
+        ext_prov = getattr(llm_client, "last_used_provider", "groq") or "groq" 
 
         # =========================================================================
         # Stage 2: Embeddings, Similarity, Gaps & Clustering (55% -> 75%)
@@ -246,6 +261,10 @@ async def run_pipeline(
         )
         referee_ms = int((time.perf_counter() - t3) * 1000)
 
+        # Record active referee model and provider
+        ref_model = getattr(llm_client, "last_used_model", settings.groq_model) or settings.groq_model
+        ref_prov = getattr(llm_client, "last_used_provider", "groq") or "groq" 
+
         # =========================================================================
         # Stage 4: Consensus Writer & Graph Assembly (90% -> 100%)
         # =========================================================================
@@ -265,7 +284,15 @@ async def run_pipeline(
         )
         consensus_ms = int((time.perf_counter() - t4) * 1000)
 
-        total_ms = int((time.perf_counter() - pipeline_start) * 1000)
+        # Invariant: total_ms equals the exact sum of the 6 stage latencies per contract §3.5
+        total_ms = (
+            ingestion_ms
+            + extraction_ms
+            + embedding_ms
+            + clustering_ms
+            + referee_ms
+            + consensus_ms
+        )
 
         stage_latencies = StageLatency(
             ingestion_ms=ingestion_ms,
@@ -277,17 +304,22 @@ async def run_pipeline(
             total_ms=total_ms,
         )
 
-        # Model disclosure list
-        active_llm_model = getattr(llm_client, "last_used_model", settings.groq_model) or settings.groq_model
-        active_llm_prov = getattr(llm_client, "last_used_provider", "groq") or "groq"
+        # Map embedding provider per contract §4 ("fastembed-local" or "hf-inference-api")
+        emb_backend = settings.embedding_backend.lower()
+        if "fastembed" in emb_backend:
+            emb_prov = "fastembed-local"
+        elif "hf" in emb_backend:
+            emb_prov = "hf-inference-api"
+        else:
+            emb_prov = settings.embedding_backend
 
         models = build_model_disclosures(
-            extraction_model=active_llm_model,
-            extraction_provider=active_llm_prov,
+            extraction_model=ext_model,
+            extraction_provider=ext_prov,
             embedding_model=settings.embedding_model,
-            embedding_provider=settings.embedding_backend,
-            referee_model=active_llm_model,
-            referee_provider=active_llm_prov,
+            embedding_provider=emb_prov,
+            referee_model=ref_model,
+            referee_provider=ref_prov,
             consensus_model=cons_model,
             consensus_provider=cons_prov,
         )

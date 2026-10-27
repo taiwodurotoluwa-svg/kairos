@@ -1,7 +1,7 @@
 {
   "presets": [
     {
-      "preset_id": "demo_radiology_8papers",
+      "preset_id": "radiology",
       "title": "Chest X-Ray Pneumonia Detection (CNN vs ViT vs Hybrid)",
       "description": "Comparative literature synthesis of 8 diagnostic studies evaluating deep learning models on chest radiography benchmarks.",
       "papers": [
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "preset_id": "demo_llm_quantization_6papers",
+      "preset_id": "llm_quantization",
       "title": "Post-Training Quantization of Large Language Models (AWQ vs GPTQ vs SmoothQuant)",
       "description": "Cross-paper evaluation of 4-bit and 8-bit quantization techniques on perplexity degradation and inference speedup.",
       "papers": [
@@ -99,7 +99,7 @@
       ]
     },
     {
-      "preset_id": "demo_microgrids_6papers",
+      "preset_id": "microgrids",
       "title": "Decentralized Energy Scheduling for Islanded Microgrids (RL vs MPC)",
       "description": "Comparative analysis of reinforcement learning vs model predictive control for microgrid frequency stability and peak shaving.",
       "papers": [

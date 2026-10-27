@@ -15,7 +15,7 @@ APPROVED_OPEN_WEIGHT_MODELS = {
 
 
 def get_fixture_files():
-    return list(FIXTURES_DIR.glob("*.json"))
+    return [p for p in FIXTURES_DIR.glob("*.json") if p.name != "presets_manifest.json"]
 
 
 @pytest.mark.parametrize("fixture_path", get_fixture_files(), ids=lambda p: p.name)
@@ -141,3 +141,23 @@ def test_open_weight_models_and_synthetic_provenance(fixture_path):
         assert m.model_id in APPROVED_OPEN_WEIGHT_MODELS, f"Forbidden non-open model found: {m.model_id}"
         assert bool(m.license.strip()), f"Model {m.model_id} must have non-empty open-weight license"
         assert m.parameter_count is not None
+
+def test_presets_manifest_valid():
+    """Validate fixtures/presets_manifest.json structure and alignment with demo.py."""
+    manifest_path = FIXTURES_DIR / "presets_manifest.json"
+    assert manifest_path.exists(), "presets_manifest.json must exist in fixtures/"
+    data = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert "presets" in data and len(data["presets"]) >= 3
+    from app.api.demo import PRESETS
+
+    for item in data["presets"]:
+        pid = item.get("preset_id")
+        assert pid in PRESETS, f"Unknown preset_id in manifest: {pid}"
+        assert item.get("title"), f"Missing title in preset {pid}"
+        papers = item.get("papers", [])
+        assert len(papers) >= 2, f"Preset {pid} must have >= 2 papers"
+        for p in papers:
+            assert re.match(r"^\d{4}\.\d{4,5}$", p.get("arxiv_id", "")), f"Invalid arXiv ID: {p.get('arxiv_id')}"
+            assert "license" in p and "CC" in p["license"]
+            assert p.get("url", "").startswith("https://arxiv.org/abs/")
+

@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 WORKDIR /app
-ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+ENV PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 FASTEMBED_CACHE_PATH=/app/.cache/fastembed
 COPY backend/requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 # bake the embedding model into the image so the first request is fast
