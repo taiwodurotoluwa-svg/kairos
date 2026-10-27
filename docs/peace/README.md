@@ -86,9 +86,8 @@ Argon 4 (Gemini 1.5 Pro with High Thinking, temperature 0.2 in Google AI Studio)
    - Build View containers: `<section id="view-matrix">`, `<section id="view-graph">`, `<section id="view-consensus">`.
    - Build Footer: "Built with Llama", model attribution, hackathon info.
 4. In `css/styles.css`:
-   - Implement tokens from `DESIGN.md`:
-     `--bg-obsidian: #0B0F17; --bg-surface: #111827; --accent-emerald: #10B981; --accent-ruby: #EF4444; --accent-amber: #F59E0B; --accent-cyan: #06B6D4; --text-primary: #F9FAFB; --text-muted: #9CA3AF;`
-   - Dark mode default with sleek cards, subtle borders (`#1F2937`), and smooth transitions.
+   - Implement design tokens from `DESIGN.md` as CSS Custom Properties (`:root`), giving Peace full freedom to choose colors, surfaces, and theme variables.
+   - Dark mode (or Peace's chosen aesthetic) with sleek cards, subtle borders, and smooth transitions.
 5. In `js/api.js` & `js/app.js`:
    - Load default preset (`demo_radiology_8papers`) on boot.
    - Wire dropdown switch to re-fetch and dispatch `state:loaded` event to active view.

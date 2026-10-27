@@ -78,7 +78,7 @@ frontend/
 └── fixtures/           # Offline JSON fixtures (contract_sample, 8-paper radiology, etc.)
 
 DESIGN & ACCESSIBILITY:
-- Follow DESIGN.md tokens: Obsidian (#0B0F17) background, Emerald (#10B981) agreement, Ruby (#EF4444) contradiction, Amber (#F59E0B) methodology delta, Cyan (#06B6D4) research gap.
+- Follow DESIGN.md: Peace has complete creative freedom over colors, typography, and styling. The agent should ask Peace for her preferred palette or recommend curated themes. Ensure the four semantic signals remain visually distinct and multi-modal (icon + label + line style).
 - The four signals must NEVER rely on colour alone (icon + label + line style).
 - The matrix must have a sticky baseline column so 6-8+ papers are easy to read.
 
