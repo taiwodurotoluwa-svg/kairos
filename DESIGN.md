@@ -16,7 +16,7 @@ The tokens in this file are the **default baseline** so that every coding agent 
 1. The four semantic signals stay **visually distinct from each other and from every other UI colour**, and stay bound to the API enums: `AGREE`, `CONTRADICT`, `METHODOLOGY_DELTA` (edge `relation`) and `RESEARCH_GAP` (`ResearchGap.signal`). Colour is never the only cue (see §3).
 2. Quote text, section name and page number stay visible wherever a claim or edge is shown (hard rule 3 in `AGENTS.md`).
 
-If Peace changes tokens, she updates this file in the same PR (she may edit it alone) and the agent regenerates Tailwind config accordingly.
+If Peace changes tokens, she updates this file in the same PR (she may edit it alone) and she updates the CSS custom properties in `frontend/css/styles.css` accordingly.
 
 ---
 
