@@ -16,7 +16,7 @@ OPEN//BUILD 2026 requires teams to disclose significant AI-assisted work and to 
 | :--- | :--- | :--- | :--- | :--- |
 | Docs | DuroT | Antigravity (Claude Sonnet 5.5) | Drafted AGENTS.md, DESIGN.md, README.md, shared docs, playbooks, prompts, contract sample | Chose scope, team split, name "Kairos", reviewed content |
 | D1 | DuroT | Antigravity + Gemini Argon 4 (AI Studio) | Scaffolded FastAPI backend, Pydantic v2 schemas, demo endpoints, fixture generator. Argon 4 reviewed D1 (APPROVE_WITH_CHANGES); resolved F-01..F-06, expanded test suite to 21 passing tests. | Reviewed findings, directed fix of error wrappers, CWD resolution, and cache warming. 21/21 tests verified passing. |
-| D2 | DuroT | | | |
+| D2 | DuroT | Antigravity + Gemini Argon 4 (AI Studio) | Implemented PyMuPDF parser, sectioner, arXiv fetcher, and concurrent coordinator. Argon 4 reviewed D2 (APPROVE_WITH_CHANGES); resolved F-01..F-07 (FILE_TOO_LARGE error codes, canonical arXiv deduplication, unsectioned head/tail fallback, sort=False reading order, threading.Lock, marker headroom, cross-source SHA-256 deduplication), expanded test suite to 39 passing tests. | Reviewed findings, directed fix of error codes, fallback tail, and thread safety. 39/39 tests verified passing. |
 | D3 | DuroT | | | |
 | D4 | DuroT | | | |
 | D5 | DuroT | | | |
