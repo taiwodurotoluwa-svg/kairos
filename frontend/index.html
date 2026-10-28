@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Kairos — Multi-paper literature synthesis and contradiction engine built on open-weight models." />
+  <title>Kairos — Multi-Paper Literature Synthesis &amp; Contradiction Engine</title>
+
+  <!-- Editorial Typography: Newsreader (serif), Inter (sans), JetBrains Mono (monospace) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Approved Cytoscape.js CDN (initialized in P4) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js" defer></script>
+</head>
+<body>
+  <a href="#main-workspace" class="skip-link">Skip to main workspace</a>
+
+  <!-- Top Editorial Header -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <div class="brand-title-row">
+          <span class="brand-mark" aria-hidden="true">K</span>
+          <a href="#" class="brand-wordmark" aria-label="Kairos Home">Kairos</a>
+        </div>
+        <p class="brand-subtitle">Multi-paper literature synthesis &amp; contradiction engine</p>
+      </div>
+
+      <div class="header-controls">
+        <div class="preset-control">
+          <label for="preset-select" class="control-label">Research Corpus</label>
+          <select id="preset-select" class="preset-select" aria-label="Select research corpus preset">
+            <option value="radiology" selected>Chest X-Ray Pneumonia Detection (8 papers)</option>
+            <option value="llm_quantization">LLM 4-Bit Quantization Trade-offs (6 papers)</option>
+            <option value="microgrids">Islanded Microgrid Control Systems (6 papers)</option>
+            <option value="contract_sample">Contract Verification Sample (3 papers)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main id="main-workspace" class="main-workspace container">
+    <!-- Loading State -->
+    <div id="loading-state" class="status-panel" role="status" aria-live="polite" hidden>
+      <div class="skeleton-line skeleton-title"></div>
+      <div class="skeleton-line skeleton-body"></div>
+      <p class="status-caption">Loading research corpus fixture…</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="status-panel error-panel" role="alert" hidden>
+      <h2 class="error-heading">Unable to load research corpus</h2>
+      <p id="error-message" class="error-body">The requested fixture could not be parsed.</p>
+      <div class="error-actions">
+        <button id="retry-button" type="button" class="btn-secondary">Retry load</button>
+        <button id="fallback-button" type="button" class="btn-primary">Load default preset</button>
+      </div>
+    </div>
+
+    <!-- Corpus Summary & Pipeline Telemetry Strip -->
+    <section id="corpus-overview" class="corpus-overview" aria-label="Corpus summary and pipeline telemetry">
+      <div class="corpus-header-row">
+        <div>
+          <div class="corpus-eyebrow">
+            <span id="corpus-preset-tag" class="mono-tag">PRESET: RADIOLOGY</span>
+            <span class="meta-separator" aria-hidden="true">·</span>
+            <span id="corpus-provenance-tag" class="mono-tag">SYNTHETIC_PLACEHOLDER</span>
+            <span class="meta-separator" aria-hidden="true">·</span>
+            <span id="corpus-schema-tag" class="mono-tag">SCHEMA v1.0.0</span>
+          </div>
+          <h1 id="corpus-title" class="corpus-title">Chest X-Ray Pneumonia Detection (CNN vs ViT vs Hybrid)</h1>
+        </div>
+      </div>
+
+      <!-- Pipeline Telemetry Strip (stats object from contract) -->
+      <dl class="telemetry-strip" aria-label="Open-weight pipeline metrics">
+        <div class="telemetry-item">
+          <dt class="telemetry-label">Papers Analysed</dt>
+          <dd id="stat-papers" class="telemetry-value">—</dd>
+        </div>
+        <div class="telemetry-item">
+          <dt class="telemetry-label">Verified Claims</dt>
+          <dd id="stat-claims" class="telemetry-value">—</dd>
+        </div>
+        <div class="telemetry-item">
+          <dt class="telemetry-label">Cross-Paper Pairs</dt>
+          <dd id="stat-pairs" class="telemetry-value">—</dd>
+        </div>
+        <div class="telemetry-item">
+          <dt class="telemetry-label">BGE Pre-Filter Reduction</dt>
+          <dd id="stat-reduction" class="telemetry-value">—</dd>
+        </div>
+        <div class="telemetry-item">
+          <dt class="telemetry-label">NLI Referee Calls</dt>
+          <dd id="stat-referee-calls" class="telemetry-value">—</dd>
+        </div>
+        <div class="telemetry-item">
+          <dt class="telemetry-label">Pipeline Latency</dt>
+          <dd id="stat-latency" class="telemetry-value">—</dd>
+        </div>
+      </dl>
+
+      <!-- Multi-Modal Evidence Signal Key & Live Counts -->
+      <div class="signal-legend-bar" aria-label="Evidence status signal counts">
+        <span class="signal-legend-heading">Evidence Signals:</span>
+        <div class="signal-pill signal-agree">
+          <span class="signal-icon" aria-hidden="true">✓</span>
+          <span class="signal-name">Agree</span>
+          <span class="signal-line-sample line-solid-agree" aria-hidden="true"></span>
+          <span id="count-agree" class="signal-count">0</span>
+        </div>
+        <div class="signal-pill signal-contradict">
+          <span class="signal-icon" aria-hidden="true">⚠</span>
+          <span class="signal-name">Contradiction</span>
+          <span class="signal-line-sample line-solid-contradict" aria-hidden="true"></span>
+          <span id="count-contradict" class="signal-count">0</span>
+        </div>
+        <div class="signal-pill signal-delta">
+          <span class="signal-icon" aria-hidden="true">≈</span>
+          <span class="signal-name">Methodology difference</span>
+          <span class="signal-line-sample line-dashed-delta" aria-hidden="true"></span>
+          <span id="count-delta" class="signal-count">0</span>
+        </div>
+        <div class="signal-pill signal-gap">
+          <span class="signal-icon" aria-hidden="true">◌</span>
+          <span class="signal-name">Research gap</span>
+          <span class="signal-line-sample line-dotted-gap" aria-hidden="true"></span>
+          <span id="count-gap" class="signal-count">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary Workspace Navigation Tabs -->
+    <nav class="workspace-nav" aria-label="Synthesis views">
+      <div class="tab-list" role="tablist">
+        <button
+          id="tab-matrix"
+          type="button"
+          role="tab"
+          class="tab-button active"
+          aria-selected="true"
+          aria-controls="view-matrix"
+          tabindex="0"
+          data-view="matrix"
+        >
+          <span>Comparison Matrix</span>
+          <span id="tab-badge-matrix" class="tab-count">0 papers</span>
+        </button>
+        <button
+          id="tab-graph"
+          type="button"
+          role="tab"
+          class="tab-button"
+          aria-selected="false"
+          aria-controls="view-graph"
+          tabindex="-1"
+          data-view="graph"
+        >
+          <span>Contradiction Graph</span>
+          <span id="tab-badge-graph" class="tab-count">0 relations</span>
+        </button>
+        <button
+          id="tab-consensus"
+          type="button"
+          role="tab"
+          class="tab-button"
+          aria-selected="false"
+          aria-controls="view-consensus"
+          tabindex="-1"
+          data-view="consensus"
+        >
+          <span>Consensus &amp; Gaps</span>
+          <span id="tab-badge-consensus" class="tab-count">0%</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- View 1: Comparison Matrix Container (Full sticky matrix implemented in P3) -->
+    <section
+      id="view-matrix"
+      class="workspace-view"
+      role="tabpanel"
+      aria-labelledby="tab-matrix"
+    >
+      <div class="view-section-header">
+        <div>
+          <h2 class="view-heading">Study Comparison Corpus</h2>
+          <p class="view-description">
+            Loaded paper metadata and extracted claims. The full horizontally scrollable pinned-baseline comparison matrix renders in Milestone P3.
+          </p>
+        </div>
+      </div>
+      <div id="matrix-shell-content" class="corpus-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- View 2: Contradiction Graph Container (Full Cytoscape canvas & drawer implemented in P4) -->
+    <section
+      id="view-graph"
+      class="workspace-view"
+      role="tabpanel"
+      aria-labelledby="tab-graph"
+      hidden
+    >
+      <div class="view-section-header">
+        <div>
+          <h2 class="view-heading">Cross-Paper Claim Relations</h2>
+          <p class="view-description">
+            Verified NLI referee edges with verbatim provenance. Interactive Cytoscape.js network layout and slide-over dispute drawer activate in Milestone P4.
+          </p>
+        </div>
+      </div>
+      <div id="cy-container-placeholder" class="graph-stage-shell">
+        <div id="graph-shell-content" class="edge-preview-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- View 3: Consensus & Gaps Container (Full consensus gauge & export implemented in P5) -->
+    <section
+      id="view-consensus"
+      class="workspace-view"
+      role="tabpanel"
+      aria-labelledby="tab-consensus"
+      hidden
+    >
+      <div class="view-section-header">
+        <div>
+          <h2 class="view-heading">Consensus Synthesis &amp; Research Gaps</h2>
+          <p class="view-description">
+            Executive synthesis and uncorroborated claims (`RESEARCH_GAP`). Score ring gauge and Markdown/LaTeX export activate in Milestone P5.
+          </p>
+        </div>
+      </div>
+      <div id="consensus-shell-content" class="consensus-preview-layout" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Slide-over Dispute Inspection Drawer Container (Populated in P4) -->
+  <aside
+    id="drawer-evidence"
+    class="evidence-drawer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="drawer-title"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="drawer-header">
+      <h2 id="drawer-title" class="drawer-heading">Evidence Inspection</h2>
+    </div>
+    <div id="drawer-body" class="drawer-body"></div>
+  </aside>
+
+  <!-- Persistent Synthetic Data Provenance Warning Banner (Docked above footer) -->
+  <div id="synthetic-banner" class="synthetic-banner" role="status" aria-live="polite" hidden>
+    <div class="container synthetic-banner-inner">
+      <span class="synthetic-banner-tag" aria-hidden="true">! PROVENANCE NOTICE</span>
+      <p id="synthetic-banner-text" class="synthetic-banner-message">
+        Demo Data: Synthetically generated for interface testing. Not peer-reviewed scientific claims.
+      </p>
+    </div>
+  </div>
+
+  <!-- Academic Footer: Open-Weight Model Attribution, Licences & Disclaimers -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-top">
+        <div class="footer-attribution">
+          <div class="llama-badge-row">
+            <span class="llama-pill">Built with Llama</span>
+            <span class="footer-meta">100% Open-Weight Pipeline · MIT License</span>
+            <span class="footer-divider">·</span>
+            <a
+              href="https://github.com/taiwodurotoluwa-svg/kairos"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer-link"
+            >
+              GitHub ↗
+            </a>
+          </div>
+          <p class="footer-disclaimer">
+            <strong>Research &amp; Clinical Disclaimer:</strong> Academic reading aid, not a clinical decision system. Always verify claims against source publications.
+          </p>
+        </div>
+      </div>
+
+      <!-- Collapsible Model & Licence Disclosure Table -->
+      <details class="model-disclosure-details">
+        <summary class="model-disclosure-summary">
+          <span class="summary-title">Open-Weight Model &amp; Licence Registry</span>
+          <span class="summary-hint">View runtime parameters &amp; licences ▾</span>
+        </summary>
+        <div class="table-scroll">
+          <table class="model-table">
+            <thead>
+              <tr>
+                <th scope="col">Pipeline Role</th>
+                <th scope="col">Model Identifier</th>
+                <th scope="col">Runtime Provider</th>
+                <th scope="col">Parameters</th>
+                <th scope="col">Licence</th>
+              </tr>
+            </thead>
+            <tbody id="model-table-body">
+              <tr>
+                <td colspan="5" class="table-empty-cell">Loading model registry…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </footer>
+
+  <!-- Vanilla ES6 Application Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

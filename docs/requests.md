@@ -20,10 +20,10 @@ Use this file for **anything one developer needs from the other**, and for every
 | REQ-005 | 2026-10-26 | Peace → DuroT | ENV | `public/fixtures` holds committed copies of `/fixtures/*.json` (Vercel root = `frontend`). When you change a fixture, tell me so I run `npm run sync:fixtures` and commit; `check:fixtures` will fail otherwise. | OPEN | |
 | REQ-006 | 2026-10-26 | Peace → DuroT | DEPLOY | Once the backend is deployed (D5), post the base URL here and add the Vercel origin to `CORS_ALLOW_ORIGINS`. | OPEN | |
 | REQ-007 | 2026-10-26 | DuroT → Peace | CONTRACT | Analysis uses `POST /analyze` (202 + `analysis_id`) → SSE `GET /analyze/{id}/events` (`progress`/`complete`/`failed`) → `GET /analyze/{id}`. If SSE is blocked, poll `GET /analyze/{id}` every 1.5 s. | OPEN | |
-| REQ-008 | 2026-10-26 | DuroT → Peace | INFO | Both of us choose the 3 demo topics and the real, openly licensed papers for each (D5 step 7). Draft `fixtures/presets_manifest.json` together by Wed 28 Oct. Do **not** invent arXiv ids. | OPEN | |
-
+| REQ-008 | 2026-10-26 | DuroT ↔ Peace | INFO | Both of us choose the 3 demo topics and the real, openly licensed papers for each (D5 step 7). Draft `fixtures/presets_manifest.json` together by Wed 28 Oct. Do **not** invent arXiv ids. | OPEN | |
 | REQ-009 | 2026-10-27 | Peace ↔ DuroT | ARCH | Frontend stack simplified from Next.js/Tailwind to Vanilla HTML5, CSS3, ES6 JavaScript, and Cytoscape.js (CDN). Eliminates Node build overhead and allows direct Live Server execution. | DONE | Docs, playbooks and prompts updated across repo. |
 | REQ-010 | 2026-10-27 | DuroT ↔ Peace | WORKFLOW | Milestone review bundles are local `.txt` files (`reviews/{ID}_review.txt`) for Google AI Studio (Argon 4). Never commit or push review files to GitHub. | DONE | Added to `.gitignore`; untracked from git; playbooks updated. |
+| REQ-011 | 2026-10-28 | Peace → DuroT | INFO | `README.md` lines 82 & 97–111 still reference `npm install` and `npm run dev` on port 3000 instead of Vanilla HTML5/CSS3/ES6 (`python -m http.server 5500 --directory frontend` or VS Code Live Server on port 5500) per `REQ-009`. Also note for Demo Day: root `/fixtures/*.json` and `frontend/fixtures/*.json` are currently `SYNTHETIC_PLACEHOLDER`; when baking `REAL_PIPELINE_OUTPUT` from `fixtures/presets_manifest.json`, please mirror updated files to `frontend/fixtures/`. | OPEN | |
 
 ## Request template (copy a row)
 

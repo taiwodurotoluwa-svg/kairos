@@ -1,0 +1,1293 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "demo-radiology",
+  "mode": "DEMO",
+  "preset_id": "radiology",
+  "fixture_provenance": "SYNTHETIC_PLACEHOLDER",
+  "generated_at": "2026-10-26T21:00:00Z",
+  "papers": [
+    {
+      "paper_id": "p1",
+      "short_label": "P1",
+      "citation_label": "Smith (2024)",
+      "palette_index": 0,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p1_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+      "authors": [
+        "J. Smith",
+        "A. Doe"
+      ],
+      "year": 2024,
+      "page_count": 12,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "NIH ChestX-ray14 (curated n=1,200)",
+      "sample_size": "n=1000",
+      "methodology": "Supervised fine-tuning of ResNet-50",
+      "primary_metric": "94.2% Diagnostic Accuracy (AUC 0.96)",
+      "limitations": "Evaluated only on clean, motion-free curated hospital archives.",
+      "core_conclusion": "ResNet-50 models surpass human clinician baselines under curated lab conditions.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p2",
+      "short_label": "P2",
+      "citation_label": "Adewale (2024)",
+      "palette_index": 1,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p2_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+      "authors": [
+        "T. Adewale",
+        "O. Bello"
+      ],
+      "year": 2024,
+      "page_count": 14,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Rural District Hospital Scans (n=3,400)",
+      "sample_size": "n=1500",
+      "methodology": "DenseNet-121 with uncalibrated field inputs",
+      "primary_metric": "68.4% Accuracy (AUC 0.72)",
+      "limitations": "Severe sensitivity drop when encountering portable X-ray artifacts.",
+      "core_conclusion": "Deep architectures fail to maintain diagnostic parity on noisy clinical field data.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p3",
+      "short_label": "P3",
+      "citation_label": "Chen (2024)",
+      "palette_index": 2,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p3_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+      "authors": [
+        "L. Chen",
+        "M. Rossi"
+      ],
+      "year": 2024,
+      "page_count": 16,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Synthetic Motion-Corrupted MIMIC-CXR (n=5,000)",
+      "sample_size": "n=2000",
+      "methodology": "ViT-Base with Patch-Level Attention Dropout",
+      "primary_metric": "88.1% Accuracy under 15% blur",
+      "limitations": "Computationally prohibitive for low-power edge medical carts.",
+      "core_conclusion": "Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p4",
+      "short_label": "P4",
+      "citation_label": "Kowalski (2025)",
+      "palette_index": 3,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p4_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+      "authors": [
+        "P. Kowalski",
+        "S. Lind"
+      ],
+      "year": 2025,
+      "page_count": 11,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "4-Center Collaborative Radiography Cohort (n=8,200)",
+      "sample_size": "n=2500",
+      "methodology": "Ensemble ResNet + Swin Transformer with domain adversarial training",
+      "primary_metric": "91.3% Multi-Site Balanced Accuracy",
+      "limitations": "Requires cross-site calibration to counter differing scanner manufacturer profiles.",
+      "core_conclusion": "Domain adaptation effectively bridges the performance gap across disparate radiographic hardware.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p5",
+      "short_label": "P5",
+      "citation_label": "Nwachukwu (2025)",
+      "palette_index": 4,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p5_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+      "authors": [
+        "C. Nwachukwu",
+        "D. Miller"
+      ],
+      "year": 2025,
+      "page_count": 13,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Acute Pulmonary Admissions (n=950)",
+      "sample_size": "n=3000",
+      "methodology": "Comparative prospective diagnostic trial with expert consensus ground truth",
+      "primary_metric": "High-kV Radiography missed 24% of occult lesions vs Low-Dose CT",
+      "limitations": "Radiation dose was 4x higher in the CT cohort.",
+      "core_conclusion": "Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p6",
+      "short_label": "P6",
+      "citation_label": "Dubois (2025)",
+      "palette_index": 5,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p6_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+      "authors": [
+        "E. Dubois",
+        "V. Moreau"
+      ],
+      "year": 2025,
+      "page_count": 15,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Pediatric Pneumonia Cohort (n=2,100)",
+      "sample_size": "n=3500",
+      "methodology": "DINOv2 self-supervised pretraining with pediatric fine-tuning",
+      "primary_metric": "89.7% Specificity on pediatric consolidations",
+      "limitations": "Small sample size for rare congenital thoracic malformations.",
+      "core_conclusion": "Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p7",
+      "short_label": "P7",
+      "citation_label": "Patel (2025)",
+      "palette_index": 6,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p7_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+      "authors": [
+        "R. Patel",
+        "K. Gomez"
+      ],
+      "year": 2025,
+      "page_count": 10,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Academic Teaching Hospital Double-Read Trial (n=4,000)",
+      "sample_size": "n=4000",
+      "methodology": "Interactive triage queue with confidence-weighted clinician routing",
+      "primary_metric": "18% Reduction in reading turnaround time; 96.1% joint accuracy",
+      "limitations": "Clinicians displayed automation bias when model confidence was artificially high.",
+      "core_conclusion": "Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p8",
+      "short_label": "P8",
+      "citation_label": "Takahashi (2025)",
+      "palette_index": 7,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p8_radiology_placeholder.pdf",
+      "title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+      "authors": [
+        "H. Takahashi",
+        "Y. Sato"
+      ],
+      "year": 2025,
+      "page_count": 12,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Field Bedside Portable Imaging Suite (n=1,500)",
+      "sample_size": "n=4500",
+      "methodology": "INT8 post-training quantization on Raspberry Pi / Jetson Orin",
+      "primary_metric": "0.4% AUC drop vs FP32 with 3.8x inference speedup",
+      "limitations": "Battery thermal throttling observed after 45 consecutive scan evaluations.",
+      "core_conclusion": "INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "p1-c1",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P1 reports primary diagnostic metric: 94.2% Diagnostic Accuracy (AUC 0.96).",
+      "metric_value": "94.2% Diagnostic Accuracy (AUC 0.96)",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
+      }
+    },
+    {
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P1 employs Supervised fine-tuning of ResNet-50 as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements Supervised fine-tuning of ResNet-50 to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p1-c3",
+      "paper_id": "p1",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P1 concludes: ResNet-50 models surpass human clinician baselines under curated lab conditions.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
+      }
+    },
+    {
+      "claim_id": "p1-c4",
+      "paper_id": "p1",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P1 observes key constraint: Evaluated only on clean, motion-free curated hospital archives.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "LIMITATIONS",
+        "page_number": 10,
+        "verbatim_quote": "A critical limitation of this work is: Evaluated only on clean, motion-free curated hospital archives."
+      }
+    },
+    {
+      "claim_id": "p1-c5",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P1 verifies secondary performance on NIH ChestX-ray14 (curated n=1,200).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across NIH ChestX-ray14 (curated n=1,200)."
+      }
+    },
+    {
+      "claim_id": "p2-c1",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P2 reports primary diagnostic metric: 68.4% Accuracy (AUC 0.72).",
+      "metric_value": "68.4% Accuracy (AUC 0.72)",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
+      }
+    },
+    {
+      "claim_id": "p2-c2",
+      "paper_id": "p2",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P2 employs DenseNet-121 with uncalibrated field inputs as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements DenseNet-121 with uncalibrated field inputs to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p2-c3",
+      "paper_id": "p2",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P2 concludes: Deep architectures fail to maintain diagnostic parity on noisy clinical field data.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, Deep architectures fail to maintain diagnostic parity on noisy clinical field data."
+      }
+    },
+    {
+      "claim_id": "p2-c4",
+      "paper_id": "p2",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P2 observes key constraint: Severe sensitivity drop when encountering portable X-ray artifacts.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "LIMITATIONS",
+        "page_number": 12,
+        "verbatim_quote": "A critical limitation of this work is: Severe sensitivity drop when encountering portable X-ray artifacts."
+      }
+    },
+    {
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P2 verifies secondary performance on Rural District Hospital Scans (n=3,400).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Rural District Hospital Scans (n=3,400)."
+      }
+    },
+    {
+      "claim_id": "p3-c1",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P3 reports primary diagnostic metric: 88.1% Accuracy under 15% blur.",
+      "metric_value": "88.1% Accuracy under 15% blur",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+      }
+    },
+    {
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P3 employs ViT-Base with Patch-Level Attention Dropout as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements ViT-Base with Patch-Level Attention Dropout to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p3-c3",
+      "paper_id": "p3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P3 concludes: Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "CONCLUSION",
+        "page_number": 15,
+        "verbatim_quote": "In conclusion, Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur."
+      }
+    },
+    {
+      "claim_id": "p3-c4",
+      "paper_id": "p3",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P3 observes key constraint: Computationally prohibitive for low-power edge medical carts.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "LIMITATIONS",
+        "page_number": 14,
+        "verbatim_quote": "A critical limitation of this work is: Computationally prohibitive for low-power edge medical carts."
+      }
+    },
+    {
+      "claim_id": "p3-c5",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P3 verifies secondary performance on Synthetic Motion-Corrupted MIMIC-CXR (n=5,000).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Synthetic Motion-Corrupted MIMIC-CXR (n=5,000)."
+      }
+    },
+    {
+      "claim_id": "p4-c1",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P4 reports primary diagnostic metric: 91.3% Multi-Site Balanced Accuracy.",
+      "metric_value": "91.3% Multi-Site Balanced Accuracy",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors achieved 91.3% Multi-Site Balanced Accuracy."
+      }
+    },
+    {
+      "claim_id": "p4-c2",
+      "paper_id": "p4",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P4 employs Ensemble ResNet + Swin Transformer with domain adversarial training as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements Ensemble ResNet + Swin Transformer with domain adversarial training to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p4-c3",
+      "paper_id": "p4",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P4 concludes: Domain adaptation effectively bridges the performance gap across disparate radiographic hardware.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "CONCLUSION",
+        "page_number": 10,
+        "verbatim_quote": "In conclusion, Domain adaptation effectively bridges the performance gap across disparate radiographic hardware."
+      }
+    },
+    {
+      "claim_id": "p4-c4",
+      "paper_id": "p4",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P4 observes key constraint: Requires cross-site calibration to counter differing scanner manufacturer profiles.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "LIMITATIONS",
+        "page_number": 9,
+        "verbatim_quote": "A critical limitation of this work is: Requires cross-site calibration to counter differing scanner manufacturer profiles."
+      }
+    },
+    {
+      "claim_id": "p4-c5",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P4 verifies secondary performance on 4-Center Collaborative Radiography Cohort (n=8,200).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across 4-Center Collaborative Radiography Cohort (n=8,200)."
+      }
+    },
+    {
+      "claim_id": "p5-c1",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P5 reports primary diagnostic metric: High-kV Radiography missed 24% of occult lesions vs Low-Dose CT.",
+      "metric_value": "High-kV Radiography missed 24% of occult lesions vs Low-Dose CT",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage achieved High-kV Radiography missed 24% of occult lesions vs Low-Dose CT."
+      }
+    },
+    {
+      "claim_id": "p5-c2",
+      "paper_id": "p5",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P5 employs Comparative prospective diagnostic trial with expert consensus ground truth as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements Comparative prospective diagnostic trial with expert consensus ground truth to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p5-c3",
+      "paper_id": "p5",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P5 concludes: Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "CONCLUSION",
+        "page_number": 12,
+        "verbatim_quote": "In conclusion, Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT."
+      }
+    },
+    {
+      "claim_id": "p5-c4",
+      "paper_id": "p5",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P5 observes key constraint: Radiation dose was 4x higher in the CT cohort.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "LIMITATIONS",
+        "page_number": 11,
+        "verbatim_quote": "A critical limitation of this work is: Radiation dose was 4x higher in the CT cohort."
+      }
+    },
+    {
+      "claim_id": "p5-c5",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P5 verifies secondary performance on Acute Pulmonary Admissions (n=950).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Acute Pulmonary Admissions (n=950)."
+      }
+    },
+    {
+      "claim_id": "p6-c1",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P6 reports primary diagnostic metric: 89.7% Specificity on pediatric consolidations.",
+      "metric_value": "89.7% Specificity on pediatric consolidations",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans achieved 89.7% Specificity on pediatric consolidations."
+      }
+    },
+    {
+      "claim_id": "p6-c2",
+      "paper_id": "p6",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P6 employs DINOv2 self-supervised pretraining with pediatric fine-tuning as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements DINOv2 self-supervised pretraining with pediatric fine-tuning to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p6-c3",
+      "paper_id": "p6",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P6 concludes: Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "In conclusion, Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning."
+      }
+    },
+    {
+      "claim_id": "p6-c4",
+      "paper_id": "p6",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P6 observes key constraint: Small sample size for rare congenital thoracic malformations.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "LIMITATIONS",
+        "page_number": 13,
+        "verbatim_quote": "A critical limitation of this work is: Small sample size for rare congenital thoracic malformations."
+      }
+    },
+    {
+      "claim_id": "p6-c5",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P6 verifies secondary performance on Pediatric Pneumonia Cohort (n=2,100).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Pediatric Pneumonia Cohort (n=2,100)."
+      }
+    },
+    {
+      "claim_id": "p7-c1",
+      "paper_id": "p7",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P7 reports primary diagnostic metric: 18% Reduction in reading turnaround time; 96.1% joint accuracy.",
+      "metric_value": "18% Reduction in reading turnaround time; 96.1% joint accuracy",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration achieved 18% Reduction in reading turnaround time; 96.1% joint accuracy."
+      }
+    },
+    {
+      "claim_id": "p7-c2",
+      "paper_id": "p7",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P7 employs Interactive triage queue with confidence-weighted clinician routing as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements Interactive triage queue with confidence-weighted clinician routing to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p7-c3",
+      "paper_id": "p7",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P7 concludes: Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "CONCLUSION",
+        "page_number": 9,
+        "verbatim_quote": "In conclusion, Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists."
+      }
+    },
+    {
+      "claim_id": "p7-c4",
+      "paper_id": "p7",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P7 observes key constraint: Clinicians displayed automation bias when model confidence was artificially high.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "LIMITATIONS",
+        "page_number": 8,
+        "verbatim_quote": "A critical limitation of this work is: Clinicians displayed automation bias when model confidence was artificially high."
+      }
+    },
+    {
+      "claim_id": "p7-c5",
+      "paper_id": "p7",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P7 verifies secondary performance on Academic Teaching Hospital Double-Read Trial (n=4,000).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Academic Teaching Hospital Double-Read Trial (n=4,000)."
+      }
+    },
+    {
+      "claim_id": "p8-c1",
+      "paper_id": "p8",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Diagnostic Accuracy",
+      "statement": "P8 reports primary diagnostic metric: 0.4% AUC drop vs FP32 with 3.8x inference speedup.",
+      "metric_value": "0.4% AUC drop vs FP32 with 3.8x inference speedup",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units achieved 0.4% AUC drop vs FP32 with 3.8x inference speedup."
+      }
+    },
+    {
+      "claim_id": "p8-c2",
+      "paper_id": "p8",
+      "claim_type": "METHOD",
+      "topic_hint": "Methodological Design",
+      "statement": "P8 employs INT8 post-training quantization on Raspberry Pi / Jetson Orin as its core approach.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our pipeline implements INT8 post-training quantization on Raspberry Pi / Jetson Orin to ensure reproducible evaluation across test subsets."
+      }
+    },
+    {
+      "claim_id": "p8-c3",
+      "paper_id": "p8",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Clinical Viability",
+      "statement": "P8 concludes: INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination."
+      }
+    },
+    {
+      "claim_id": "p8-c4",
+      "paper_id": "p8",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Operational Constraints",
+      "statement": "P8 observes key constraint: Battery thermal throttling observed after 45 consecutive scan evaluations.",
+      "metric_value": null,
+      "cluster_id": "cl-3",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "LIMITATIONS",
+        "page_number": 10,
+        "verbatim_quote": "A critical limitation of this work is: Battery thermal throttling observed after 45 consecutive scan evaluations."
+      }
+    },
+    {
+      "claim_id": "p8-c5",
+      "paper_id": "p8",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Evaluation",
+      "statement": "P8 verifies secondary performance on Field Bedside Portable Imaging Suite (n=1,500).",
+      "metric_value": "Valid baseline",
+      "cluster_id": "cl-3",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Field Bedside Portable Imaging Suite (n=1,500)."
+      }
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cl-1",
+      "label": "Diagnostic Accuracy & Real-World Generalization",
+      "claim_ids": [
+        "p1-c1",
+        "p1-c3",
+        "p2-c1",
+        "p2-c3",
+        "p3-c1",
+        "p4-c1",
+        "p6-c1"
+      ],
+      "paper_ids": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p6"
+      ],
+      "mean_similarity": 0.76
+    },
+    {
+      "cluster_id": "cl-2",
+      "label": "Methodological Adaptation & Clinician Calibration",
+      "claim_ids": [
+        "p4-c4",
+        "p7-c3",
+        "p7-c4"
+      ],
+      "paper_ids": [
+        "p4",
+        "p7"
+      ],
+      "mean_similarity": 0.71
+    },
+    {
+      "cluster_id": "cl-3",
+      "label": "Hardware Constraints & Edge Deployment",
+      "claim_ids": [
+        "p1-c1",
+        "p8-c1",
+        "p8-c4"
+      ],
+      "paper_ids": [
+        "p1",
+        "p8"
+      ],
+      "mean_similarity": 0.69
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "e-p1c1-p2c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p2-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.92,
+      "cosine_similarity": 0.81,
+      "explanation": "Smith (2024) asserts 94.2% diagnostic accuracy ready for clinical triage, whereas Adewale (2024) demonstrates an accuracy collapse to 68.4% on actual hospital scans with motion artifacts.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c3-p2c3",
+      "source_claim_id": "p1-c3",
+      "target_claim_id": "p2-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, Deep architectures fail to maintain diagnostic parity on noisy clinical field data."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.95,
+      "cosine_similarity": 0.79,
+      "explanation": "Smith claims models surpass human clinician baselines, but Adewale proves models fail to maintain diagnostic parity on noisy clinical field data.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p3c1-p4c1",
+      "source_claim_id": "p3-c1",
+      "target_claim_id": "p4-c1",
+      "source": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors achieved 91.3% Multi-Site Balanced Accuracy."
+      },
+      "relation": "AGREE",
+      "confidence": 0.88,
+      "cosine_similarity": 0.74,
+      "explanation": "Both Chen (2024) and Kowalski (2025) find that modern architectural adaptations maintain robust accuracy (>88%) under distribution shifts.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c1-p6c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p6-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
+      },
+      "target": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans achieved 89.7% Specificity on pediatric consolidations."
+      },
+      "relation": "AGREE",
+      "confidence": 0.84,
+      "cosine_similarity": 0.71,
+      "explanation": "Dubois (2025) confirms Smith (2024) in finding high baseline accuracy (>89%) when leveraging strong pretrained vision representations.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p2c1-p3c1",
+      "source_claim_id": "p2-c1",
+      "target_claim_id": "p3-c1",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
+      },
+      "target": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.89,
+      "cosine_similarity": 0.77,
+      "explanation": "Adewale tested uncalibrated DenseNet-121 on field artifacts yielding 68.4% accuracy, whereas Chen applied ViT with attention dropout yielding 88.1%, proving architectural choice drives resilience to blur.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c3-p7c3",
+      "source_claim_id": "p1-c3",
+      "target_claim_id": "p7-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
+      },
+      "target": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "CONCLUSION",
+        "page_number": 9,
+        "verbatim_quote": "In conclusion, Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.91,
+      "cosine_similarity": 0.73,
+      "explanation": "Smith evaluates fully autonomous AI triage (94.2%), whereas Patel evaluates an interactive radiologist-in-the-loop collaborative workflow (96.1%), showing hybrid deployment mitigates false confidence.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c1-p8c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p8-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
+      },
+      "target": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "In our primary evaluation, Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units achieved 0.4% AUC drop vs FP32 with 3.8x inference speedup."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.87,
+      "cosine_similarity": 0.69,
+      "explanation": "Smith reports FP32 server inference, while Takahashi tests INT8 quantization on edge hardware, demonstrating minimal accuracy loss (0.4%) at the cost of thermal throttling constraints.",
+      "cluster_id": "cl-3",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p4c4-p7c4",
+      "source_claim_id": "p4-c4",
+      "target_claim_id": "p7-c4",
+      "source": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+        "section": "LIMITATIONS",
+        "page_number": 9,
+        "verbatim_quote": "A critical limitation of this work is: Requires cross-site calibration to counter differing scanner manufacturer profiles."
+      },
+      "target": {
+        "paper_id": "p7",
+        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
+        "section": "LIMITATIONS",
+        "page_number": 8,
+        "verbatim_quote": "A critical limitation of this work is: Clinicians displayed automation bias when model confidence was artificially high."
+      },
+      "relation": "AGREE",
+      "confidence": 0.82,
+      "cosine_similarity": 0.68,
+      "explanation": "Both Kowalski (2025) and Patel (2025) highlight that deployment success hinges on rigorous cross-scanner and clinician confidence calibration.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "gaps": [
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p5-c5",
+      "claim_id": "p5-c5",
+      "paper_id": "p5",
+      "statement": "Nwachukwu (2025) evaluates high-kV plain radiography against low-dose CT for occult ground-glass lesions, an imaging modality unexamined by any other paper in this set.",
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Acute Pulmonary Admissions (n=950)."
+      },
+      "best_match_similarity": 0.43,
+      "reason": "No claim in any other paper investigates comparative low-dose CT diagnostic benchmarks for occult thoracic lesions."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p8-c5",
+      "claim_id": "p8-c5",
+      "paper_id": "p8",
+      "statement": "Takahashi (2025) identifies battery thermal throttling on mobile X-ray edge hardware after 45 consecutive scans, an operational hardware factor unaddressed by algorithm-centric papers.",
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
+        "section": "RESULTS",
+        "page_number": 6,
+        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Field Bedside Portable Imaging Suite (n=1,500)."
+      },
+      "best_match_similarity": 0.38,
+      "reason": "No claim in any other paper measures physical hardware thermal throttling or sustained edge-device battery drain during portable bedside triage."
+    }
+  ],
+  "consensus": {
+    "consensus_score": 56,
+    "executive_summary": "Across the 8 analyzed radiology papers, strong empirical consensus exists that deep learning models achieve high diagnostic discrimination (>88%) under curated or domain-adapted settings. However, a major empirical contradiction divides clean lab studies (Smith 2024: 94.2%) from clinical field deployments (Adewale 2024: 68.4%), where uncalibrated scanner artifacts cause severe diagnostic degradation. Multi-center ensembling and radiologist-in-the-loop workflows consistently outperform autonomous triage.",
+    "agreed_findings": [
+      "Modern neural architectures maintain diagnostic accuracy (>88%) when domain adaptation is applied (Chen 2024, Kowalski 2025).",
+      "Pretrained self-supervised adult representations transfer effectively to pediatric radiography with minimal fine-tuning (Dubois 2025)."
+    ],
+    "top_contradictions": [
+      {
+        "edge_id": "e-p1c1-p2c1",
+        "headline": "Clinical readiness dispute: Smith (2024) reports 94.2% accuracy in clean archives, while Adewale (2024) finds performance drops to 68.4% on field hospital scans."
+      },
+      {
+        "edge_id": "e-p1c3-p2c3",
+        "headline": "Human clinician equivalence controversy: Lab benchmark superiority does not hold on noisy field inputs."
+      }
+    ],
+    "gap_ids": [
+      "gap-p5-c5",
+      "gap-p8-c5"
+    ],
+    "recommended_next_steps": [
+      "Standardize motion-artifact augmentation benchmarks across prospective radiography trials.",
+      "Incorporate physical edge hardware thermal constraints into portable triage models.",
+      "Mandate radiologist-in-the-loop confidence calibration before autonomous deployment."
+    ]
+  },
+  "stats": {
+    "paper_count": 8,
+    "claim_count": 40,
+    "cross_paper_pairs_total": 700,
+    "candidate_pairs": 32,
+    "referee_pairs_evaluated": 8,
+    "referee_calls": 2,
+    "pair_reduction_pct": 95.4,
+    "stage_latency_ms": {
+      "ingestion_ms": 920,
+      "extraction_ms": 6400,
+      "embedding_ms": 85,
+      "clustering_ms": 14,
+      "referee_ms": 2100,
+      "consensus_ms": 1350,
+      "total_ms": 10869
+    }
+  },
+  "models": [
+    {
+      "role": "EXTRACTION",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "EMBEDDING",
+      "model_id": "BAAI/bge-small-en-v1.5",
+      "provider": "fastembed-local",
+      "license": "MIT",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "parameter_count": "33M"
+    },
+    {
+      "role": "REFEREE",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "CONSENSUS_WRITER",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    }
+  ],
+  "warnings": [
+    "This dataset is synthetic placeholder data for hackathon development. Honest open-source disclosure."
+  ]
+}

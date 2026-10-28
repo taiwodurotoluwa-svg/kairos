@@ -1,0 +1,1047 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "demo-llm_quantization",
+  "mode": "DEMO",
+  "preset_id": "llm_quantization",
+  "fixture_provenance": "SYNTHETIC_PLACEHOLDER",
+  "generated_at": "2026-10-26T21:00:00Z",
+  "papers": [
+    {
+      "paper_id": "p1",
+      "short_label": "P1",
+      "citation_label": "Zheng (2024)",
+      "palette_index": 0,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p1_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+      "authors": [
+        "H. Zheng",
+        "Y. Wang"
+      ],
+      "year": 2024,
+      "page_count": 12,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "MMLU 5-shot & Alpaca-Eval",
+      "sample_size": "n=800",
+      "methodology": "GPTQ 4-bit weight-only quantization",
+      "primary_metric": "0.8 point MMLU accuracy drop vs FP16",
+      "limitations": "Context length capped at 2,048 tokens.",
+      "core_conclusion": "4-bit weight-only quantization preserves standard benchmark reasoning within 1 point.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p2",
+      "short_label": "P2",
+      "citation_label": "Okonkwo (2024)",
+      "palette_index": 1,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p2_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+      "authors": [
+        "C. Okonkwo",
+        "E. Vance"
+      ],
+      "year": 2024,
+      "page_count": 15,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "LongBench 32k context suite",
+      "sample_size": "n=1200",
+      "methodology": "Activation-aware Weight Quantization (AWQ) 4-bit",
+      "primary_metric": "7.9 point degradation at 32k tokens",
+      "limitations": "Tested only dense decoder models (Llama-2/3).",
+      "core_conclusion": "Long-context reasoning is disproportionately vulnerable to low-bit quantization errors.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p3",
+      "short_label": "P3",
+      "citation_label": "Al-Mansoor (2024)",
+      "palette_index": 2,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p3_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+      "authors": [
+        "K. Al-Mansoor",
+        "F. Tariq"
+      ],
+      "year": 2024,
+      "page_count": 11,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "RedPajama diverse subsets",
+      "sample_size": "n=1600",
+      "methodology": "Systematic calibration corpus variance testing",
+      "primary_metric": "Perplexity variance of 1.4 across domains",
+      "limitations": "English-centric calibration corpora only.",
+      "core_conclusion": "Calibration domain mismatch causes severe out-of-domain degradation in 4-bit models.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p4",
+      "short_label": "P4",
+      "citation_label": "Schneider (2025)",
+      "palette_index": 3,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p4_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+      "authors": [
+        "M. Schneider",
+        "G. Braun"
+      ],
+      "year": 2025,
+      "page_count": 14,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "GSM8k and HumanEval",
+      "sample_size": "n=2000",
+      "methodology": "QLoRA 4-bit NormalFloat with FP16 adapters",
+      "primary_metric": "Matches full fine-tuning within 0.3%",
+      "limitations": "Inference latency increases by 22% due to dequantization overhead.",
+      "core_conclusion": "4-bit NormalFloat base with unquantized LoRA adapters eliminates mathematical reasoning degradation.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p5",
+      "short_label": "P5",
+      "citation_label": "Gupta (2025)",
+      "palette_index": 4,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p5_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+      "authors": [
+        "A. Gupta",
+        "J. Becker"
+      ],
+      "year": 2025,
+      "page_count": 13,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Wikitext-103 & C4",
+      "sample_size": "n=2400",
+      "methodology": "Comparative evaluation of GPTQ, AWQ, and SmoothQuant",
+      "primary_metric": "AWQ achieves 0.4 lower perplexity than GPTQ on outlier tokens",
+      "limitations": "Evaluated only on 7B parameter scale.",
+      "core_conclusion": "Activation-aware scaling significantly preserves high-magnitude outlier activations compared to round-to-nearest.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "paper_id": "p6",
+      "short_label": "P6",
+      "citation_label": "Morales (2025)",
+      "palette_index": 5,
+      "source": "DEMO",
+      "arxiv_id": null,
+      "filename": "p6_quantization_placeholder.pdf",
+      "title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+      "authors": [
+        "R. Morales",
+        "C. Silva"
+      ],
+      "year": 2025,
+      "page_count": 16,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "RESULTS",
+        "CONCLUSION"
+      ],
+      "dataset": "Throughput & Memory Profiling on RTX 4090 / A100",
+      "sample_size": "n=2800",
+      "methodology": "FP8/INT4 compressed KV-cache GPU kernels",
+      "primary_metric": "2.8x batch size expansion at 16k context",
+      "limitations": "Noticeable needle-in-a-haystack recall loss below 4 bits.",
+      "core_conclusion": "Compressing KV cache to 4 bits enables 2.8x higher inference concurrency with minimal retention loss.",
+      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "p1-c1",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P1 reports: 0.8 point MMLU accuracy drop vs FP16.",
+      "metric_value": "0.8 point MMLU accuracy drop vs FP16",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation yielded 0.8 point MMLU accuracy drop vs FP16."
+      }
+    },
+    {
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P1 applies GPTQ 4-bit weight-only quantization.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details GPTQ 4-bit weight-only quantization across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p1-c3",
+      "paper_id": "p1",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P1 concludes: 4-bit weight-only quantization preserves standard benchmark reasoning within 1 point.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, our results demonstrate: 4-bit weight-only quantization preserves standard benchmark reasoning within 1 point."
+      }
+    },
+    {
+      "claim_id": "p1-c4",
+      "paper_id": "p1",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P1 notes: Context length capped at 2,048 tokens.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "LIMITATIONS",
+        "page_number": 10,
+        "verbatim_quote": "The primary limitation remains: Context length capped at 2,048 tokens."
+      }
+    },
+    {
+      "claim_id": "p1-c5",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P1 evaluates auxiliary performance on MMLU 5-shot & Alpaca-Eval.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on MMLU 5-shot & Alpaca-Eval verifies primary trends."
+      }
+    },
+    {
+      "claim_id": "p2-c1",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P2 reports: 7.9 point degradation at 32k tokens.",
+      "metric_value": "7.9 point degradation at 32k tokens",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning yielded 7.9 point degradation at 32k tokens."
+      }
+    },
+    {
+      "claim_id": "p2-c2",
+      "paper_id": "p2",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P2 applies Activation-aware Weight Quantization (AWQ) 4-bit.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Activation-aware Weight Quantization (AWQ) 4-bit across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p2-c3",
+      "paper_id": "p2",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P2 concludes: Long-context reasoning is disproportionately vulnerable to low-bit quantization errors.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "In conclusion, our results demonstrate: Long-context reasoning is disproportionately vulnerable to low-bit quantization errors."
+      }
+    },
+    {
+      "claim_id": "p2-c4",
+      "paper_id": "p2",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P2 notes: Tested only dense decoder models (Llama-2/3).",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "LIMITATIONS",
+        "page_number": 13,
+        "verbatim_quote": "The primary limitation remains: Tested only dense decoder models (Llama-2/3)."
+      }
+    },
+    {
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P2 evaluates auxiliary performance on LongBench 32k context suite.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on LongBench 32k context suite verifies primary trends."
+      }
+    },
+    {
+      "claim_id": "p3-c1",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P3 reports: Perplexity variance of 1.4 across domains.",
+      "metric_value": "Perplexity variance of 1.4 across domains",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization yielded Perplexity variance of 1.4 across domains."
+      }
+    },
+    {
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P3 applies Systematic calibration corpus variance testing.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Systematic calibration corpus variance testing across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p3-c3",
+      "paper_id": "p3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P3 concludes: Calibration domain mismatch causes severe out-of-domain degradation in 4-bit models.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "CONCLUSION",
+        "page_number": 10,
+        "verbatim_quote": "In conclusion, our results demonstrate: Calibration domain mismatch causes severe out-of-domain degradation in 4-bit models."
+      }
+    },
+    {
+      "claim_id": "p3-c4",
+      "paper_id": "p3",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P3 notes: English-centric calibration corpora only.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "LIMITATIONS",
+        "page_number": 9,
+        "verbatim_quote": "The primary limitation remains: English-centric calibration corpora only."
+      }
+    },
+    {
+      "claim_id": "p3-c5",
+      "paper_id": "p3",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P3 evaluates auxiliary performance on RedPajama diverse subsets.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on RedPajama diverse subsets verifies primary trends."
+      }
+    },
+    {
+      "claim_id": "p4-c1",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P4 reports: Matches full fine-tuning within 0.3%.",
+      "metric_value": "Matches full fine-tuning within 0.3%",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization yielded Matches full fine-tuning within 0.3%."
+      }
+    },
+    {
+      "claim_id": "p4-c2",
+      "paper_id": "p4",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P4 applies QLoRA 4-bit NormalFloat with FP16 adapters.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details QLoRA 4-bit NormalFloat with FP16 adapters across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p4-c3",
+      "paper_id": "p4",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P4 concludes: 4-bit NormalFloat base with unquantized LoRA adapters eliminates mathematical reasoning degradation.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, our results demonstrate: 4-bit NormalFloat base with unquantized LoRA adapters eliminates mathematical reasoning degradation."
+      }
+    },
+    {
+      "claim_id": "p4-c4",
+      "paper_id": "p4",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P4 notes: Inference latency increases by 22% due to dequantization overhead.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "LIMITATIONS",
+        "page_number": 12,
+        "verbatim_quote": "The primary limitation remains: Inference latency increases by 22% due to dequantization overhead."
+      }
+    },
+    {
+      "claim_id": "p4-c5",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P4 evaluates auxiliary performance on GSM8k and HumanEval.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on GSM8k and HumanEval verifies primary trends."
+      }
+    },
+    {
+      "claim_id": "p5-c1",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P5 reports: AWQ achieves 0.4 lower perplexity than GPTQ on outlier tokens.",
+      "metric_value": "AWQ achieves 0.4 lower perplexity than GPTQ on outlier tokens",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes yielded AWQ achieves 0.4 lower perplexity than GPTQ on outlier tokens."
+      }
+    },
+    {
+      "claim_id": "p5-c2",
+      "paper_id": "p5",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P5 applies Comparative evaluation of GPTQ, AWQ, and SmoothQuant.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Comparative evaluation of GPTQ, AWQ, and SmoothQuant across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p5-c3",
+      "paper_id": "p5",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P5 concludes: Activation-aware scaling significantly preserves high-magnitude outlier activations compared to round-to-nearest.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "CONCLUSION",
+        "page_number": 12,
+        "verbatim_quote": "In conclusion, our results demonstrate: Activation-aware scaling significantly preserves high-magnitude outlier activations compared to round-to-nearest."
+      }
+    },
+    {
+      "claim_id": "p5-c4",
+      "paper_id": "p5",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P5 notes: Evaluated only on 7B parameter scale.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "LIMITATIONS",
+        "page_number": 11,
+        "verbatim_quote": "The primary limitation remains: Evaluated only on 7B parameter scale."
+      }
+    },
+    {
+      "claim_id": "p5-c5",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P5 evaluates auxiliary performance on Wikitext-103 & C4.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on Wikitext-103 & C4 verifies primary trends."
+      }
+    },
+    {
+      "claim_id": "p6-c1",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Benchmark Accuracy",
+      "statement": "P6 reports: 2.8x batch size expansion at 16k context.",
+      "metric_value": "2.8x batch size expansion at 16k context",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache yielded 2.8x batch size expansion at 16k context."
+      }
+    },
+    {
+      "claim_id": "p6-c2",
+      "paper_id": "p6",
+      "claim_type": "METHOD",
+      "topic_hint": "Quantization Strategy",
+      "statement": "P6 applies FP8/INT4 compressed KV-cache GPU kernels.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details FP8/INT4 compressed KV-cache GPU kernels across all target evaluation checkpoints."
+      }
+    },
+    {
+      "claim_id": "p6-c3",
+      "paper_id": "p6",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "Deployment Recommendation",
+      "statement": "P6 concludes: Compressing KV cache to 4 bits enables 2.8x higher inference concurrency with minimal retention loss.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "CONCLUSION",
+        "page_number": 15,
+        "verbatim_quote": "In conclusion, our results demonstrate: Compressing KV cache to 4 bits enables 2.8x higher inference concurrency with minimal retention loss."
+      }
+    },
+    {
+      "claim_id": "p6-c4",
+      "paper_id": "p6",
+      "claim_type": "LIMITATION",
+      "topic_hint": "Scope Boundary",
+      "statement": "P6 notes: Noticeable needle-in-a-haystack recall loss below 4 bits.",
+      "metric_value": null,
+      "cluster_id": "cl-2",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "LIMITATIONS",
+        "page_number": 14,
+        "verbatim_quote": "The primary limitation remains: Noticeable needle-in-a-haystack recall loss below 4 bits."
+      }
+    },
+    {
+      "claim_id": "p6-c5",
+      "paper_id": "p6",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Secondary Metric",
+      "statement": "P6 evaluates auxiliary performance on Throughput & Memory Profiling on RTX 4090 / A100.",
+      "metric_value": "Valid",
+      "cluster_id": "cl-2",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on Throughput & Memory Profiling on RTX 4090 / A100 verifies primary trends."
+      }
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cl-1",
+      "label": "Quantization Accuracy Trade-offs & Benchmark Parity",
+      "claim_ids": [
+        "p1-c1",
+        "p1-c3",
+        "p2-c1",
+        "p2-c3",
+        "p4-c1",
+        "p4-c3"
+      ],
+      "paper_ids": [
+        "p1",
+        "p2",
+        "p4"
+      ],
+      "mean_similarity": 0.77
+    },
+    {
+      "cluster_id": "cl-2",
+      "label": "Calibration Domain Shifts & KV-Cache Compression",
+      "claim_ids": [
+        "p2-c2",
+        "p3-c2",
+        "p5-c2",
+        "p6-c1"
+      ],
+      "paper_ids": [
+        "p2",
+        "p3",
+        "p5",
+        "p6"
+      ],
+      "mean_similarity": 0.72
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "e-p1c1-p2c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p2-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation yielded 0.8 point MMLU accuracy drop vs FP16."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning yielded 7.9 point degradation at 32k tokens."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.94,
+      "cosine_similarity": 0.82,
+      "explanation": "Zheng (2024) asserts 4-bit quantization loses only 0.8 points and is safe, while Okonkwo (2024) demonstrates a catastrophic 7.9 point drop at 32k context.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c3-p2c3",
+      "source_claim_id": "p1-c3",
+      "target_claim_id": "p2-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "CONCLUSION",
+        "page_number": 11,
+        "verbatim_quote": "In conclusion, our results demonstrate: 4-bit weight-only quantization preserves standard benchmark reasoning within 1 point."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "In conclusion, our results demonstrate: Long-context reasoning is disproportionately vulnerable to low-bit quantization errors."
+      },
+      "relation": "CONTRADICT",
+      "confidence": 0.91,
+      "cosine_similarity": 0.79,
+      "explanation": "Zheng concludes 4-bit models preserve general reasoning, while Okonkwo warns long-context reasoning is severely compromised.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c4-p2c4",
+      "source_claim_id": "p1-c4",
+      "target_claim_id": "p2-c4",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "LIMITATIONS",
+        "page_number": 10,
+        "verbatim_quote": "The primary limitation remains: Context length capped at 2,048 tokens."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "LIMITATIONS",
+        "page_number": 13,
+        "verbatim_quote": "The primary limitation remains: Tested only dense decoder models (Llama-2/3)."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.95,
+      "cosine_similarity": 0.78,
+      "explanation": "The discrepancy between Zheng and Okonkwo is explained by context boundary conditions: Zheng capped testing at 2k tokens while Okonkwo tested at 32k tokens.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p2c2-p5c2",
+      "source_claim_id": "p2-c2",
+      "target_claim_id": "p5-c2",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Activation-aware Weight Quantization (AWQ) 4-bit across all target evaluation checkpoints."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Comparative evaluation of GPTQ, AWQ, and SmoothQuant across all target evaluation checkpoints."
+      },
+      "relation": "AGREE",
+      "confidence": 0.89,
+      "cosine_similarity": 0.75,
+      "explanation": "Both Okonkwo (2024) and Gupta (2025) find that activation-aware outlier protection (AWQ) is critical to preventing representational collapse in low-bit regimes.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c1-p4c1",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p4-c1",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation yielded 0.8 point MMLU accuracy drop vs FP16."
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization yielded Matches full fine-tuning within 0.3%."
+      },
+      "relation": "AGREE",
+      "confidence": 0.86,
+      "cosine_similarity": 0.73,
+      "explanation": "Schneider (2025) agrees with Zheng (2024) that 4-bit formats with adapter tuning preserve benchmark reasoning within 0.3-0.8% of full precision.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p1c2-p3c2",
+      "source_claim_id": "p1-c2",
+      "target_claim_id": "p3-c2",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "Placeholder Paper 1: GPTQ 4-Bit Instruction Following Evaluation",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details GPTQ 4-bit weight-only quantization across all target evaluation checkpoints."
+      },
+      "target": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "Our implementation details Systematic calibration corpus variance testing across all target evaluation checkpoints."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.88,
+      "cosine_similarity": 0.72,
+      "explanation": "Zheng used standard Wikitext calibration, whereas Al-Mansoor proves that varying calibration sets alters perplexity by 1.4 points across domains.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p2c1-p6c1",
+      "source_claim_id": "p2-c1",
+      "target_claim_id": "p6-c1",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 2: AWQ Degradation under Long-Context Reasoning yielded 7.9 point degradation at 32k tokens."
+      },
+      "target": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "Empirical results establish that Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache yielded 2.8x batch size expansion at 16k context."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.85,
+      "cosine_similarity": 0.69,
+      "explanation": "Okonkwo quantizes model weights, while Morales quantizes the dynamic KV cache, offering complementary throughput advantages with different loss profiles.",
+      "cluster_id": "cl-2",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    },
+    {
+      "edge_id": "e-p4c3-p5c3",
+      "source_claim_id": "p4-c3",
+      "target_claim_id": "p5-c3",
+      "source": {
+        "paper_id": "p4",
+        "paper_title": "Placeholder Paper 4: Low-Rank Adaptation Mixed Precision Quantization",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "In conclusion, our results demonstrate: 4-bit NormalFloat base with unquantized LoRA adapters eliminates mathematical reasoning degradation."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "Placeholder Paper 5: Token-Level Perplexity Shifts Across Quantization Schemes",
+        "section": "CONCLUSION",
+        "page_number": 12,
+        "verbatim_quote": "In conclusion, our results demonstrate: Activation-aware scaling significantly preserves high-magnitude outlier activations compared to round-to-nearest."
+      },
+      "relation": "AGREE",
+      "confidence": 0.83,
+      "cosine_similarity": 0.67,
+      "explanation": "Both Schneider and Gupta agree that isolated high-precision elements prevent reasoning degradation.",
+      "cluster_id": "cl-1",
+      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+    }
+  ],
+  "gaps": [
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c5",
+      "claim_id": "p3-c5",
+      "paper_id": "p3",
+      "statement": "Al-Mansoor (2024) notes all calibration corpora were English-only; multilingual quantization behavior remains unbenchmarked across this entire paper group.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "Placeholder Paper 3: Calibration Set Diversity in Weight-Only Quantization",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on RedPajama diverse subsets verifies primary trends."
+      },
+      "best_match_similarity": 0.41,
+      "reason": "No other paper in this set evaluates non-English multilingual calibration sensitivity in 4-bit models."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p6-c5",
+      "claim_id": "p6-c5",
+      "paper_id": "p6",
+      "statement": "Morales (2025) benchmarks GPU memory throughput and batch expansion, but lacks needle-in-a-haystack retrieval evaluation on multi-document reasoning tasks.",
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "Placeholder Paper 6: Hardware-Aware Kernel Optimizations for 4-Bit KV-Cache",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "Auxiliary assessment on Throughput & Memory Profiling on RTX 4090 / A100 verifies primary trends."
+      },
+      "best_match_similarity": 0.36,
+      "reason": "No other paper in this set measures hardware kernel memory latency and KV-cache compression trade-offs."
+    }
+  ],
+  "consensus": {
+    "consensus_score": 56,
+    "executive_summary": "Analysis of 6 LLM quantization papers reveals widespread consensus that 4-bit weight quantization preserves standard short-context benchmarks (MMLU, GSM8k) within 0.8 points of FP16. However, a major empirical conflict exists regarding long-context deployment: 4-bit models lose up to 7.9 points at 32k context on complex reasoning tasks (Okonkwo 2024). Calibration set diversity and activation outlier protection (AWQ) are critical mediators of accuracy.",
+    "agreed_findings": [
+      "Short-context instruction following is well preserved in 4-bit weight-only quantization (Zheng 2024, Schneider 2025).",
+      "Activation outlier protection (AWQ) prevents numerical collapse in low-bit representations (Okonkwo 2024, Gupta 2025)."
+    ],
+    "top_contradictions": [
+      {
+        "edge_id": "e-p1c1-p2c1",
+        "headline": "Deployment safety dispute: Zheng (2024) reports 4-bit models match FP16 within 0.8 points, but Okonkwo (2024) shows a 7.9-point drop at 32k context."
+      }
+    ],
+    "gap_ids": [
+      "gap-p3-c5",
+      "gap-p6-c5"
+    ],
+    "recommended_next_steps": [
+      "Standardize long-context (>16k) evaluations for all low-bit model releases.",
+      "Benchmark multilingual calibration sets to avoid regional language degradation.",
+      "Combine 4-bit weight compression with 4-bit KV cache kernels for end-to-end evaluation."
+    ]
+  },
+  "stats": {
+    "paper_count": 6,
+    "claim_count": 30,
+    "cross_paper_pairs_total": 375,
+    "candidate_pairs": 24,
+    "referee_pairs_evaluated": 8,
+    "referee_calls": 2,
+    "pair_reduction_pct": 93.6,
+    "stage_latency_ms": {
+      "ingestion_ms": 750,
+      "extraction_ms": 4800,
+      "embedding_ms": 62,
+      "clustering_ms": 11,
+      "referee_ms": 1950,
+      "consensus_ms": 1150,
+      "total_ms": 8723
+    }
+  },
+  "models": [
+    {
+      "role": "EXTRACTION",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "EMBEDDING",
+      "model_id": "BAAI/bge-small-en-v1.5",
+      "provider": "fastembed-local",
+      "license": "MIT",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "parameter_count": "33M"
+    },
+    {
+      "role": "REFEREE",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    },
+    {
+      "role": "CONSENSUS_WRITER",
+      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "provider": "groq",
+      "license": "Llama 3.1 Community License",
+      "license_url": "https://www.llama.com/llama3_1/license/",
+      "parameter_count": "8B"
+    }
+  ],
+  "warnings": [
+    "This dataset is synthetic placeholder data for hackathon development. Honest open-source disclosure."
+  ]
+}
