@@ -233,6 +233,7 @@ def test_paper_count_and_size_limits():
     with pytest.raises(KairosError) as exc_info:
         validate_inputs(oversized_file, [], tight_settings)
     assert exc_info.value.code == ErrorCode.FILE_TOO_LARGE
+    assert exc_info.value.status_code == 413
 
     # 2. Total file limit: two 1.2MB files exceed 2MB total limit -> FILE_TOO_LARGE
     medium_file1 = ("m1.pdf", b"%PDF-1.5\n" + b"1" * int(1.2 * 1024 * 1024))
@@ -240,6 +241,7 @@ def test_paper_count_and_size_limits():
     with pytest.raises(KairosError) as exc_info:
         validate_inputs([medium_file1, medium_file2], [], tight_settings)
     assert exc_info.value.code == ErrorCode.FILE_TOO_LARGE
+    assert exc_info.value.status_code == 413
 
     # 3. Less than 2 papers
     default_settings = get_settings()

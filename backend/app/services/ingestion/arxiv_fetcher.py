@@ -91,7 +91,7 @@ async def fetch_arxiv_pdf(
         raise KairosError(
             ErrorCode.FILE_TOO_LARGE,
             f"Downloaded arXiv paper '{clean_id}' exceeds {max_file_mb}MB limit ({len(content) / (1024 * 1024):.1f}MB).",
-            400
+            413
         )
 
     if b"%PDF-" not in content[:1024]:

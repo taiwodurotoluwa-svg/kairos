@@ -1,0 +1,145 @@
+{
+  "presets": [
+    {
+      "preset_id": "radiology",
+      "title": "Chest X-Ray Pneumonia Detection (CNN vs ViT vs Hybrid)",
+      "description": "Comparative literature synthesis of 8 diagnostic studies evaluating deep learning models on chest radiography benchmarks.",
+      "papers": [
+        {
+          "arxiv_id": "1711.05225",
+          "title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/1711.05225"
+        },
+        {
+          "arxiv_id": "1901.07042",
+          "title": "CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/1901.07042"
+        },
+        {
+          "arxiv_id": "1903.00107",
+          "title": "MIMIC-CXR: A Large Publicly Available Database of Labeled Chest Radiographs",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/1903.00107"
+        },
+        {
+          "arxiv_id": "1705.02315",
+          "title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/1705.02315"
+        },
+        {
+          "arxiv_id": "2003.09871",
+          "title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2003.09871"
+        },
+        {
+          "arxiv_id": "2111.00595",
+          "title": "TorchXRayVision: A Library of Chest X-Ray Datasets and Models",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2111.00595"
+        },
+        {
+          "arxiv_id": "2104.09054",
+          "title": "Self-Supervised Learning for Medical Image Classification: A Systematic Review",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2104.09054"
+        },
+        {
+          "arxiv_id": "2203.05582",
+          "title": "Vision Transformers in Medical Imaging: A Comprehensive Review",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2203.05582"
+        }
+      ]
+    },
+    {
+      "preset_id": "llm_quantization",
+      "title": "Post-Training Quantization of Large Language Models (AWQ vs GPTQ vs SmoothQuant)",
+      "description": "Cross-paper evaluation of 4-bit and 8-bit quantization techniques on perplexity degradation and inference speedup.",
+      "papers": [
+        {
+          "arxiv_id": "2210.17323",
+          "title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2210.17323"
+        },
+        {
+          "arxiv_id": "2306.00978",
+          "title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2306.00978"
+        },
+        {
+          "arxiv_id": "2211.10438",
+          "title": "SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2211.10438"
+        },
+        {
+          "arxiv_id": "2305.14314",
+          "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2305.14314"
+        },
+        {
+          "arxiv_id": "2308.13137",
+          "title": "SpQR: A Sparse-Quantized Representation for Near-Lossless LLM Weight Compression",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2308.13137"
+        },
+        {
+          "arxiv_id": "2306.03078",
+          "title": "SqueezeLLM: Dense-and-Sparse Quantization",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2306.03078"
+        }
+      ]
+    },
+    {
+      "preset_id": "microgrids",
+      "title": "Decentralized Energy Scheduling for Islanded Microgrids (RL vs MPC)",
+      "description": "Comparative analysis of reinforcement learning vs model predictive control for microgrid frequency stability and peak shaving.",
+      "papers": [
+        {
+          "arxiv_id": "1903.09062",
+          "title": "Deep Reinforcement Learning for Microgrid Energy Management",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/1903.09062"
+        },
+        {
+          "arxiv_id": "2006.12643",
+          "title": "Model Predictive Control for Decentralized Energy Systems",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2006.12643"
+        },
+        {
+          "arxiv_id": "2104.08375",
+          "title": "Multi-Agent Reinforcement Learning for Microgrid Power Management",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2104.08375"
+        },
+        {
+          "arxiv_id": "2109.11794",
+          "title": "Decentralized Voltage Control in Distribution Grids",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2109.11794"
+        },
+        {
+          "arxiv_id": "2201.05698",
+          "title": "Robust Energy Management in Renewable Microgrids",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2201.05698"
+        },
+        {
+          "arxiv_id": "2203.02456",
+          "title": "Optimal Power Flow and Dispatch in Islanded Microgrids",
+          "license": "CC-BY-4.0",
+          "url": "https://arxiv.org/abs/2203.02456"
+        }
+      ]
+    }
+  ]
+}
