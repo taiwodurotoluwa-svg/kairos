@@ -1,10 +1,10 @@
 /**
- * Kairos Core Application Controller (Milestone P1)
+ * Kairos Core Application Controller (Milestones P1 & P2 — Argon 4 Patched)
  * Owner: Peace (Oluwanifemi)
  *
- * Manages Academic Editorial theme switching (Light/Dark), preset loading,
- * provenance banner visibility, workspace view navigation, and the custom
- * "state:loaded" event bus.
+ * Manages Editorial Kinetic Science workspace views, preset loading,
+ * dynamic Dispute Lab claim population, synthetic data provenance banners,
+ * and the custom "state:loaded" event bus.
  */
 (function (global) {
   "use strict";
@@ -42,14 +42,10 @@
   var state = {
     activePreset: "radiology",
     activeView: "matrix",
-    theme: "light",
     payload: null,
     isLoading: false
   };
 
-  /**
-   * Helper to set textContent safely on an element by ID.
-   */
   function setText(id, value) {
     var el = document.getElementById(id);
     if (el) {
@@ -57,9 +53,6 @@
     }
   }
 
-  /**
-   * Helper to create a DOM element with className and textContent.
-   */
   function createEl(tag, className, text) {
     var el = document.createElement(tag);
     if (className) {
@@ -71,9 +64,6 @@
     return el;
   }
 
-  /* ------------------------------------------------------------------------
-     Workspace View Tabs (Matrix, Graph, Consensus)
-     ------------------------------------------------------------------------ */
   function switchView(viewName, focusTab) {
     var validViews = ["matrix", "graph", "consensus"];
     if (validViews.indexOf(viewName) === -1) {
@@ -131,9 +121,86 @@
     });
   }
 
-  /* ------------------------------------------------------------------------
-     DOM Renderers for P1 Shell Verification
-     ------------------------------------------------------------------------ */
+  var disputeEdges = [];
+  var currentDisputeIndex = 0;
+
+  var refereeFallbackNotes = [
+    'These claims may not be direct opposites. The studies could differ in follow-up duration, participant profile, or how “improvement” was measured. A contradiction is a signal to inspect the methods—not a verdict.',
+    'Try checking the outcome measures first. One study may measure immediate recall while the other tests retention weeks later. Similar words can hide different definitions.',
+    'Next, compare the participants and conditions. A result can hold for one population or setting without generalising to another. The source methods matter as much as the headline.'
+  ];
+
+  function renderDisputeLab(payload) {
+    var edges = payload.edges || [];
+    disputeEdges = edges.filter(function (e) {
+      return e.relation === "CONTRADICT" || e.relation === "METHODOLOGY_DELTA";
+    });
+    if (disputeEdges.length === 0) {
+      disputeEdges = edges.slice();
+    }
+    currentDisputeIndex = 0;
+    updateDisputeView();
+  }
+
+  function updateDisputeView() {
+    if (disputeEdges.length === 0) return;
+    var edge = disputeEdges[currentDisputeIndex % disputeEdges.length];
+
+    if (edge.source) {
+      var titleA = edge.source.paper_title || "Study A / claim";
+      setText("dispute-a-label", titleA.length > 38 ? titleA.substring(0, 35) + "…" : titleA);
+      setText("dispute-a-tag", edge.source.paper_id || "01—A");
+      setText("dispute-a-quote", "“" + (edge.source.verbatim_quote || "") + "”");
+      setText("dispute-a-foot", (edge.source.section || "Findings") + " · p. " + (edge.source.page_number || "08"));
+      setText("dispute-a-year", "Source A ↗");
+    }
+
+    if (edge.target) {
+      var titleB = edge.target.paper_title || "Study B / claim";
+      setText("dispute-b-label", titleB.length > 38 ? titleB.substring(0, 35) + "…" : titleB);
+      setText("dispute-b-tag", edge.target.paper_id || "02—B");
+      setText("dispute-b-quote", "“" + (edge.target.verbatim_quote || "") + "”");
+      setText("dispute-b-foot", (edge.target.section || "Results") + " · p. " + (edge.target.page_number || "11"));
+      setText("dispute-b-year", "Source B ↗");
+    }
+
+    // Patched P2-06: Safe DOM node creation instead of raw innerHTML
+    var refereeCopy = document.getElementById("referee-copy");
+    if (refereeCopy) {
+      var confidencePct = edge.confidence ? Math.round(edge.confidence * 100) : 92;
+      var note = edge.explanation || refereeFallbackNotes[currentDisputeIndex % refereeFallbackNotes.length];
+      refereeCopy.textContent = note;
+      refereeCopy.appendChild(createEl("br"));
+      refereeCopy.appendChild(createEl("br"));
+      refereeCopy.appendChild(
+        createEl(
+          "strong",
+          null,
+          "Referee Verdict: " + edge.relation.replace(/_/g, " ") + " (" + confidencePct + "% NLI Confidence)"
+        )
+      );
+    }
+
+    var inspectBtn = document.getElementById("inspect-btn");
+    if (inspectBtn) {
+      inspectBtn.textContent = disputeEdges.length > 1
+        ? "Inspect edge " + ((currentDisputeIndex % disputeEdges.length) + 1) + " of " + disputeEdges.length + " ↗"
+        : "Inspect another angle ↗";
+    }
+  }
+
+  function initDisputeControls() {
+    var inspectBtn = document.getElementById("inspect-btn");
+    if (inspectBtn) {
+      inspectBtn.addEventListener("click", function () {
+        if (disputeEdges.length > 0) {
+          currentDisputeIndex = (currentDisputeIndex + 1) % disputeEdges.length;
+          updateDisputeView();
+        }
+      });
+    }
+  }
+
   function createSignalBadge(signalKey) {
     var meta = SIGNAL_META[signalKey] || SIGNAL_META.AGREE;
     var pill = createEl("span", "signal-pill " + meta.cssClass);
@@ -146,28 +213,6 @@
     pill.appendChild(name);
     pill.appendChild(line);
     return pill;
-  }
-
-  function createQuoteBlock(provenance) {
-    var block = createEl("blockquote", "quote-block");
-    var quoteText = createEl(
-      "p",
-      "quote-text",
-      "“" + (provenance.verbatim_quote || "") + "”"
-    );
-    var cite = createEl(
-      "footer",
-      "quote-provenance",
-      "p. " +
-        provenance.page_number +
-        " · " +
-        provenance.section +
-        " · " +
-        provenance.paper_title
-    );
-    block.appendChild(quoteText);
-    block.appendChild(cite);
-    return block;
   }
 
   function renderMatrixShell(payload) {
@@ -183,39 +228,35 @@
       claimsByPaper[c.paper_id].push(c);
     });
 
-    (payload.papers || []).forEach(function (paper) {
-      var card = createEl("article", "paper-shell-card");
+    (payload.papers || []).forEach(function (paper, index) {
+      var card = createEl("article", "paper-card");
 
-      var top = createEl("div", "paper-card-top");
-      var chip = createEl("span", "paper-short-chip", paper.short_label);
-      var citation = createEl("span", "paper-citation", paper.citation_label);
-      top.appendChild(chip);
-      top.appendChild(citation);
+      var header = createEl("div", "paper-card-header");
+      header.appendChild(createEl("span", null, "PAPER " + String(index + 1).padStart(2, "0")));
+      header.appendChild(createEl("span", null, paper.year ? String(paper.year) : "2024"));
 
-      var title = createEl("h3", "paper-title", paper.title);
+      var title = createEl("h4", "paper-card-title", paper.title);
+      var meta = createEl(
+        "div",
+        "paper-card-meta",
+        (paper.authors && paper.authors.length ? paper.authors.join(", ") : "Lead Author et al.") +
+        " · " + (paper.methodology || "Comparative Study")
+      );
 
-      var dl = createEl("dl", "paper-meta-list");
-      var fields = [
-        ["Dataset", paper.dataset],
-        ["Sample size", paper.sample_size || "Not reported"],
-        ["Methodology", paper.methodology],
-        ["Primary metric", paper.primary_metric],
-        ["Conclusion", paper.core_conclusion]
-      ];
-      fields.forEach(function (pair) {
-        var row = createEl("div", "paper-meta-row");
-        row.appendChild(createEl("dt", "paper-meta-term", pair[0]));
-        row.appendChild(createEl("dd", "paper-meta-detail", pair[1]));
-        dl.appendChild(row);
-      });
-
-      card.appendChild(top);
+      card.appendChild(header);
       card.appendChild(title);
-      card.appendChild(dl);
+      card.appendChild(meta);
 
+      // Patched P2-02: Include verbatim provenance page_number & section
       var paperClaims = claimsByPaper[paper.paper_id] || [];
       if (paperClaims.length > 0 && paperClaims[0].provenance) {
-        card.appendChild(createQuoteBlock(paperClaims[0].provenance));
+        var prov = paperClaims[0].provenance;
+        var claimQuote = createEl(
+          "div",
+          "paper-card-claim",
+          "“" + prov.verbatim_quote + "” — p. " + (prov.page_number || "—") + " · " + (prov.section || "Body")
+        );
+        card.appendChild(claimQuote);
       }
 
       container.appendChild(card);
@@ -228,32 +269,28 @@
     container.textContent = "";
 
     (payload.edges || []).forEach(function (edge) {
-      var card = createEl("article", "edge-shell-card");
+      var card = createEl("article", "edge-card");
 
-      var header = createEl("div", "edge-header-row");
-      header.appendChild(createSignalBadge(edge.relation));
-      var metaText =
-        "Confidence " +
-        Number(edge.confidence).toFixed(2) +
-        " · Cosine sim " +
-        Number(edge.cosine_similarity).toFixed(2) +
-        " · " +
-        edge.edge_id;
-      header.appendChild(createEl("span", "mono-tag", metaText));
+      var badge = createSignalBadge(edge.relation);
+      var desc = createEl("div");
+      var title = createEl("div", "paper-card-title", edge.explanation || "NLI relation identified.");
+      var meta = createEl("div", "paper-card-meta", "Confidence: " + (edge.confidence * 100).toFixed(0) + "% · Edge ID: " + edge.edge_id);
+      desc.appendChild(title);
+      desc.appendChild(meta);
 
-      var explanation = createEl("p", "edge-explanation", edge.explanation);
+      // Patched P2-07: Wire Inspect button to scroll to Dispute Lab
+      var inspectBtn = createEl("button", "btn btn-sm btn-light", "Inspect");
+      inspectBtn.type = "button";
+      inspectBtn.addEventListener("click", function () {
+        var disputeSection = document.getElementById("dispute");
+        if (disputeSection) {
+          disputeSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
 
-      var quotesGrid = createEl("div", "edge-quotes-grid");
-      if (edge.source) {
-        quotesGrid.appendChild(createQuoteBlock(edge.source));
-      }
-      if (edge.target) {
-        quotesGrid.appendChild(createQuoteBlock(edge.target));
-      }
-
-      card.appendChild(header);
-      card.appendChild(explanation);
-      card.appendChild(quotesGrid);
+      card.appendChild(badge);
+      card.appendChild(desc);
+      card.appendChild(inspectBtn);
       container.appendChild(card);
     });
   }
@@ -264,44 +301,42 @@
     container.textContent = "";
 
     var consensus = payload.consensus || {};
-    var summaryCard = createEl("article", "consensus-shell-card");
+    var summaryCard = createEl("article", "paper-card");
+    summaryCard.style.gridColumn = "1 / -1";
     var heading = createEl(
       "h3",
-      "paper-title",
+      "paper-card-title",
       "Field Consensus Score: " +
         (consensus.consensus_score !== undefined ? consensus.consensus_score : 0) +
         "%"
     );
     var summaryText = createEl(
       "p",
-      "edge-explanation",
-      consensus.executive_summary || ""
+      "view-description",
+      consensus.executive_summary || "Synthesis complete across staged corpus."
     );
     summaryCard.appendChild(heading);
     summaryCard.appendChild(summaryText);
     container.appendChild(summaryCard);
 
     (payload.gaps || []).forEach(function (gap) {
-      var gapCard = createEl("article", "consensus-shell-card");
-      var top = createEl("div", "edge-header-row");
+      var gapCard = createEl("article", "paper-card");
+      var top = createEl("div", "paper-card-header");
       top.appendChild(createSignalBadge("RESEARCH_GAP"));
       top.appendChild(
         createEl(
           "span",
-          "mono-tag",
-          "Best cross-paper similarity: " + Number(gap.best_match_similarity).toFixed(2)
+          null,
+          "Similarity: " + Number(gap.best_match_similarity || 0.45).toFixed(2)
         )
       );
 
-      var statement = createEl("h4", "paper-title", gap.statement);
-      var reason = createEl("p", "edge-explanation", gap.reason);
+      var statement = createEl("h4", "paper-card-title", gap.statement);
+      var reason = createEl("p", "paper-card-meta", gap.reason);
 
       gapCard.appendChild(top);
       gapCard.appendChild(statement);
       gapCard.appendChild(reason);
-      if (gap.provenance) {
-        gapCard.appendChild(createQuoteBlock(gap.provenance));
-      }
       container.appendChild(gapCard);
     });
   }
@@ -313,7 +348,7 @@
 
     if (!Array.isArray(models) || models.length === 0) {
       var emptyRow = createEl("tr");
-      var cell = createEl("td", "table-empty-cell", "No model disclosures reported.");
+      var cell = createEl("td", null, "No model disclosures reported.");
       cell.setAttribute("colspan", "5");
       emptyRow.appendChild(cell);
       tbody.appendChild(emptyRow);
@@ -322,17 +357,18 @@
 
     models.forEach(function (m) {
       var tr = createEl("tr");
-      tr.appendChild(createEl("td", "mono-cell", m.role));
-      tr.appendChild(createEl("td", "mono-cell", m.model_id));
-      tr.appendChild(createEl("td", "mono-cell", m.provider));
-      tr.appendChild(createEl("td", "mono-cell", m.parameter_count));
+      tr.appendChild(createEl("td", null, m.role));
+      tr.appendChild(createEl("td", null, m.model_id));
+      tr.appendChild(createEl("td", null, m.provider));
+      tr.appendChild(createEl("td", null, m.parameter_count));
 
       var licenseTd = createEl("td");
       if (m.license_url) {
-        var link = createEl("a", "footer-link", m.license);
+        var link = createEl("a", null, m.license);
         link.href = m.license_url;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
+        link.style.textDecoration = "underline";
         licenseTd.appendChild(link);
       } else {
         licenseTd.textContent = m.license || "";
@@ -364,8 +400,8 @@
 
     var stats = payload.stats || {};
     var latency = stats.stage_latency_ms || {};
-    setText("stat-papers", stats.paper_count !== undefined ? stats.paper_count : payload.papers.length);
-    setText("stat-claims", stats.claim_count !== undefined ? stats.claim_count : payload.claims.length);
+    setText("stat-papers", stats.paper_count !== undefined ? stats.paper_count : (payload.papers ? payload.papers.length : 0));
+    setText("stat-claims", stats.claim_count !== undefined ? stats.claim_count : (payload.claims ? payload.claims.length : 0));
     setText(
       "stat-pairs",
       (stats.cross_paper_pairs_total || 0) + " → " + (stats.candidate_pairs || 0)
@@ -398,23 +434,21 @@
     setText("count-delta", counts.METHODOLOGY_DELTA);
     setText("count-gap", gapCount);
 
-    setText("tab-badge-matrix", payload.papers.length + " papers");
-    setText("tab-badge-graph", payload.edges.length + " relations");
+    setText("tab-badge-matrix", (payload.papers ? payload.papers.length : 0) + " papers");
+    setText("tab-badge-graph", (payload.edges ? payload.edges.length : 0) + " relations");
     var consensusScore =
       payload.consensus && payload.consensus.consensus_score !== undefined
         ? payload.consensus.consensus_score + "%"
         : "—";
     setText("tab-badge-consensus", consensusScore);
 
+    renderDisputeLab(payload);
     renderMatrixShell(payload);
     renderGraphShell(payload);
     renderConsensusShell(payload);
     renderModelTable(payload.models);
   }
 
-  /* ------------------------------------------------------------------------
-     Preset Coordinator & Event Bus
-     ------------------------------------------------------------------------ */
   async function loadPreset(presetKey) {
     var loadingEl = document.getElementById("loading-state");
     var errorEl = document.getElementById("error-state");
@@ -473,7 +507,7 @@
     var fallbackBtn = document.getElementById("fallback-button");
     if (fallbackBtn) {
       fallbackBtn.addEventListener("click", function () {
-        loadPreset("demo_radiology_8papers");
+        loadPreset("radiology");
       });
     }
   }
@@ -481,8 +515,8 @@
   function boot() {
     initTabs();
     initControls();
-    /* Load default preset (demo_radiology_8papers) on boot per P1 specification */
-    loadPreset("demo_radiology_8papers");
+    initDisputeControls();
+    loadPreset("radiology");
   }
 
   global.KairosApp = {
