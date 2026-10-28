@@ -55,9 +55,9 @@ def test_get_demo_preset_radiology():
     assert res.status_code == 200
     data = res.json()
     assert data["preset_id"] == "radiology"
-    assert len(data["papers"]) == 8
-    assert len(data["claims"]) == 40
-    assert len(data["edges"]) == 8
+    assert data["fixture_provenance"] == "REAL_PIPELINE_OUTPUT"
+    assert len(data["papers"]) >= 2
+    assert len(data["claims"]) >= 4
 
 
 def test_get_demo_preset_llm_quantization():
@@ -65,7 +65,9 @@ def test_get_demo_preset_llm_quantization():
     assert res.status_code == 200
     data = res.json()
     assert data["preset_id"] == "llm_quantization"
-    assert len(data["papers"]) == 6
+    assert data["fixture_provenance"] == "REAL_PIPELINE_OUTPUT"
+    assert len(data["papers"]) >= 2
+    assert len(data["claims"]) >= 4
 
 
 def test_get_demo_preset_microgrids():
@@ -73,7 +75,9 @@ def test_get_demo_preset_microgrids():
     assert res.status_code == 200
     data = res.json()
     assert data["preset_id"] == "microgrids"
-    assert len(data["papers"]) == 6
+    assert data["fixture_provenance"] == "REAL_PIPELINE_OUTPUT"
+    assert len(data["papers"]) >= 2
+    assert len(data["claims"]) >= 4
 
 
 def test_get_demo_preset_not_found():

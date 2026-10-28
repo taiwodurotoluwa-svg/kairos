@@ -21,17 +21,17 @@ from app.services.prompts.extraction import CORRECTIVE_RETRY_TEMPLATE
 T = TypeVar("T")
 
 
-def _retry_after(exc: RateLimitError) -> float:
-    """Extracts Retry-After delay from response headers if available, capped at 5.0s with jitter."""
-    delay = 1.5
+def _retry_after(exc: Exception, max_cap: float = 5.0) -> float:
+    """Extracts Retry-After delay from response headers if available, capped at max_cap with jitter."""
+    delay = 1.5 if max_cap <= 5.0 else 16.0
     try:
         if hasattr(exc, "response") and exc.response is not None:
             header = exc.response.headers.get("retry-after")
             if header:
-                delay = min(max(0.5, float(header)), 5.0)
+                clean_h = str(header).strip().rstrip("s")
+                delay = min(max(0.5, float(clean_h)), max_cap)
     except Exception:
         pass
-    # Add random jitter (0.1s - 0.6s) to prevent concurrent synchronized thundering herd
     return delay + random.uniform(0.1, 0.6)
 
 
@@ -159,8 +159,13 @@ class LLMClient:
 
                 except RateLimitError as rle:
                     last_error = f"{p.name}: rate limited"
+                    if self.settings.llm_max_retries > 2 and attempt + 1 < self.settings.llm_max_retries:
+                        max_tokens = min(max_tokens, 1600)
+                        wait_s = _retry_after(rle, max_cap=60.0)
+                        await asyncio.sleep(wait_s)
+                        continue
                     if attempt == 0:
-                        await asyncio.sleep(_retry_after(rle))
+                        await asyncio.sleep(_retry_after(rle, max_cap=5.0))
                         continue
                     break
 
@@ -173,10 +178,12 @@ class LLMClient:
                     if p.name == "groq" and status_err.status_code == 404 and p.model != "qwen/qwen3.8-27b":
                         p.model = "qwen/qwen3.8-27b"
                         continue
-                    # Auto-truncate prompt if Groq free tier rejects request size with HTTP 413 (TPM limit)
-                    if status_err.status_code == 413 and len(messages[-1]["content"]) > 6000:
-                        messages[-1]["content"] = messages[-1]["content"][:10000] + "\n\nReturn the JSON object now."
-                        max_tokens = min(max_tokens, 1500)
+                    # Auto-truncate prompt & wait if Groq free tier rejects request size with HTTP 413 (TPM limit)
+                    if status_err.status_code == 413 and attempt + 1 < max(3, self.settings.llm_max_retries):
+                        if len(messages[-1]["content"]) > 6000:
+                            messages[-1]["content"] = messages[-1]["content"][:8500] + "\n\nReturn the JSON object now."
+                        max_tokens = min(max_tokens, 1400)
+                        await asyncio.sleep(15.0)
                         continue
                     last_error = f"{p.name}: HTTP {status_err.status_code}"
                     break

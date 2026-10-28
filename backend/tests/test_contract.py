@@ -135,7 +135,10 @@ def test_open_weight_models_and_synthetic_provenance(fixture_path):
     raw = json.loads(fixture_path.read_text(encoding="utf-8"))
     result = schemas.AnalysisResult.model_validate(raw)
 
-    assert result.fixture_provenance == schemas.FixtureProvenance.SYNTHETIC_PLACEHOLDER
+    if fixture_path.name == "contract_sample.json":
+        assert result.fixture_provenance == schemas.FixtureProvenance.SYNTHETIC_PLACEHOLDER
+    else:
+        assert result.fixture_provenance == schemas.FixtureProvenance.REAL_PIPELINE_OUTPUT
 
     assert len(result.models) >= 2, "Every preset must disclose at least LLM and embedding models"
     for m in result.models:

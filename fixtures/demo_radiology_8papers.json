@@ -1,242 +1,273 @@
 {
   "schema_version": "1.0.0",
-  "analysis_id": "demo-radiology",
+  "analysis_id": "demo-radiology-v1",
   "mode": "DEMO",
   "preset_id": "radiology",
-  "fixture_provenance": "SYNTHETIC_PLACEHOLDER",
-  "generated_at": "2026-10-26T21:00:00Z",
+  "fixture_provenance": "REAL_PIPELINE_OUTPUT",
+  "generated_at": "2026-10-28T09:10:29.530491Z",
   "papers": [
     {
       "paper_id": "p1",
       "short_label": "P1",
-      "citation_label": "Smith (2024)",
+      "citation_label": "Rajpurkar et al. (n.d.)",
       "palette_index": 0,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p1_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+      "source": "ARXIV",
+      "arxiv_id": "1711.05225",
+      "filename": "arxiv_1711.05225.pdf",
+      "title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
       "authors": [
-        "J. Smith",
-        "A. Doe"
+        "Pranav Rajpurkar",
+        "Jeremy Irvin",
+        "Kaylie Zhu",
+        "Brandon Yang",
+        "Hershel Mehta",
+        "Tony Duan",
+        "Daisy Ding",
+        "Aarti Bagul",
+        "Robyn L. Ball",
+        "Curtis Langlotz",
+        "Katie Shpanskaya",
+        "Matthew P. Lungren",
+        "Andrew Y. Ng"
       ],
-      "year": 2024,
-      "page_count": 12,
+      "year": null,
+      "page_count": 7,
       "sections_found": [
         "ABSTRACT",
-        "METHODOLOGY",
         "RESULTS",
-        "CONCLUSION"
+        "LIMITATIONS",
+        "CONCLUSION",
+        "OTHER"
       ],
-      "dataset": "NIH ChestX-ray14 (curated n=1,200)",
-      "sample_size": "n=1000",
-      "methodology": "Supervised fine-tuning of ResNet-50",
-      "primary_metric": "94.2% Diagnostic Accuracy (AUC 0.96)",
-      "limitations": "Evaluated only on clean, motion-free curated hospital archives.",
-      "core_conclusion": "ResNet-50 models surpass human clinician baselines under curated lab conditions.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "dataset": "ChestX-ray14",
+      "sample_size": "420 frontal chest X-rays (test set); over 100,000 images (training dataset)",
+      "methodology": "121-layer convolutional neural network (CheXNet) trained on ChestX-ray14, using class activation mappings for interpretation.",
+      "primary_metric": "F1 score",
+      "limitations": "Only frontal radiographs were used; patient history was not permitted for model or radiologists.",
+      "core_conclusion": "CheXNet exceeds average radiologist performance on the F1 metric for pneumonia detection and achieves state-of-the-art results on all 14 diseases in ChestX-ray14.",
+      "extraction_model": "qwen/qwen3.8-27b"
     },
     {
       "paper_id": "p2",
       "short_label": "P2",
-      "citation_label": "Adewale (2024)",
+      "citation_label": "Johnson et al. (n.d.)",
       "palette_index": 1,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p2_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
+      "source": "ARXIV",
+      "arxiv_id": "1901.07042",
+      "filename": "arxiv_1901.07042.pdf",
+      "title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
       "authors": [
-        "T. Adewale",
-        "O. Bello"
+        "Alistair E. W. Johnson",
+        "Tom J. Pollard",
+        "Nathaniel R. Greenbaum",
+        "Matthew P. Lungren",
+        "Chih-ying Deng",
+        "Yifan Peng",
+        "Zhiyong Lu",
+        "Roger G. Mark",
+        "Seth J. Berkowitz",
+        "Steven Horng"
       ],
-      "year": 2024,
-      "page_count": 14,
+      "year": null,
+      "page_count": 7,
       "sections_found": [
         "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
+        "CONCLUSION",
+        "OTHER"
       ],
-      "dataset": "Rural District Hospital Scans (n=3,400)",
-      "sample_size": "n=1500",
-      "methodology": "DenseNet-121 with uncalibrated field inputs",
-      "primary_metric": "68.4% Accuracy (AUC 0.72)",
-      "limitations": "Severe sensitivity drop when encountering portable X-ray artifacts.",
-      "core_conclusion": "Deep architectures fail to maintain diagnostic parity on noisy clinical field data.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "dataset": "MIMIC-CXR-JPG v2.0.0",
+      "sample_size": "377,110 chest x-rays associated with 227,827 imaging studies",
+      "methodology": "Images are provided with 14 labels derived from two natural language processing tools applied to the corresponding free-text radiology reports.",
+      "primary_metric": "Not reported",
+      "limitations": "Not reported",
+      "core_conclusion": "MIMIC-CXR-JPG is a large, publicly available dataset of chest radiographs from over 220,000 studies performed at the BIDMC that will provide a benchmark for medically relevant computer vision tasks.",
+      "extraction_model": "qwen/qwen3.8-27b"
     },
     {
       "paper_id": "p3",
       "short_label": "P3",
-      "citation_label": "Chen (2024)",
+      "citation_label": "Zhang et al. (n.d.)",
       "palette_index": 2,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p3_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
+      "source": "ARXIV",
+      "arxiv_id": "1903.00107",
+      "filename": "arxiv_1903.00107.pdf",
+      "title": "GAN Based Image Deblurring Using Dark Channel Prior",
       "authors": [
-        "L. Chen",
-        "M. Rossi"
+        "Shuang Zhang",
+        "Ada Zhen",
+        "Robert L. Stevenson"
       ],
-      "year": 2024,
-      "page_count": 16,
+      "year": null,
+      "page_count": 5,
       "sections_found": [
         "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
+        "EXPERIMENTAL_SETUP",
+        "CONCLUSION",
+        "OTHER"
       ],
-      "dataset": "Synthetic Motion-Corrupted MIMIC-CXR (n=5,000)",
-      "sample_size": "n=2000",
-      "methodology": "ViT-Base with Patch-Level Attention Dropout",
-      "primary_metric": "88.1% Accuracy under 15% blur",
-      "limitations": "Computationally prohibitive for low-power edge medical carts.",
-      "core_conclusion": "Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "dataset": "GOPRO dataset and GOPRO-noise dataset",
+      "sample_size": "2103 training pairs and 1111 test pairs",
+      "methodology": "Conditional GAN with dark channel prior incorporated into the loss function using L2 norm",
+      "primary_metric": "PSNR and SSIM",
+      "limitations": "Not reported",
+      "core_conclusion": "The proposed network shows improved deblurring performance and robustness to image noise compared to existing end-to-end deblurring networks.",
+      "extraction_model": "qwen/qwen3.8-27b"
     },
     {
       "paper_id": "p4",
       "short_label": "P4",
-      "citation_label": "Kowalski (2025)",
+      "citation_label": "Wang et al. (n.d.)",
       "palette_index": 3,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p4_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
+      "source": "ARXIV",
+      "arxiv_id": "1705.02315",
+      "filename": "arxiv_1705.02315.pdf",
+      "title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
       "authors": [
-        "P. Kowalski",
-        "S. Lind"
+        "Xiaosong Wang",
+        "Yifan Peng",
+        "Le Lu",
+        "Zhiyong Lu",
+        "Mohammadhadi Bagheri",
+        "Ronald M. Summers"
       ],
-      "year": 2025,
-      "page_count": 11,
+      "year": null,
+      "page_count": 19,
       "sections_found": [
         "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
+        "EXPERIMENTAL_SETUP",
+        "CONCLUSION",
+        "OTHER"
       ],
-      "dataset": "4-Center Collaborative Radiography Cohort (n=8,200)",
-      "sample_size": "n=2500",
-      "methodology": "Ensemble ResNet + Swin Transformer with domain adversarial training",
-      "primary_metric": "91.3% Multi-Site Balanced Accuracy",
-      "limitations": "Requires cross-site calibration to counter differing scanner manufacturer profiles.",
-      "core_conclusion": "Domain adaptation effectively bridges the performance gap across disparate radiographic hardware.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "dataset": "ChestX-ray8",
+      "sample_size": "108,948 images",
+      "methodology": "Unified weakly-supervised multi-label image classification and disease localization framework using fine-tuned CNNs (AlexNet, GoogLeNet, VGGNet-16, ResNet-50) with weighted cross-entropy loss.",
+      "primary_metric": "Area-Under-Curve (AUC)",
+      "limitations": "Deep convolutional neural network based reading of chest X-rays remains a strenuous task for fully-automated high precision CAD systems.",
+      "core_conclusion": "The ResNet-50 based model with weighted cross-entropy loss achieves the best multi-label classification performance, with Cardiomegaly and Pneumothorax being the most accurately recognized classes.",
+      "extraction_model": "qwen/qwen3.8-27b"
     },
     {
       "paper_id": "p5",
       "short_label": "P5",
-      "citation_label": "Nwachukwu (2025)",
+      "citation_label": "Wang et al. (n.d.)",
       "palette_index": 4,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p5_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+      "source": "ARXIV",
+      "arxiv_id": "2003.09871",
+      "filename": "arxiv_2003.09871.pdf",
+      "title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
       "authors": [
-        "C. Nwachukwu",
-        "D. Miller"
+        "Linda Wang",
+        "Zhong Qiu Lin",
+        "Alexander Wong"
       ],
-      "year": 2025,
-      "page_count": 13,
-      "sections_found": [
-        "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
-      ],
-      "dataset": "Acute Pulmonary Admissions (n=950)",
-      "sample_size": "n=3000",
-      "methodology": "Comparative prospective diagnostic trial with expert consensus ground truth",
-      "primary_metric": "High-kV Radiography missed 24% of occult lesions vs Low-Dose CT",
-      "limitations": "Radiation dose was 4x higher in the CT cohort.",
-      "core_conclusion": "Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "paper_id": "p6",
-      "short_label": "P6",
-      "citation_label": "Dubois (2025)",
-      "palette_index": 5,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p6_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-      "authors": [
-        "E. Dubois",
-        "V. Moreau"
-      ],
-      "year": 2025,
-      "page_count": 15,
-      "sections_found": [
-        "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
-      ],
-      "dataset": "Pediatric Pneumonia Cohort (n=2,100)",
-      "sample_size": "n=3500",
-      "methodology": "DINOv2 self-supervised pretraining with pediatric fine-tuning",
-      "primary_metric": "89.7% Specificity on pediatric consolidations",
-      "limitations": "Small sample size for rare congenital thoracic malformations.",
-      "core_conclusion": "Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "paper_id": "p7",
-      "short_label": "P7",
-      "citation_label": "Patel (2025)",
-      "palette_index": 6,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p7_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-      "authors": [
-        "R. Patel",
-        "K. Gomez"
-      ],
-      "year": 2025,
-      "page_count": 10,
-      "sections_found": [
-        "ABSTRACT",
-        "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
-      ],
-      "dataset": "Academic Teaching Hospital Double-Read Trial (n=4,000)",
-      "sample_size": "n=4000",
-      "methodology": "Interactive triage queue with confidence-weighted clinician routing",
-      "primary_metric": "18% Reduction in reading turnaround time; 96.1% joint accuracy",
-      "limitations": "Clinicians displayed automation bias when model confidence was artificially high.",
-      "core_conclusion": "Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "paper_id": "p8",
-      "short_label": "P8",
-      "citation_label": "Takahashi (2025)",
-      "palette_index": 7,
-      "source": "DEMO",
-      "arxiv_id": null,
-      "filename": "p8_radiology_placeholder.pdf",
-      "title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-      "authors": [
-        "H. Takahashi",
-        "Y. Sato"
-      ],
-      "year": 2025,
+      "year": null,
       "page_count": 12,
       "sections_found": [
         "ABSTRACT",
         "METHODOLOGY",
-        "RESULTS",
-        "CONCLUSION"
+        "CONCLUSION",
+        "OTHER"
       ],
-      "dataset": "Field Bedside Portable Imaging Suite (n=1,500)",
-      "sample_size": "n=4500",
-      "methodology": "INT8 post-training quantization on Raspberry Pi / Jetson Orin",
-      "primary_metric": "0.4% AUC drop vs FP32 with 3.8x inference speedup",
-      "limitations": "Battery thermal throttling observed after 45 consecutive scan evaluations.",
-      "core_conclusion": "INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination.",
-      "extraction_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "dataset": "COVIDx",
+      "sample_size": "13,975 CXR images across 13,870 patient cases",
+      "methodology": "Human-machine collaborative design strategy combining principled network design prototyping with machine-driven design exploration",
+      "primary_metric": "Not reported",
+      "limitations": "Not a production-ready solution; limited amount of COVID-19 infection cases in the dataset",
+      "core_conclusion": "COVID-Net is an open source deep convolutional neural network design tailored for the detection of COVID-19 cases from chest X-ray images.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p6",
+      "short_label": "P6",
+      "citation_label": "Cohen et al. (2021)",
+      "palette_index": 5,
+      "source": "ARXIV",
+      "arxiv_id": "2111.00595",
+      "filename": "arxiv_2111.00595.pdf",
+      "title": "TorchXRayVision: A library of chest X-ray datasets and models",
+      "authors": [
+        "Joseph Paul Cohen",
+        "Joseph D. Viviano",
+        "Paul Bertin",
+        "Paul Morrison",
+        "Parsa Torabian",
+        "Matteo Guarrera",
+        "Matthew P Lungren",
+        "Akshay Chaudhari",
+        "Rupert Brooks",
+        "Mohammad Hashir",
+        "Hadrien Bertrand"
+      ],
+      "year": 2021,
+      "page_count": 14,
+      "sections_found": [
+        "ABSTRACT",
+        "OTHER"
+      ],
+      "dataset": "Multiple publicly available chest X-ray datasets",
+      "sample_size": "Not reported",
+      "methodology": "Open source software library providing a common interface and pre-processing chain for chest X-ray datasets and deep learning models.",
+      "primary_metric": "Not reported",
+      "limitations": "Not reported",
+      "core_conclusion": "TorchXRayVision establishes a reusable framework for reproducible research and consistent baseline experiments in chest X-ray analysis.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p7",
+      "short_label": "P7",
+      "citation_label": "Zhang et al. (2021)",
+      "palette_index": 6,
+      "source": "ARXIV",
+      "arxiv_id": "2104.09054",
+      "filename": "arxiv_2104.09054.pdf",
+      "title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+      "authors": [
+        "Fengshun Zhang",
+        "Zhideng Zhou",
+        "Xiaolei Yang",
+        "Huan Zhang"
+      ],
+      "year": 2021,
+      "page_count": 21,
+      "sections_found": [
+        "ABSTRACT",
+        "CONCLUSION",
+        "OTHER"
+      ],
+      "dataset": "DNS data of turbulent channel flows",
+      "sample_size": "Not reported",
+      "methodology": "A single logarithmic-exponential (LOG-EXP) formula for the law of the wall and a feedforward neural network (FNN) for wall-modelled large-eddy simulation (WMLES)",
+      "primary_metric": "Reynolds stresses",
+      "limitations": "Not reported",
+      "core_conclusion": "The LOG-EXP formula and its associated FNN model provide better predictions for Reynolds stresses in WMLES compared to the Werner-Wengle model.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p8",
+      "short_label": "P8",
+      "citation_label": "Aﬁk & Nova (2022)",
+      "palette_index": 7,
+      "source": "ARXIV",
+      "arxiv_id": "2203.05582",
+      "filename": "arxiv_2203.05582.pdf",
+      "title": "Quantum information with top quarks in QCD",
+      "authors": [
+        "Yoav Aﬁk",
+        "Juan Ramón Muñoz de Nova"
+      ],
+      "year": 2022,
+      "page_count": 36,
+      "sections_found": [
+        "ABSTRACT",
+        "OTHER"
+      ],
+      "dataset": "LHC and Tevatron collision data",
+      "sample_size": "Not reported",
+      "methodology": "General framework of the quantum state of a top-antitop pair produced through QCD, computing the production spin density matrix and analyzing entanglement and CHSH violation signatures.",
+      "primary_metric": "Entanglement and CHSH violation signatures",
+      "limitations": "A CHSH violation measured in a collider is only a weak form of violation of Bell’s theorem, necessarily containing a number of loopholes.",
+      "core_conclusion": "The total quantum state of a top-antitop pair probed in a collider is a mixed state given by the production spin density matrix, exhibiting entanglement and CHSH violation in specific phase space regions.",
+      "extraction_model": "qwen/qwen3.8-27b"
     }
   ],
   "claims": [
@@ -244,1050 +275,1320 @@
       "claim_id": "p1-c1",
       "paper_id": "p1",
       "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P1 reports primary diagnostic metric: 94.2% Diagnostic Accuracy (AUC 0.96).",
-      "metric_value": "94.2% Diagnostic Accuracy (AUC 0.96)",
-      "cluster_id": "cl-1",
+      "topic_hint": "pneumonia detection F1 score",
+      "statement": "CheXNet achieved an F1 score of 0.435 (95% CI 0.387, 0.481) for pneumonia detection, which is higher than the radiologist average of 0.387 (95% CI 0.330, 0.442).",
+      "metric_value": "0.435",
+      "cluster_id": "cl-2",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
         "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
+        "page_number": 3,
+        "verbatim_quote": "We ﬁnd that CheXNet achieves an F1\nscore of 0.435 (95% CI 0.387, 0.481), higher than the\nradiologist average of 0.387 (95% CI 0.330, 0.442)."
       }
     },
     {
       "claim_id": "p1-c2",
       "paper_id": "p1",
-      "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P1 employs Supervised fine-tuning of ResNet-50 as its core approach.",
-      "metric_value": null,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "statistical significance of F1 difference",
+      "statement": "The difference in F1 scores between CheXNet and the radiologist average was 0.051 (95% CI 0.005, 0.084), indicating that CheXNet's performance is statistically significantly higher.",
+      "metric_value": "0.051",
       "cluster_id": "cl-2",
-      "is_research_gap": false,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "METHODOLOGY",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "RESULTS",
         "page_number": 3,
-        "verbatim_quote": "Our pipeline implements Supervised fine-tuning of ResNet-50 to ensure reproducible evaluation across test subsets."
+        "verbatim_quote": "We ﬁnd that the diﬀerence in F1 scores —\n0.051 (95% CI 0.005, 0.084) — does not contain 0, and\ntherefore conclude that the performance of CheXNet\nis statistically signiﬁcantly higher than radiologist performance."
       }
     },
     {
       "claim_id": "p1-c3",
       "paper_id": "p1",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P1 concludes: ResNet-50 models surpass human clinician baselines under curated lab conditions.",
-      "metric_value": null,
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "LIMITATION",
+      "topic_hint": "frontal radiograph constraint",
+      "statement": "The study only presented frontal radiographs to the radiologists and model, which may provide a conservative estimate of performance since up to 15% of accurate diagnoses require the lateral view.",
+      "metric_value": "15%",
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "CONCLUSION",
-        "page_number": 11,
-        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "LIMITATIONS",
+        "page_number": 3,
+        "verbatim_quote": "First,\nonly frontal radiographs were presented to the radiologists and model during diagnosis, but it has been\nshown that up to 15% of accurate diagnoses require\nthe lateral view (Raoof et al., 2012); we thus expect\nthat this setup provides a conservative estimate of performance."
       }
     },
     {
       "claim_id": "p1-c4",
       "paper_id": "p1",
       "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P1 observes key constraint: Evaluated only on clean, motion-free curated hospital archives.",
+      "topic_hint": "patient history exclusion",
+      "statement": "Neither the model nor the radiologists were permitted to use patient history, which has been shown to decrease radiologist diagnostic performance in interpreting chest radiographs.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
         "section": "LIMITATIONS",
-        "page_number": 10,
-        "verbatim_quote": "A critical limitation of this work is: Evaluated only on clean, motion-free curated hospital archives."
+        "page_number": 3,
+        "verbatim_quote": "Third, neither the model nor the radiologists were not permitted to use patient history, which\nhas been shown to decrease radiologist diagnostic performance in interpreting chest radiographs (Berbaum\net al., 1985; Potchen et al., 1979)"
       }
     },
     {
       "claim_id": "p1-c5",
       "paper_id": "p1",
       "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P1 verifies secondary performance on NIH ChestX-ray14 (curated n=1,200).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
+      "topic_hint": "multi-class AUROC performance",
+      "statement": "CheXNet achieved state-of-the-art results on all 14 pathology classes in the ChestX-ray14 dataset, outperforming previous state of the art by more than 0.05 in AUROC on Mass, Nodule, Pneumonia, and Emphysema.",
+      "metric_value": "> 0.05",
+      "cluster_id": "cl-2",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
         "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across NIH ChestX-ray14 (curated n=1,200)."
+        "page_number": 5,
+        "verbatim_quote": "We ﬁnd that CheXNet achieves state of the art results\non all 14 pathology classes. Table 2 illustrates the perclass AUROC comparison on the test set. On Mass,\nNodule, Pneumonia, and Emphysema, we outperform\nprevious state of the art considerably (> 0.05 increase\nin AUROC)."
       }
     },
     {
       "claim_id": "p2-c1",
       "paper_id": "p2",
       "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P2 reports primary diagnostic metric: 68.4% Accuracy (AUC 0.72).",
-      "metric_value": "68.4% Accuracy (AUC 0.72)",
+      "topic_hint": "dataset size and source",
+      "statement": "MIMIC-CXR-JPG v2.0.0 contains 377,110 chest x-rays associated with 227,827 imaging studies sourced from the Beth Israel Deaconess Medical Center between 2011 and 2016.",
+      "metric_value": "377,110 chest x-rays; 227,827 imaging studies",
       "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Here we describe MIMIC-CXR-JPG\nv2.0.0, a large dataset of 377,110 chest x-rays associated with 227,827 imaging studies sourced from\nthe Beth Israel Deaconess Medical Center between 2011 - 2016."
       }
     },
     {
       "claim_id": "p2-c2",
       "paper_id": "p2",
       "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P2 employs DenseNet-121 with uncalibrated field inputs as its core approach.",
-      "metric_value": null,
-      "cluster_id": "cl-2",
+      "topic_hint": "label generation process",
+      "statement": "The MIMIC-CXR-JPG dataset provides images with 14 labels derived from two natural language processing tools applied to the corresponding free-text radiology reports.",
+      "metric_value": "14 labels",
+      "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "METHODOLOGY",
-        "page_number": 3,
-        "verbatim_quote": "Our pipeline implements DenseNet-121 with uncalibrated field inputs to ensure reproducible evaluation across test subsets."
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Images are provided with 14 labels\nderived from two natural language processing tools applied to the corresponding free-text radiology\nreports."
       }
     },
     {
       "claim_id": "p2-c3",
       "paper_id": "p2",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P2 concludes: Deep architectures fail to maintain diagnostic parity on noisy clinical field data.",
+      "claim_type": "METHOD",
+      "topic_hint": "data privacy and availability",
+      "statement": "All images in the MIMIC-CXR-JPG dataset have been de-identified to protect patient privacy and are made freely available to facilitate research in medical computer vision.",
       "metric_value": null,
       "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "CONCLUSION",
-        "page_number": 13,
-        "verbatim_quote": "In conclusion, Deep architectures fail to maintain diagnostic parity on noisy clinical field data."
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "All images have been de-identiﬁed to protect patient privacy. The dataset is\nmade freely available to facilitate and encourage a wide range of research in medical computer vision."
       }
     },
     {
       "claim_id": "p2-c4",
       "paper_id": "p2",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P2 observes key constraint: Severe sensitivity drop when encountering portable X-ray artifacts.",
-      "metric_value": null,
-      "cluster_id": "cl-3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "dataset utility and benchmarking",
+      "statement": "MIMIC-CXR-JPG is a large, publicly available dataset of chest radiographs from over 220,000 studies performed at the BIDMC that will provide a benchmark for medically relevant computer vision tasks.",
+      "metric_value": "over 220,000 studies",
+      "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "LIMITATIONS",
-        "page_number": 12,
-        "verbatim_quote": "A critical limitation of this work is: Severe sensitivity drop when encountering portable X-ray artifacts."
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "CONCLUSION",
+        "page_number": 6,
+        "verbatim_quote": "MIMIC-CXR-JPG is a large, publicly available dataset of chest radiographs from over 220,000 studies performed at the\nBIDMC. The dataset contains labels for a number of common pathologies and will provide a benchmark for a number\nof medically relevant computer vision tasks."
       }
     },
     {
       "claim_id": "p2-c5",
       "paper_id": "p2",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P2 verifies secondary performance on Rural District Hospital Scans (n=3,400).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "claim_type": "METHOD",
+      "topic_hint": "dataset derivation and standardization",
+      "statement": "MIMIC-CXR-JPG is derived entirely from the MIMIC-CXR database and aims to provide a convenient processed version as well as a standard reference for data splits and image labels.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Rural District Hospital Scans (n=3,400)."
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "MIMIC-CXR-JPG is derived entirely from the MIMIC-CXR database, and aims to provide a\nconvenient processed version of MIMIC-CXR, as well as to provide a standard reference for data\nsplits and image labels."
       }
     },
     {
       "claim_id": "p3-c1",
       "paper_id": "p3",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P3 reports primary diagnostic metric: 88.1% Accuracy under 15% blur.",
-      "metric_value": "88.1% Accuracy under 15% blur",
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "METHOD",
+      "topic_hint": "dark channel prior integration",
+      "statement": "The proposed conditional GAN incorporates the dark channel prior into the loss function using L2 norm instead of its original non-differentiable form to improve compatibility with neural networks.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "dark channel prior is carefully picked to be incorporated into the loss function for network training. To make\nit more compatible with neuron networks, its original indifferentiable form is discarded and L2 norm is adopted instead."
       }
     },
     {
       "claim_id": "p3-c2",
       "paper_id": "p3",
-      "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P3 employs ViT-Base with Patch-Level Attention Dropout as its core approach.",
-      "metric_value": null,
-      "cluster_id": "cl-2",
-      "is_research_gap": false,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "training efficiency",
+      "statement": "The proposed network was trained for 15 epochs within 2 days, which is significantly faster than the 200 epochs over 6 days required by the comparison method DeblurGAN.",
+      "metric_value": "15 epochs within 2 days",
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "METHODOLOGY",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "EXPERIMENTAL_SETUP",
         "page_number": 3,
-        "verbatim_quote": "Our pipeline implements ViT-Base with Patch-Level Attention Dropout to ensure reproducible evaluation across test subsets."
+        "verbatim_quote": "The model is\ntrained for 15 epochs within 2 days, comparing with 200 epochs\nfor 6 days in [9] . Furthermore, despite of instability GAN’s training, our method converges to similar result for each and every\ntraining task"
       }
     },
     {
       "claim_id": "p3-c3",
       "paper_id": "p3",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P3 concludes: Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur.",
-      "metric_value": null,
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "PSNR performance on noisy data",
+      "statement": "On the noisy GOPRO dataset, the proposed model with dark channel loss coefficient 250 achieved a PSNR of 26.83, outperforming the baseline DeblurGAN which achieved a PSNR of 26.32.",
+      "metric_value": "26.83",
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "CONCLUSION",
-        "page_number": 15,
-        "verbatim_quote": "In conclusion, Attention mechanisms retain spatial diagnostic features better than convolutional backbones under motion blur."
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "Noisy\nPSNR\n26.32\n26.53\n26.83\n26.31\nSSIM\n0.8524\n0.8697\n0.8707\n0.8604\nResult and Comparison\nOur test results are mainly compared with state-of-art GAN\nbased deblurring network DeblurGAN [9]."
       }
     },
     {
       "claim_id": "p3-c4",
       "paper_id": "p3",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P3 observes key constraint: Computationally prohibitive for low-power edge medical carts.",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "grid artifact reduction",
+      "statement": "The proposed model produces sharper images without grid artifacts, whereas the DeblurGAN results suffer from grid artifacts, particularly on motion blurry images.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "LIMITATIONS",
-        "page_number": 14,
-        "verbatim_quote": "A critical limitation of this work is: Computationally prohibitive for low-power edge medical carts."
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "According to local patches, although [9]\ncan deal with blur but its results suffer from grid artifacts, while\nour model with dark channel loss achieves sharper images without\ngrid artifacts."
       }
     },
     {
       "claim_id": "p3-c5",
       "paper_id": "p3",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P3 verifies secondary performance on Synthetic Motion-Corrupted MIMIC-CXR (n=5,000).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "claim_type": "CONCLUSION",
+      "topic_hint": "overall deblurring performance",
+      "statement": "The proposed network demonstrates great deblurring performance for both synthetic and real blurry images by incorporating a dark channel prior to tackle grid artifacts in GAN-based methods.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Synthetic Motion-Corrupted MIMIC-CXR (n=5,000)."
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "CONCLUSION",
+        "page_number": 4,
+        "verbatim_quote": "To address deblurring problem using a CGAN based architecture and to tackle the issue with grid artifacts in GAN based\ndeblurring methods, this paper incorporates a dark channel prior."
       }
     },
     {
       "claim_id": "p4-c1",
       "paper_id": "p4",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P4 reports primary diagnostic metric: 91.3% Multi-Site Balanced Accuracy.",
-      "metric_value": "91.3% Multi-Site Balanced Accuracy",
+      "claim_type": "METHOD",
+      "topic_hint": "dataset composition",
+      "statement": "The ChestX-ray8 database comprises 108,948 frontal-view X-ray images of 32,717 unique patients with text-mined eight disease image labels.",
+      "metric_value": "108,948 images",
       "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors achieved 91.3% Multi-Site Balanced Accuracy."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "“ChestX-ray8”, which comprises 108,948 frontalview X-ray images of 32,717 unique patients with the textmined eight disease image labels"
       }
     },
     {
       "claim_id": "p4-c2",
       "paper_id": "p4",
-      "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P4 employs Ensemble ResNet + Swin Transformer with domain adversarial training as its core approach.",
-      "metric_value": null,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "classification accuracy",
+      "statement": "The ResNet-50 model achieved the highest AUC values for Cardiomegaly (0.8141) and Pneumothorax (0.7891) among the tested architectures.",
+      "metric_value": "AUC=0.8141, AUC=0.7891",
       "cluster_id": "cl-2",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "METHODOLOGY",
-        "page_number": 3,
-        "verbatim_quote": "Our pipeline implements Ensemble ResNet + Swin Transformer with domain adversarial training to ensure reproducible evaluation across test subsets."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "The “Cardiomegaly”\n(AUC=0.8141) and “Pneumothorax” (AUC=0.7891) classes\nare consistently well-recognized compared to other groups"
       }
     },
     {
       "claim_id": "p4-c3",
       "paper_id": "p4",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P4 concludes: Domain adaptation effectively bridges the performance gap across disparate radiographic hardware.",
-      "metric_value": null,
-      "cluster_id": "cl-1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "loss function impact",
+      "statement": "Using weighted cross-entropy loss (W-CEL) increased the AUC for Cardiomegaly from 0.7262 to 0.8141 and for Pneumonia from 0.5164 to 0.6333 compared to standard cross-entropy loss.",
+      "metric_value": "0.7262 to 0.8141",
+      "cluster_id": "cl-2",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "CONCLUSION",
-        "page_number": 10,
-        "verbatim_quote": "In conclusion, Domain adaptation effectively bridges the performance gap across disparate radiographic hardware."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "AUC for “Cardiomegaly” is increased from 0.7262 to\n0.8141 and from 0.5164 to 0.6333 for “Pneumonia”"
       }
     },
     {
       "claim_id": "p4-c4",
       "paper_id": "p4",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P4 observes key constraint: Requires cross-site calibration to counter differing scanner manufacturer profiles.",
-      "metric_value": null,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "pooling strategy performance",
+      "statement": "LSE pooling with r=10 reported the best multi-label classification performance, consistently outperforming mean and max pooling strategies.",
+      "metric_value": "r = 10",
       "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "LIMITATIONS",
-        "page_number": 9,
-        "verbatim_quote": "A critical limitation of this work is: Requires cross-site calibration to counter differing scanner manufacturer profiles."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "Overall, LSE pooling (r = 10) reports the\nbest performance (consistently higher than mean and max\npooling)."
       }
     },
     {
       "claim_id": "p4-c5",
       "paper_id": "p4",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P4 verifies secondary performance on 4-Center Collaborative Radiography Cohort (n=8,200).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "CAD system feasibility",
+      "statement": "Despite promising initial results, deep convolutional neural network based reading of chest X-rays remains a strenuous task for fully-automated high precision CAD systems.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across 4-Center Collaborative Radiography Cohort (n=8,200)."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "deep convolutional neural network based\n“reading chest X-rays” (i.e., recognizing and locating the\ncommon disease patterns trained with only image-level labels) remains a strenuous task for fully-automated high pre-cision CAD systems."
       }
     },
     {
       "claim_id": "p5-c1",
       "paper_id": "p5",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P5 reports primary diagnostic metric: High-kV Radiography missed 24% of occult lesions vs Low-Dose CT.",
-      "metric_value": "High-kV Radiography missed 24% of occult lesions vs Low-Dose CT",
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "METHOD",
+      "topic_hint": "network design strategy",
+      "statement": "The study leverages a human-machine collaborative design strategy to create COVID-Net, combining human-driven principled network design prototyping with machine-driven design exploration.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage achieved High-kV Radiography missed 24% of occult lesions vs Low-Dose CT."
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "In this study, a human-machine collaborative design strategy is leveraged to create COVID-Net, where human-driven principled\nnetwork design prototyping is combined with machine-driven design exploration"
       }
     },
     {
       "claim_id": "p5-c2",
       "paper_id": "p5",
-      "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P5 employs Comparative prospective diagnostic trial with expert consensus ground truth as its core approach.",
-      "metric_value": null,
-      "cluster_id": "cl-2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "dataset composition",
+      "statement": "The COVIDx dataset comprises a total of 13,975 chest X-ray images across 13,870 patient cases, combining five different publicly available data repositories.",
+      "metric_value": "13,975 images, 13,870 cases",
+      "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
         "section": "METHODOLOGY",
         "page_number": 3,
-        "verbatim_quote": "Our pipeline implements Comparative prospective diagnostic trial with expert consensus ground truth to ensure reproducible evaluation across test subsets."
+        "verbatim_quote": "The dataset used to train and evaluate the proposed COVID-Net, which we will refer to as COVIDx, is comprised of a total of\n13,975 CXR images across 13,870 patient cases."
       }
     },
     {
       "claim_id": "p5-c3",
       "paper_id": "p5",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P5 concludes: Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT.",
-      "metric_value": null,
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "class distribution",
+      "statement": "The COVIDx dataset contains 358 chest X-ray images from 266 COVID-19 patient cases, which is significantly fewer than the 8,066 normal and 5,538 non-COVID19 pneumonia cases.",
+      "metric_value": "358 images, 266 cases",
       "cluster_id": "cl-1",
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
-        "section": "CONCLUSION",
-        "page_number": 12,
-        "verbatim_quote": "In conclusion, Plain radiography remains inadequate for early-stage ground-glass opacity screening compared to low-dose CT."
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "METHODOLOGY",
+        "page_number": 5,
+        "verbatim_quote": "More speciﬁcally, the COVIDx dataset contains 358 CXR images from 266\nCOVID-19 patient cases. For CXR images with no pneumonia and non-COVID19 pneumonia, there are signiﬁcantly more\npatient cases"
       }
     },
     {
       "claim_id": "p5-c4",
       "paper_id": "p5",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P5 observes key constraint: Radiation dose was 4x higher in the CT cohort.",
+      "claim_type": "METHOD",
+      "topic_hint": "classification categories",
+      "statement": "The initial network design prototype is constructed to make one of three predictions: no infection (normal), non-COVID19 infection, or COVID-19 viral infection.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
-        "section": "LIMITATIONS",
-        "page_number": 11,
-        "verbatim_quote": "A critical limitation of this work is: Radiation dose was 4x higher in the CT cohort."
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "METHODOLOGY",
+        "page_number": 5,
+        "verbatim_quote": "In this study, we construct the initial network design prototype to make one of the following three predictions: a) no\ninfection (normal), b) non-COVID19 infection (e.g., viral, bacterial, etc.), and c) COVID-19 viral infection"
       }
     },
     {
       "claim_id": "p5-c5",
       "paper_id": "p5",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P5 verifies secondary performance on Acute Pulmonary Admissions (n=950).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
+      "claim_type": "LIMITATION",
+      "topic_hint": "production readiness",
+      "statement": "The authors state that COVID-Net is by no means a production-ready solution, but is intended to be leveraged by researchers to accelerate the development of deep learning solutions.",
+      "metric_value": null,
+      "cluster_id": null,
       "is_research_gap": true,
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Acute Pulmonary Admissions (n=950)."
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "By no means a production-ready solution, the\nhope is that the open access COVID-Net, along with the description on constructing the open source COVIDx dataset, will be\nleveraged and build upon"
+      }
+    },
+    {
+      "claim_id": "p5-c6",
+      "paper_id": "p5",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "open source contribution",
+      "statement": "COVID-Net is introduced as one of the first open source network designs for COVID-19 detection from chest X-ray images, accompanied by the open access COVIDx benchmark dataset.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "To\nthe best of the authors’ knowledge, COVID-Net is one of the ﬁrst open source network designs for COVID-19 detection from\nCXR images at the time of initial release."
       }
     },
     {
       "claim_id": "p6-c1",
       "paper_id": "p6",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P6 reports primary diagnostic metric: 89.7% Specificity on pediatric consolidations.",
-      "metric_value": "89.7% Specificity on pediatric consolidations",
-      "cluster_id": "cl-1",
+      "claim_type": "METHOD",
+      "topic_hint": "software library design",
+      "statement": "TorchXRayVision is an open source software library that provides a common interface and common pre-processing chain for a wide set of publicly available chest X-ray datasets.",
+      "metric_value": null,
+      "cluster_id": null,
       "is_research_gap": false,
       "provenance": {
         "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans achieved 89.7% Specificity on pediatric consolidations."
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "TorchXRayVision is an open source software library for working with chest X-ray\ndatasets and deep learning models. It provides a common interface and common\npre-processing chain for a wide set of publicly available chest X-ray datasets."
       }
     },
     {
       "claim_id": "p6-c2",
       "paper_id": "p6",
       "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P6 employs DINOv2 self-supervised pretraining with pediatric fine-tuning as its core approach.",
+      "topic_hint": "model availability",
+      "statement": "The library offers classification and representation learning models with different architectures, trained on different data combinations, to serve as baselines or feature extractors.",
       "metric_value": null,
-      "cluster_id": "cl-2",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "METHODOLOGY",
-        "page_number": 3,
-        "verbatim_quote": "Our pipeline implements DINOv2 self-supervised pretraining with pediatric fine-tuning to ensure reproducible evaluation across test subsets."
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "In addition, a number of classiﬁcation and representation learning models with\ndifferent architectures, trained on different data combinations, are available through\nthe library to serve as baselines or feature extractors."
       }
     },
     {
       "claim_id": "p6-c3",
       "paper_id": "p6",
       "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P6 concludes: Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning.",
+      "topic_hint": "research reproducibility",
+      "statement": "TorchXRayVision was created to address the difficulty of comparing previous work by establishing a reusable framework for reproducible research and consistent baseline experiments.",
       "metric_value": null,
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "CONCLUSION",
-        "page_number": 14,
-        "verbatim_quote": "In conclusion, Self-supervised representations learned on adult scans transfer robustly to pediatric radiology with minimal label tuning."
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "OTHER",
+        "page_number": 1,
+        "verbatim_quote": "TorchXRayVision (XRV) was created to address this difﬁculty by establishing a reusable framework\nfor reproducible research and consistent baseline experiments."
       }
     },
     {
       "claim_id": "p6-c4",
       "paper_id": "p6",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P6 observes key constraint: Small sample size for rare congenital thoracic malformations.",
+      "claim_type": "METHOD",
+      "topic_hint": "software implementation",
+      "statement": "TorchXRayVision is available in Python via pip with the package name torchxrayvision and is based on PyTorch, modeled after the torchvision library.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "LIMITATIONS",
-        "page_number": 13,
-        "verbatim_quote": "A critical limitation of this work is: Small sample size for rare congenital thoracic malformations."
-      }
-    },
-    {
-      "claim_id": "p6-c5",
-      "paper_id": "p6",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P6 verifies secondary performance on Pediatric Pneumonia Cohort (n=2,100).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
-      "provenance": {
-        "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Pediatric Pneumonia Cohort (n=2,100)."
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "OTHER",
+        "page_number": 2,
+        "verbatim_quote": "The library is available in Python via pip with the package name torchxrayvision and is typically\nimported as import torchxrayvision as xrv. It is based on PyTorch [Paszke et al., 2019]\nand modeled after the torchvision library (hence the name)."
       }
     },
     {
       "claim_id": "p7-c1",
       "paper_id": "p7",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P7 reports primary diagnostic metric: 18% Reduction in reading turnaround time; 96.1% joint accuracy.",
-      "metric_value": "18% Reduction in reading turnaround time; 96.1% joint accuracy",
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "METHOD",
+      "topic_hint": "LOG-EXP wall law formula",
+      "statement": "The authors propose a single formula for the law of the wall, dubbed the logarithmic-exponential (LOG-EXP) formula, to predict mean velocity profiles in different near-wall regions.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration achieved 18% Reduction in reading turnaround time; 96.1% joint accuracy."
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "is work, we propose a single formula for the law of the wall, which is dubbed as\n12\nthe logarithmic-exponential (LOG-EXP) formula, for predicting the mean velocity proﬁle\n13\nin different regions near the wall"
       }
     },
     {
       "claim_id": "p7-c2",
       "paper_id": "p7",
       "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P7 employs Interactive triage queue with confidence-weighted clinician routing as its core approach.",
+      "topic_hint": "FNN for WMLES",
+      "statement": "A feedforward neural network (FNN) is trained using inputs and data based on the LOG-EXP formula for wall-modelled large-eddy simulation (WMLES) of turbulent channel flows.",
       "metric_value": null,
-      "cluster_id": "cl-2",
-      "is_research_gap": false,
+      "cluster_id": "cl-3",
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "METHODOLOGY",
-        "page_number": 3,
-        "verbatim_quote": "Our pipeline implements Interactive triage queue with confidence-weighted clinician routing to ensure reproducible evaluation across test subsets."
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "then a feedforward neural network (FNN), whose\n14\ninputs and training data are based on this new formula, is trained for the wall-modelled\n15\nlarge-eddy simulation (WMLES) of turbulent channel ﬂow"
       }
     },
     {
       "claim_id": "p7-c3",
       "paper_id": "p7",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P7 concludes: Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists.",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Reynolds stress prediction",
+      "statement": "The FNN-based WMLES demonstrates better performance than the Werner-Wengle (WW) model for predicting Reynolds stresses in turbulent channel flows.",
       "metric_value": null,
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "cluster_id": "cl-3",
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "CONCLUSION",
-        "page_number": 9,
-        "verbatim_quote": "In conclusion, Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists."
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "mpared with the Werner-Wengle (WW) model for the WMLES,\n18\na better performance of the FNN for the WMLES is observed for predicting the Reynolds\n19\nstres"
       }
     },
     {
       "claim_id": "p7-c4",
       "paper_id": "p7",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P7 observes key constraint: Clinicians displayed automation bias when model confidence was artificially high.",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "LOG-EXP formula validity",
+      "statement": "The LOG-EXP formula, composed of a logarithmic term and two exponential terms, provides continuous predictions of velocity and velocity derivative for the whole inner layer region.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "LIMITATIONS",
-        "page_number": 8,
-        "verbatim_quote": "A critical limitation of this work is: Clinicians displayed automation bias when model confidence was artificially high."
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "185\nLOG-EXP formula, which is composed of a logarithmic term and two exponential terms, works\n186\nfor the whole inner layer region and gives continuous predictions of both velocity and velocity\n187\nderivative"
       }
     },
     {
       "claim_id": "p7-c5",
       "paper_id": "p7",
       "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P7 verifies secondary performance on Academic Teaching Hospital Double-Read Trial (n=4,000).",
-      "metric_value": "Valid baseline",
+      "topic_hint": "WMLES agreement with DNS",
+      "statement": "The WMLES using the LOG-EXP model shows good agreement with DNS data for both mean streamwise velocity and Reynolds stresses in turbulent channel flows.",
+      "metric_value": null,
       "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Academic Teaching Hospital Double-Read Trial (n=4,000)."
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "respectively.\nLOG-EXP model is evaluated using the DNS data of turbulent channel ﬂows. An overall good\n194\nagreement is obtained for both mean streamwise velocity and the Reynolds stresses."
       }
     },
     {
       "claim_id": "p8-c1",
       "paper_id": "p8",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Diagnostic Accuracy",
-      "statement": "P8 reports primary diagnostic metric: 0.4% AUC drop vs FP32 with 3.8x inference speedup.",
-      "metric_value": "0.4% AUC drop vs FP32 with 3.8x inference speedup",
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "claim_type": "METHOD",
+      "topic_hint": "quantum state framework",
+      "statement": "The total quantum state of a top-antitop pair probed in a collider is given in terms of the production spin density matrix, which necessarily gives rise to a mixed state.",
+      "metric_value": null,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units achieved 0.4% AUC drop vs FP32 with 3.8x inference speedup."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We argue that, in general, the total quantum state that can be probed in\na collider is given in terms of the production spin density matrix, which necessarily\ngives rise to a mixed state."
       }
     },
     {
       "claim_id": "p8-c2",
       "paper_id": "p8",
-      "claim_type": "METHOD",
-      "topic_hint": "Methodological Design",
-      "statement": "P8 employs INT8 post-training quantization on Raspberry Pi / Jetson Orin as its core approach.",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "entanglement presence",
+      "statement": "The study finds the presence of entanglement and CHSH violation in different regions of phase space for top-antitop pairs produced from elementary QCD processes.",
       "metric_value": null,
-      "cluster_id": "cl-2",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "METHODOLOGY",
-        "page_number": 3,
-        "verbatim_quote": "Our pipeline implements INT8 post-training quantization on Raspberry Pi / Jetson Orin to ensure reproducible evaluation across test subsets."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We compute\nthe quantum state of a t¯t pair produced\nfrom the most elementary QCD processes,\nﬁnding the presence of entanglement and\nCHSH violation in diﬀerent regions of\nphase space."
       }
     },
     {
       "claim_id": "p8-c3",
       "paper_id": "p8",
-      "claim_type": "CONCLUSION",
-      "topic_hint": "Clinical Viability",
-      "statement": "P8 concludes: INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination.",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "experimental observables",
+      "statement": "At the LHC, entanglement and CHSH-violation signatures are provided by the measurement of a single observable, where entanglement represents the violation of a Cauchy-Schwarz inequality.",
       "metric_value": null,
-      "cluster_id": "cl-1",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "CONCLUSION",
-        "page_number": 11,
-        "verbatim_quote": "In conclusion, INT8 quantization enables real-time bedside triage without meaningful loss in diagnostic discrimination."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "At the LHC,\nthese signatures are given by the measurement of a single observable, which in the\ncase of entanglement represents the violation of a Cauchy-Schwarz inequality."
       }
     },
     {
       "claim_id": "p8-c4",
       "paper_id": "p8",
-      "claim_type": "LIMITATION",
-      "topic_hint": "Operational Constraints",
-      "statement": "P8 observes key constraint: Battery thermal throttling observed after 45 consecutive scan evaluations.",
+      "claim_type": "METHOD",
+      "topic_hint": "quantum tomography protocol",
+      "statement": "The authors extend the validity of the quantum tomography protocol for the top-antitop pair to more general quantum states and for any production mechanism.",
       "metric_value": null,
-      "cluster_id": "cl-3",
-      "is_research_gap": false,
+      "cluster_id": null,
+      "is_research_gap": true,
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "LIMITATIONS",
-        "page_number": 10,
-        "verbatim_quote": "A critical limitation of this work is: Battery thermal throttling observed after 45 consecutive scan evaluations."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We\nextend the validity of the quantum tomography protocol for the t¯t pair proposed in\nthe literature to more general quantum\nstates, and for any production mechanism."
       }
     },
     {
       "claim_id": "p8-c5",
       "paper_id": "p8",
-      "claim_type": "EMPIRICAL_RESULT",
-      "topic_hint": "Secondary Evaluation",
-      "statement": "P8 verifies secondary performance on Field Bedside Portable Imaging Suite (n=1,500).",
-      "metric_value": "Valid baseline",
-      "cluster_id": "cl-3",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "hadronic production mixture",
+      "statement": "Any realistic hadronic production of a top-antitop pair is a statistical mixture of elementary QCD processes, focusing on proton-proton and proton-antiproton collisions.",
+      "metric_value": null,
+      "cluster_id": null,
       "is_research_gap": true,
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Field Bedside Portable Imaging Suite (n=1,500)."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We show that any realistic\nhadronic production of a t¯t pair is a statistical mixture of these elementary QCD\nprocesses.\nWe focus on the experimentally relevant cases of proton-proton and\nproton-antiproton collisions"
       }
     }
   ],
   "clusters": [
     {
       "cluster_id": "cl-1",
-      "label": "Diagnostic Accuracy & Real-World Generalization",
+      "label": "dataset size and source",
       "claim_ids": [
-        "p1-c1",
-        "p1-c3",
         "p2-c1",
+        "p2-c2",
         "p2-c3",
-        "p3-c1",
+        "p2-c4",
+        "p2-c5",
         "p4-c1",
-        "p6-c1"
+        "p4-c5",
+        "p5-c2",
+        "p5-c3"
       ],
       "paper_ids": [
-        "p1",
         "p2",
-        "p3",
         "p4",
-        "p6"
+        "p5"
       ],
-      "mean_similarity": 0.76
+      "mean_similarity": 0.736
     },
     {
       "cluster_id": "cl-2",
-      "label": "Methodological Adaptation & Clinician Calibration",
+      "label": "pneumonia detection F1 score",
+      "claim_ids": [
+        "p1-c1",
+        "p1-c2",
+        "p1-c5",
+        "p4-c2",
+        "p4-c3"
+      ],
+      "paper_ids": [
+        "p1",
+        "p4"
+      ],
+      "mean_similarity": 0.7332
+    },
+    {
+      "cluster_id": "cl-3",
+      "label": "Reynolds stress prediction",
       "claim_ids": [
         "p4-c4",
+        "p7-c2",
         "p7-c3",
-        "p7-c4"
+        "p7-c5"
       ],
       "paper_ids": [
         "p4",
         "p7"
       ],
-      "mean_similarity": 0.71
-    },
-    {
-      "cluster_id": "cl-3",
-      "label": "Hardware Constraints & Edge Deployment",
-      "claim_ids": [
-        "p1-c1",
-        "p8-c1",
-        "p8-c4"
-      ],
-      "paper_ids": [
-        "p1",
-        "p8"
-      ],
-      "mean_similarity": 0.69
+      "mean_similarity": 0.7681
     }
   ],
   "edges": [
     {
-      "edge_id": "e-p1c1-p2c1",
+      "edge_id": "e-p1c1-p4c3",
       "source_claim_id": "p1-c1",
-      "target_claim_id": "p2-c1",
+      "target_claim_id": "p4-c3",
       "source": {
         "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
         "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
-      },
-      "target": {
-        "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
-      },
-      "relation": "CONTRADICT",
-      "confidence": 0.92,
-      "cosine_similarity": 0.81,
-      "explanation": "Smith (2024) asserts 94.2% diagnostic accuracy ready for clinical triage, whereas Adewale (2024) demonstrates an accuracy collapse to 68.4% on actual hospital scans with motion artifacts.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p1c3-p2c3",
-      "source_claim_id": "p1-c3",
-      "target_claim_id": "p2-c3",
-      "source": {
-        "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "CONCLUSION",
-        "page_number": 11,
-        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
-      },
-      "target": {
-        "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "CONCLUSION",
-        "page_number": 13,
-        "verbatim_quote": "In conclusion, Deep architectures fail to maintain diagnostic parity on noisy clinical field data."
-      },
-      "relation": "CONTRADICT",
-      "confidence": 0.95,
-      "cosine_similarity": 0.79,
-      "explanation": "Smith claims models surpass human clinician baselines, but Adewale proves models fail to maintain diagnostic parity on noisy clinical field data.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p3c1-p4c1",
-      "source_claim_id": "p3-c1",
-      "target_claim_id": "p4-c1",
-      "source": {
-        "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+        "page_number": 3,
+        "verbatim_quote": "We ﬁnd that CheXNet achieves an F1\nscore of 0.435 (95% CI 0.387, 0.481), higher than the\nradiologist average of 0.387 (95% CI 0.330, 0.442)."
       },
       "target": {
         "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors achieved 91.3% Multi-Site Balanced Accuracy."
-      },
-      "relation": "AGREE",
-      "confidence": 0.88,
-      "cosine_similarity": 0.74,
-      "explanation": "Both Chen (2024) and Kowalski (2025) find that modern architectural adaptations maintain robust accuracy (>88%) under distribution shifts.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p1c1-p6c1",
-      "source_claim_id": "p1-c1",
-      "target_claim_id": "p6-c1",
-      "source": {
-        "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
-      },
-      "target": {
-        "paper_id": "p6",
-        "paper_title": "Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 6: Self-Supervised Pretraining for Pediatric Chest Scans achieved 89.7% Specificity on pediatric consolidations."
-      },
-      "relation": "AGREE",
-      "confidence": 0.84,
-      "cosine_similarity": 0.71,
-      "explanation": "Dubois (2025) confirms Smith (2024) in finding high baseline accuracy (>89%) when leveraging strong pretrained vision representations.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p2c1-p3c1",
-      "source_claim_id": "p2-c1",
-      "target_claim_id": "p3-c1",
-      "source": {
-        "paper_id": "p2",
-        "paper_title": "Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 2: DenseNet-121 in Real-World Clinical Deployments achieved 68.4% Accuracy (AUC 0.72)."
-      },
-      "target": {
-        "paper_id": "p3",
-        "paper_title": "Placeholder Paper 3: Vision Transformer Robustness under Motion Blur",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 3: Vision Transformer Robustness under Motion Blur achieved 88.1% Accuracy under 15% blur."
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "AUC for “Cardiomegaly” is increased from 0.7262 to\n0.8141 and from 0.5164 to 0.6333 for “Pneumonia”"
       },
       "relation": "METHODOLOGY_DELTA",
-      "confidence": 0.89,
-      "cosine_similarity": 0.77,
-      "explanation": "Adewale tested uncalibrated DenseNet-121 on field artifacts yielding 68.4% accuracy, whereas Chen applied ViT with attention dropout yielding 88.1%, proving architectural choice drives resilience to blur.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p1c3-p7c3",
-      "source_claim_id": "p1-c3",
-      "target_claim_id": "p7-c3",
-      "source": {
-        "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "CONCLUSION",
-        "page_number": 11,
-        "verbatim_quote": "In conclusion, ResNet-50 models surpass human clinician baselines under curated lab conditions."
-      },
-      "target": {
-        "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "CONCLUSION",
-        "page_number": 9,
-        "verbatim_quote": "In conclusion, Human-AI collaborative triage outperforms either autonomous AI or unassisted human radiologists."
-      },
-      "relation": "METHODOLOGY_DELTA",
-      "confidence": 0.91,
-      "cosine_similarity": 0.73,
-      "explanation": "Smith evaluates fully autonomous AI triage (94.2%), whereas Patel evaluates an interactive radiologist-in-the-loop collaborative workflow (96.1%), showing hybrid deployment mitigates false confidence.",
-      "cluster_id": "cl-1",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p1c1-p8c1",
-      "source_claim_id": "p1-c1",
-      "target_claim_id": "p8-c1",
-      "source": {
-        "paper_id": "p1",
-        "paper_title": "Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 1: ResNet-50 on Curated Chest Radiographs achieved 94.2% Diagnostic Accuracy (AUC 0.96)."
-      },
-      "target": {
-        "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "RESULTS",
-        "page_number": 4,
-        "verbatim_quote": "In our primary evaluation, Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units achieved 0.4% AUC drop vs FP32 with 3.8x inference speedup."
-      },
-      "relation": "METHODOLOGY_DELTA",
-      "confidence": 0.87,
-      "cosine_similarity": 0.69,
-      "explanation": "Smith reports FP32 server inference, while Takahashi tests INT8 quantization on edge hardware, demonstrating minimal accuracy loss (0.4%) at the cost of thermal throttling constraints.",
-      "cluster_id": "cl-3",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
-    },
-    {
-      "edge_id": "e-p4c4-p7c4",
-      "source_claim_id": "p4-c4",
-      "target_claim_id": "p7-c4",
-      "source": {
-        "paper_id": "p4",
-        "paper_title": "Placeholder Paper 4: Multi-Center Generalization of Pneumothorax Detectors",
-        "section": "LIMITATIONS",
-        "page_number": 9,
-        "verbatim_quote": "A critical limitation of this work is: Requires cross-site calibration to counter differing scanner manufacturer profiles."
-      },
-      "target": {
-        "paper_id": "p7",
-        "paper_title": "Placeholder Paper 7: Radiologist-in-the-Loop Diagnostic Calibration",
-        "section": "LIMITATIONS",
-        "page_number": 8,
-        "verbatim_quote": "A critical limitation of this work is: Clinicians displayed automation bias when model confidence was artificially high."
-      },
-      "relation": "AGREE",
-      "confidence": 0.82,
-      "cosine_similarity": 0.68,
-      "explanation": "Both Kowalski (2025) and Patel (2025) highlight that deployment success hinges on rigorous cross-scanner and clinician confidence calibration.",
+      "confidence": 0.9,
+      "cosine_similarity": 0.7037,
+      "explanation": "Rajpurkar et al. (n.d.) reports F1 scores on ChestX-ray14, whereas Wang et al. (n.d.) reports AUC improvements on ChestX-ray8 using different models and metrics.",
       "cluster_id": "cl-2",
-      "referee_model": "meta-llama/Llama-3.1-8B-Instruct"
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c5-p4c3",
+      "source_claim_id": "p1-c5",
+      "target_claim_id": "p4-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "RESULTS",
+        "page_number": 5,
+        "verbatim_quote": "We ﬁnd that CheXNet achieves state of the art results\non all 14 pathology classes. Table 2 illustrates the perclass AUROC comparison on the test set. On Mass,\nNodule, Pneumonia, and Emphysema, we outperform\nprevious state of the art considerably (> 0.05 increase\nin AUROC)."
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "AUC for “Cardiomegaly” is increased from 0.7262 to\n0.8141 and from 0.5164 to 0.6333 for “Pneumonia”"
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.9,
+      "cosine_similarity": 0.7011,
+      "explanation": "Rajpurkar et al. (n.d.) claims state-of-the-art AUROC on ChestX-ray14, while Wang et al. (n.d.) reports AUC gains on ChestX-ray8, involving different datasets and evaluation metrics.",
+      "cluster_id": "cl-2",
+      "referee_model": "qwen/qwen3.8-27b"
     }
   ],
   "gaps": [
     {
       "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p1-c2",
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "statement": "The difference in F1 scores between CheXNet and the radiologist average was 0.051 (95% CI 0.005, 0.084), indicating that CheXNet's performance is statistically significantly higher.",
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "RESULTS",
+        "page_number": 3,
+        "verbatim_quote": "We ﬁnd that the diﬀerence in F1 scores —\n0.051 (95% CI 0.005, 0.084) — does not contain 0, and\ntherefore conclude that the performance of CheXNet\nis statistically signiﬁcantly higher than radiologist performance."
+      },
+      "best_match_similarity": 0.671,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.67)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p1-c3",
+      "claim_id": "p1-c3",
+      "paper_id": "p1",
+      "statement": "The study only presented frontal radiographs to the radiologists and model, which may provide a conservative estimate of performance since up to 15% of accurate diagnoses require the lateral view.",
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "LIMITATIONS",
+        "page_number": 3,
+        "verbatim_quote": "First,\nonly frontal radiographs were presented to the radiologists and model during diagnosis, but it has been\nshown that up to 15% of accurate diagnoses require\nthe lateral view (Raoof et al., 2012); we thus expect\nthat this setup provides a conservative estimate of performance."
+      },
+      "best_match_similarity": 0.6207,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.62)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p1-c4",
+      "claim_id": "p1-c4",
+      "paper_id": "p1",
+      "statement": "Neither the model nor the radiologists were permitted to use patient history, which has been shown to decrease radiologist diagnostic performance in interpreting chest radiographs.",
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning",
+        "section": "LIMITATIONS",
+        "page_number": 3,
+        "verbatim_quote": "Third, neither the model nor the radiologists were not permitted to use patient history, which\nhas been shown to decrease radiologist diagnostic performance in interpreting chest radiographs (Berbaum\net al., 1985; Potchen et al., 1979)"
+      },
+      "best_match_similarity": 0.6332,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.63)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p2-c3",
+      "claim_id": "p2-c3",
+      "paper_id": "p2",
+      "statement": "All images in the MIMIC-CXR-JPG dataset have been de-identified to protect patient privacy and are made freely available to facilitate research in medical computer vision.",
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "All images have been de-identiﬁed to protect patient privacy. The dataset is\nmade freely available to facilitate and encourage a wide range of research in medical computer vision."
+      },
+      "best_match_similarity": 0.6971,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p2-c5",
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "statement": "MIMIC-CXR-JPG is derived entirely from the MIMIC-CXR database and aims to provide a convenient processed version as well as a standard reference for data splits and image labels.",
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "MIMIC-CXR-JPG, A LARGE PUBLICLY AVAILABLE DATABASE OF LABELED CHEST RADIOGRAPHS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "MIMIC-CXR-JPG is derived entirely from the MIMIC-CXR database, and aims to provide a\nconvenient processed version of MIMIC-CXR, as well as to provide a standard reference for data\nsplits and image labels."
+      },
+      "best_match_similarity": 0.6758,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.68)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c1",
+      "claim_id": "p3-c1",
+      "paper_id": "p3",
+      "statement": "The proposed conditional GAN incorporates the dark channel prior into the loss function using L2 norm instead of its original non-differentiable form to improve compatibility with neural networks.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "dark channel prior is carefully picked to be incorporated into the loss function for network training. To make\nit more compatible with neuron networks, its original indifferentiable form is discarded and L2 norm is adopted instead."
+      },
+      "best_match_similarity": 0.6966,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c2",
+      "claim_id": "p3-c2",
+      "paper_id": "p3",
+      "statement": "The proposed network was trained for 15 epochs within 2 days, which is significantly faster than the 200 epochs over 6 days required by the comparison method DeblurGAN.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 3,
+        "verbatim_quote": "The model is\ntrained for 15 epochs within 2 days, comparing with 200 epochs\nfor 6 days in [9] . Furthermore, despite of instability GAN’s training, our method converges to similar result for each and every\ntraining task"
+      },
+      "best_match_similarity": 0.6561,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.66)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c3",
+      "claim_id": "p3-c3",
+      "paper_id": "p3",
+      "statement": "On the noisy GOPRO dataset, the proposed model with dark channel loss coefficient 250 achieved a PSNR of 26.83, outperforming the baseline DeblurGAN which achieved a PSNR of 26.32.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "Noisy\nPSNR\n26.32\n26.53\n26.83\n26.31\nSSIM\n0.8524\n0.8697\n0.8707\n0.8604\nResult and Comparison\nOur test results are mainly compared with state-of-art GAN\nbased deblurring network DeblurGAN [9]."
+      },
+      "best_match_similarity": 0.6746,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.67)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c4",
+      "claim_id": "p3-c4",
+      "paper_id": "p3",
+      "statement": "The proposed model produces sharper images without grid artifacts, whereas the DeblurGAN results suffer from grid artifacts, particularly on motion blurry images.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "RESULTS",
+        "page_number": 4,
+        "verbatim_quote": "According to local patches, although [9]\ncan deal with blur but its results suffer from grid artifacts, while\nour model with dark channel loss achieves sharper images without\ngrid artifacts."
+      },
+      "best_match_similarity": 0.6971,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p3-c5",
+      "claim_id": "p3-c5",
+      "paper_id": "p3",
+      "statement": "The proposed network demonstrates great deblurring performance for both synthetic and real blurry images by incorporating a dark channel prior to tackle grid artifacts in GAN-based methods.",
+      "provenance": {
+        "paper_id": "p3",
+        "paper_title": "GAN Based Image Deblurring Using Dark Channel Prior",
+        "section": "CONCLUSION",
+        "page_number": 4,
+        "verbatim_quote": "To address deblurring problem using a CGAN based architecture and to tackle the issue with grid artifacts in GAN based\ndeblurring methods, this paper incorporates a dark channel prior."
+      },
+      "best_match_similarity": 0.6701,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.67)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p4-c4",
+      "claim_id": "p4-c4",
+      "paper_id": "p4",
+      "statement": "LSE pooling with r=10 reported the best multi-label classification performance, consistently outperforming mean and max pooling strategies.",
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "ChestX-ray8: Hospital-scale Chest X-ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "Overall, LSE pooling (r = 10) reports the\nbest performance (consistently higher than mean and max\npooling)."
+      },
+      "best_match_similarity": 0.6994,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p5-c1",
+      "claim_id": "p5-c1",
+      "paper_id": "p5",
+      "statement": "The study leverages a human-machine collaborative design strategy to create COVID-Net, combining human-driven principled network design prototyping with machine-driven design exploration.",
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "METHODOLOGY",
+        "page_number": 3,
+        "verbatim_quote": "In this study, a human-machine collaborative design strategy is leveraged to create COVID-Net, where human-driven principled\nnetwork design prototyping is combined with machine-driven design exploration"
+      },
+      "best_match_similarity": 0.6801,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.68)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p5-c4",
+      "claim_id": "p5-c4",
+      "paper_id": "p5",
+      "statement": "The initial network design prototype is constructed to make one of three predictions: no infection (normal), non-COVID19 infection, or COVID-19 viral infection.",
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "METHODOLOGY",
+        "page_number": 5,
+        "verbatim_quote": "In this study, we construct the initial network design prototype to make one of the following three predictions: a) no\ninfection (normal), b) non-COVID19 infection (e.g., viral, bacterial, etc.), and c) COVID-19 viral infection"
+      },
+      "best_match_similarity": 0.6705,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.67)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
       "gap_id": "gap-p5-c5",
       "claim_id": "p5-c5",
       "paper_id": "p5",
-      "statement": "Nwachukwu (2025) evaluates high-kV plain radiography against low-dose CT for occult ground-glass lesions, an imaging modality unexamined by any other paper in this set.",
+      "statement": "The authors state that COVID-Net is by no means a production-ready solution, but is intended to be leveraged by researchers to accelerate the development of deep learning solutions.",
       "provenance": {
         "paper_id": "p5",
-        "paper_title": "Placeholder Paper 5: Low-Dose CT vs High-kV Radiography in Triage",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Acute Pulmonary Admissions (n=950)."
+        "paper_title": "COVID-Net: A Tailored Deep Convolutional Neural Network Design for Detection of COVID-19 Cases from Chest X-Ray Images",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "By no means a production-ready solution, the\nhope is that the open access COVID-Net, along with the description on constructing the open source COVIDx dataset, will be\nleveraged and build upon"
       },
-      "best_match_similarity": 0.43,
-      "reason": "No claim in any other paper investigates comparative low-dose CT diagnostic benchmarks for occult thoracic lesions."
+      "best_match_similarity": 0.638,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.64)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p6-c2",
+      "claim_id": "p6-c2",
+      "paper_id": "p6",
+      "statement": "The library offers classification and representation learning models with different architectures, trained on different data combinations, to serve as baselines or feature extractors.",
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "In addition, a number of classiﬁcation and representation learning models with\ndifferent architectures, trained on different data combinations, are available through\nthe library to serve as baselines or feature extractors."
+      },
+      "best_match_similarity": 0.6547,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.65)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p6-c3",
+      "claim_id": "p6-c3",
+      "paper_id": "p6",
+      "statement": "TorchXRayVision was created to address the difficulty of comparing previous work by establishing a reusable framework for reproducible research and consistent baseline experiments.",
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "OTHER",
+        "page_number": 1,
+        "verbatim_quote": "TorchXRayVision (XRV) was created to address this difﬁculty by establishing a reusable framework\nfor reproducible research and consistent baseline experiments."
+      },
+      "best_match_similarity": 0.6858,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.69)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p6-c4",
+      "claim_id": "p6-c4",
+      "paper_id": "p6",
+      "statement": "TorchXRayVision is available in Python via pip with the package name torchxrayvision and is based on PyTorch, modeled after the torchvision library.",
+      "provenance": {
+        "paper_id": "p6",
+        "paper_title": "TorchXRayVision: A library of chest X-ray datasets and models",
+        "section": "OTHER",
+        "page_number": 2,
+        "verbatim_quote": "The library is available in Python via pip with the package name torchxrayvision and is typically\nimported as import torchxrayvision as xrv. It is based on PyTorch [Paszke et al., 2019]\nand modeled after the torchvision library (hence the name)."
+      },
+      "best_match_similarity": 0.6062,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.61)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p7-c1",
+      "claim_id": "p7-c1",
+      "paper_id": "p7",
+      "statement": "The authors propose a single formula for the law of the wall, dubbed the logarithmic-exponential (LOG-EXP) formula, to predict mean velocity profiles in different near-wall regions.",
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "is work, we propose a single formula for the law of the wall, which is dubbed as\n12\nthe logarithmic-exponential (LOG-EXP) formula, for predicting the mean velocity proﬁle\n13\nin different regions near the wall"
+      },
+      "best_match_similarity": 0.5922,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.59)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p7-c2",
+      "claim_id": "p7-c2",
+      "paper_id": "p7",
+      "statement": "A feedforward neural network (FNN) is trained using inputs and data based on the LOG-EXP formula for wall-modelled large-eddy simulation (WMLES) of turbulent channel flows.",
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "then a feedforward neural network (FNN), whose\n14\ninputs and training data are based on this new formula, is trained for the wall-modelled\n15\nlarge-eddy simulation (WMLES) of turbulent channel ﬂow"
+      },
+      "best_match_similarity": 0.6924,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.69)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p7-c3",
+      "claim_id": "p7-c3",
+      "paper_id": "p7",
+      "statement": "The FNN-based WMLES demonstrates better performance than the Werner-Wengle (WW) model for predicting Reynolds stresses in turbulent channel flows.",
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "mpared with the Werner-Wengle (WW) model for the WMLES,\n18\na better performance of the FNN for the WMLES is observed for predicting the Reynolds\n19\nstres"
+      },
+      "best_match_similarity": 0.6994,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p7-c4",
+      "claim_id": "p7-c4",
+      "paper_id": "p7",
+      "statement": "The LOG-EXP formula, composed of a logarithmic term and two exponential terms, provides continuous predictions of velocity and velocity derivative for the whole inner layer region.",
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "CONCLUSION",
+        "page_number": 13,
+        "verbatim_quote": "185\nLOG-EXP formula, which is composed of a logarithmic term and two exponential terms, works\n186\nfor the whole inner layer region and gives continuous predictions of both velocity and velocity\n187\nderivative"
+      },
+      "best_match_similarity": 0.5939,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.59)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p7-c5",
+      "claim_id": "p7-c5",
+      "paper_id": "p7",
+      "statement": "The WMLES using the LOG-EXP model shows good agreement with DNS data for both mean streamwise velocity and Reynolds stresses in turbulent channel flows.",
+      "provenance": {
+        "paper_id": "p7",
+        "paper_title": "The LOG-EXP formula of the wall: A single formula for the law of the wall and its application to wall-modelled large-eddy simulation",
+        "section": "CONCLUSION",
+        "page_number": 14,
+        "verbatim_quote": "respectively.\nLOG-EXP model is evaluated using the DNS data of turbulent channel ﬂows. An overall good\n194\nagreement is obtained for both mean streamwise velocity and the Reynolds stresses."
+      },
+      "best_match_similarity": 0.695,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.69)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p8-c1",
+      "claim_id": "p8-c1",
+      "paper_id": "p8",
+      "statement": "The total quantum state of a top-antitop pair probed in a collider is given in terms of the production spin density matrix, which necessarily gives rise to a mixed state.",
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We argue that, in general, the total quantum state that can be probed in\na collider is given in terms of the production spin density matrix, which necessarily\ngives rise to a mixed state."
+      },
+      "best_match_similarity": 0.5555,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.56)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p8-c2",
+      "claim_id": "p8-c2",
+      "paper_id": "p8",
+      "statement": "The study finds the presence of entanglement and CHSH violation in different regions of phase space for top-antitop pairs produced from elementary QCD processes.",
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We compute\nthe quantum state of a t¯t pair produced\nfrom the most elementary QCD processes,\nﬁnding the presence of entanglement and\nCHSH violation in diﬀerent regions of\nphase space."
+      },
+      "best_match_similarity": 0.5835,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.58)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p8-c3",
+      "claim_id": "p8-c3",
+      "paper_id": "p8",
+      "statement": "At the LHC, entanglement and CHSH-violation signatures are provided by the measurement of a single observable, where entanglement represents the violation of a Cauchy-Schwarz inequality.",
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "At the LHC,\nthese signatures are given by the measurement of a single observable, which in the\ncase of entanglement represents the violation of a Cauchy-Schwarz inequality."
+      },
+      "best_match_similarity": 0.6156,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.62)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p8-c4",
+      "claim_id": "p8-c4",
+      "paper_id": "p8",
+      "statement": "The authors extend the validity of the quantum tomography protocol for the top-antitop pair to more general quantum states and for any production mechanism.",
+      "provenance": {
+        "paper_id": "p8",
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We\nextend the validity of the quantum tomography protocol for the t¯t pair proposed in\nthe literature to more general quantum\nstates, and for any production mechanism."
+      },
+      "best_match_similarity": 0.6135,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.61)."
     },
     {
       "signal": "RESEARCH_GAP",
       "gap_id": "gap-p8-c5",
       "claim_id": "p8-c5",
       "paper_id": "p8",
-      "statement": "Takahashi (2025) identifies battery thermal throttling on mobile X-ray edge hardware after 45 consecutive scans, an operational hardware factor unaddressed by algorithm-centric papers.",
+      "statement": "Any realistic hadronic production of a top-antitop pair is a statistical mixture of elementary QCD processes, focusing on proton-proton and proton-antiproton collisions.",
       "provenance": {
         "paper_id": "p8",
-        "paper_title": "Placeholder Paper 8: Edge Device Quantization for Portable X-Ray Units",
-        "section": "RESULTS",
-        "page_number": 6,
-        "verbatim_quote": "Secondary cross-validation confirms baseline consistency across Field Bedside Portable Imaging Suite (n=1,500)."
+        "paper_title": "Quantum information with top quarks in QCD",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We show that any realistic\nhadronic production of a t¯t pair is a statistical mixture of these elementary QCD\nprocesses.\nWe focus on the experimentally relevant cases of proton-proton and\nproton-antiproton collisions"
       },
-      "best_match_similarity": 0.38,
-      "reason": "No claim in any other paper measures physical hardware thermal throttling or sustained edge-device battery drain during portable bedside triage."
+      "best_match_similarity": 0.584,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.58)."
     }
   ],
   "consensus": {
-    "consensus_score": 56,
-    "executive_summary": "Across the 8 analyzed radiology papers, strong empirical consensus exists that deep learning models achieve high diagnostic discrimination (>88%) under curated or domain-adapted settings. However, a major empirical contradiction divides clean lab studies (Smith 2024: 94.2%) from clinical field deployments (Adewale 2024: 68.4%), where uncalibrated scanner artifacts cause severe diagnostic degradation. Multi-center ensembling and radiologist-in-the-loop workflows consistently outperform autonomous triage.",
+    "consensus_score": 50,
+    "executive_summary": "The literature spans diverse domains, including chest X-ray analysis, image deblurring, fluid dynamics, and quantum physics. In medical imaging, studies by Rajpurkar et al. (n.d.) and Wang et al. (n.d.) demonstrate deep learning efficacy but employ distinct datasets and metrics, creating methodological heterogeneity. No direct contradictions exist among the provided claims. Significant gaps include the exclusion of lateral views and patient history in diagnostic studies, and the lack of standardized evaluation protocols across different chest X-ray datasets. These limitations hinder direct comparability and generalizability of model performance across the field.",
     "agreed_findings": [
-      "Modern neural architectures maintain diagnostic accuracy (>88%) when domain adaptation is applied (Chen 2024, Kowalski 2025).",
-      "Pretrained self-supervised adult representations transfer effectively to pediatric radiography with minimal fine-tuning (Dubois 2025)."
+      "No uniform consensus emerged from the claim pairs."
     ],
-    "top_contradictions": [
-      {
-        "edge_id": "e-p1c1-p2c1",
-        "headline": "Clinical readiness dispute: Smith (2024) reports 94.2% accuracy in clean archives, while Adewale (2024) finds performance drops to 68.4% on field hospital scans."
-      },
-      {
-        "edge_id": "e-p1c3-p2c3",
-        "headline": "Human clinician equivalence controversy: Lab benchmark superiority does not hold on noisy field inputs."
-      }
-    ],
+    "top_contradictions": [],
     "gap_ids": [
+      "gap-p1-c2",
+      "gap-p1-c3",
+      "gap-p1-c4",
+      "gap-p2-c3",
+      "gap-p2-c5",
+      "gap-p3-c1",
+      "gap-p3-c2",
+      "gap-p3-c3",
+      "gap-p3-c4",
+      "gap-p3-c5",
+      "gap-p4-c4",
+      "gap-p5-c1",
+      "gap-p5-c4",
       "gap-p5-c5",
+      "gap-p6-c2",
+      "gap-p6-c3",
+      "gap-p6-c4",
+      "gap-p7-c1",
+      "gap-p7-c2",
+      "gap-p7-c3",
+      "gap-p7-c4",
+      "gap-p7-c5",
+      "gap-p8-c1",
+      "gap-p8-c2",
+      "gap-p8-c3",
+      "gap-p8-c4",
       "gap-p8-c5"
     ],
     "recommended_next_steps": [
-      "Standardize motion-artifact augmentation benchmarks across prospective radiography trials.",
-      "Incorporate physical edge hardware thermal constraints into portable triage models.",
-      "Mandate radiologist-in-the-loop confidence calibration before autonomous deployment."
+      "Standardize evaluation metrics and dataset splits to enable direct comparison between studies using ChestX-ray14 and ChestX-ray8.",
+      "Conduct comparative analyses that include both frontal and lateral radiographs to assess the full diagnostic potential of deep learning models.",
+      "Integrate patient history data into model training and evaluation to better reflect real-world clinical diagnostic workflows."
     ]
   },
   "stats": {
     "paper_count": 8,
     "claim_count": 40,
-    "cross_paper_pairs_total": 700,
-    "candidate_pairs": 32,
-    "referee_pairs_evaluated": 8,
-    "referee_calls": 2,
-    "pair_reduction_pct": 95.4,
+    "cross_paper_pairs_total": 699,
+    "candidate_pairs": 20,
+    "referee_pairs_evaluated": 20,
+    "referee_calls": 5,
+    "pair_reduction_pct": 97.1,
     "stage_latency_ms": {
-      "ingestion_ms": 920,
-      "extraction_ms": 6400,
-      "embedding_ms": 85,
-      "clustering_ms": 14,
-      "referee_ms": 2100,
-      "consensus_ms": 1350,
-      "total_ms": 10869
+      "ingestion_ms": 5922,
+      "extraction_ms": 307918,
+      "embedding_ms": 595,
+      "clustering_ms": 47,
+      "referee_ms": 115295,
+      "consensus_ms": 31552,
+      "total_ms": 461329
     }
   },
   "models": [
     {
       "role": "EXTRACTION",
-      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "model_id": "qwen/qwen3.8-27b",
       "provider": "groq",
-      "license": "Llama 3.1 Community License",
-      "license_url": "https://www.llama.com/llama3_1/license/",
-      "parameter_count": "8B"
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
     },
     {
       "role": "EMBEDDING",
       "model_id": "BAAI/bge-small-en-v1.5",
       "provider": "fastembed-local",
       "license": "MIT",
-      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5/blob/main/LICENSE",
       "parameter_count": "33M"
     },
     {
       "role": "REFEREE",
-      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "model_id": "qwen/qwen3.8-27b",
       "provider": "groq",
-      "license": "Llama 3.1 Community License",
-      "license_url": "https://www.llama.com/llama3_1/license/",
-      "parameter_count": "8B"
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
     },
     {
       "role": "CONSENSUS_WRITER",
-      "model_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "model_id": "qwen/qwen3.8-27b",
       "provider": "groq",
-      "license": "Llama 3.1 Community License",
-      "license_url": "https://www.llama.com/llama3_1/license/",
-      "parameter_count": "8B"
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
     }
   ],
   "warnings": [
-    "This dataset is synthetic placeholder data for hackathon development. Honest open-source disclosure."
+    "Paper 'CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning' (p1): dropped 1 unverified or hallucinated claim quote(s).",
+    "Paper 'TorchXRayVision: A library of chest X-ray datasets and models' (p6): dropped 1 unverified or hallucinated claim quote(s).",
+    "Paper 'Quantum information with top quarks in QCD' (p8): dropped 1 unverified or hallucinated claim quote(s)."
   ]
 }
