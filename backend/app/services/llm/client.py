@@ -169,6 +169,15 @@ class LLMClient:
                     break
 
                 except APIStatusError as status_err:
+                    # Auto-fallback on Groq if llama-3.1-8b-instant is restricted (404) in region/project
+                    if p.name == "groq" and status_err.status_code == 404 and p.model != "qwen/qwen3.8-27b":
+                        p.model = "qwen/qwen3.8-27b"
+                        continue
+                    # Auto-truncate prompt if Groq free tier rejects request size with HTTP 413 (TPM limit)
+                    if status_err.status_code == 413 and len(messages[-1]["content"]) > 6000:
+                        messages[-1]["content"] = messages[-1]["content"][:10000] + "\n\nReturn the JSON object now."
+                        max_tokens = min(max_tokens, 1500)
+                        continue
                     last_error = f"{p.name}: HTTP {status_err.status_code}"
                     break
 

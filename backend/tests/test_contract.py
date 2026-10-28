@@ -9,6 +9,7 @@ APPROVED_OPEN_WEIGHT_MODELS = {
     "llama-3.1-8b-instant",
     "meta-llama/Llama-3.1-8B-Instruct",
     "Qwen/Qwen2.5-7B-Instruct",
+    "qwen/qwen3.8-27b",
     "llama3.2:3b",
     "BAAI/bge-small-en-v1.5",
 }

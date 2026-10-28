@@ -28,6 +28,8 @@ def _resolve_model_metadata(model_id: str, provider: str) -> tuple[str, str, str
         return "MIT", "https://huggingface.co/BAAI/bge-small-en-v1.5/blob/main/LICENSE", "33M"
     if "llama-3.2-3b" in lowered or "llama3.2:3b" in lowered or "3.2-3b" in lowered:
         return "Llama 3.2 Community License", "https://llama.meta.com/llama3/license/", "3B"
+    if "qwen3.8-27b" in lowered or "27b" in lowered:
+        return "Apache-2.0", "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE", "27B"
     if "qwen" in lowered:
         return "Apache-2.0", "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE", "7B"
     # Default to Llama-3.1-8B metadata
