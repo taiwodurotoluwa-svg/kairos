@@ -425,7 +425,8 @@ def test_real_llm_client_integration():
     with patch("app.services.llm.client.AsyncOpenAI") as mock_openai_cls:
         mock_instance = AsyncMock()
         mock_instance.chat.completions.create.return_value = mock_resp
-        mock_openai_cls.return_value.__aenter__.return_value = mock_instance
+        mock_instance.__aenter__.return_value = mock_instance
+        mock_openai_cls.return_value = mock_instance
 
         edges = asyncio.run(
             evaluate_claim_pairs(

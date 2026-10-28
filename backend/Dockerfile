@@ -8,5 +8,9 @@ RUN python -c "from fastembed import TextEmbedding; TextEmbedding('BAAI/bge-smal
 COPY backend/app ./app
 COPY fixtures ./fixtures
 ENV FIXTURES_DIR=/app/fixtures
+
+RUN useradd -m -u 1000 appuser && mkdir -p /app/.cache/fastembed && chown -R appuser:appuser /app
+USER appuser
+
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

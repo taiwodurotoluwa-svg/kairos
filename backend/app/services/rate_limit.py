@@ -26,7 +26,10 @@ class RateLimiter:
 
         # Clean history
         records = [t for t in self._history[client_ip] if t > cutoff]
-        self._history[client_ip] = records
+        if not records:
+            self._history.pop(client_ip, None)
+        else:
+            self._history[client_ip] = records
 
         if len(records) >= self.limit:
             oldest = records[0]

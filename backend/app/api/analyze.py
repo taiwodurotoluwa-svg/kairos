@@ -10,7 +10,9 @@ from sse_starlette.sse import EventSourceResponse
 from app.config import get_settings
 from app.errors import KairosError
 from app.schemas import (
+    ErrorBody,
     ErrorCode,
+    ErrorResponse,
     JobCreated,
     JobStatus,
 )
@@ -52,20 +54,33 @@ async def submit_analysis(
         client_ip = "unknown"
     get_rate_limiter().check_rate_limit(client_ip)
 
-    # Read uploaded file contents
+    # Read uploaded file contents with early size bound check (Opt 3)
     raw_files: list[tuple[str, bytes]] = []
+    max_bytes = settings.max_file_mb * 1024 * 1024
     for f in files:
         if f.filename:
-            content = await f.read()
+            content = await f.read(max_bytes + 1)
+            if len(content) > max_bytes:
+                raise KairosError(
+                    ErrorCode.FILE_TOO_LARGE,
+                    f"File '{f.filename}' exceeds maximum allowed size ({settings.max_file_mb}MB).",
+                    status_code=413,
+                )
             raw_files.append((f.filename, content))
 
-    # Parse arXiv IDs (comma, space, or newline separated)
+    # Parse arXiv IDs: support JSON array string per §3.4 and comma/whitespace separated strings (F-01)
     parsed_arxiv_ids: list[str] = []
-    if arxiv_ids:
-        for item in re.split(r"[,\s\n]+", arxiv_ids.strip()):
-            clean = item.strip()
-            if clean:
-                parsed_arxiv_ids.append(clean)
+    if arxiv_ids and arxiv_ids.strip():
+        raw_str = arxiv_ids.strip()
+        if raw_str.startswith("["):
+            import json
+            try:
+                items = json.loads(raw_str)
+            except Exception:
+                items = re.split(r"[,\s\n]+", raw_str.strip("[]"))
+        else:
+            items = re.split(r"[,\s\n]+", raw_str)
+        parsed_arxiv_ids = [str(x).strip().strip("'\"") for x in items if str(x).strip().strip("'\"")]
 
     # Validate paper limits, file sizes, and PDF magic bytes before starting job
     validate_inputs(files=raw_files, arxiv_ids=parsed_arxiv_ids, settings=settings)
@@ -141,14 +156,27 @@ async def stream_analysis_events(
                 # Determine SSE event type
                 if event.status == JobStatus.COMPLETED:
                     event_name = "complete"
+                    payload = event.model_dump_json()
                 elif event.status == JobStatus.FAILED:
                     event_name = "failed"
+                    # §3.5 specifies ErrorResponse payload for failed SSE events
+                    job = job_store.get_job(analysis_id)
+                    error_body = (
+                        job.state.error
+                        if (job and job.state.error)
+                        else ErrorBody(
+                            code=ErrorCode.INTERNAL_ERROR,
+                            message=event.message,
+                        )
+                    )
+                    payload = ErrorResponse(error=error_body).model_dump_json()
                 else:
                     event_name = "progress"
+                    payload = event.model_dump_json()
 
                 yield {
                     "event": event_name,
-                    "data": event.model_dump_json(),
+                    "data": payload,
                 }
 
                 if event.status in (JobStatus.COMPLETED, JobStatus.FAILED):
@@ -164,8 +192,13 @@ async def stream_analysis_events(
     "/analyze/{analysis_id}",
     summary="Retrieve final synthesis result or current job status",
 )
-async def get_analysis_result(analysis_id: str) -> Response:
-    """Retrieve the completed AnalysisResult or the active JobState."""
+async def get_analysis_result(analysis_id: str, raw: bool = False) -> Response:
+    """
+    Retrieve the current JobState per 02-api-contracts.md §3.6 (200 -> JobState).
+    When status == 'COMPLETED', job.state.result contains the full AnalysisResult.
+    When status == 'FAILED', job.state.error contains the ErrorBody (never HTTP 500).
+    Optionally, pass ?raw=true to retrieve raw AnalysisResult when completed.
+    """
     job_store = get_job_store()
     job = job_store.get_job(analysis_id)
     if job is None:
@@ -175,38 +208,14 @@ async def get_analysis_result(analysis_id: str) -> Response:
             status_code=404,
         )
 
-    if job.state.status == JobStatus.COMPLETED and job.state.result is not None:
-        # Return full AnalysisResult
+    if raw and job.state.status == JobStatus.COMPLETED and job.state.result is not None:
         return Response(
             content=job.state.result.model_dump_json(),
             media_type="application/json",
             status_code=200,
         )
 
-    if job.state.status == JobStatus.FAILED:
-        err = job.state.error
-        code = err.code if err else ErrorCode.INTERNAL_ERROR
-        message = err.message if err else "Analysis job failed."
-        status_map = {
-            ErrorCode.LLM_PROVIDER_UNAVAILABLE: 503,
-            ErrorCode.TOO_FEW_PAPERS: 400,
-            ErrorCode.TOO_MANY_PAPERS: 400,
-            ErrorCode.INVALID_FILE_TYPE: 400,
-            ErrorCode.FILE_TOO_LARGE: 400,
-            ErrorCode.INVALID_ARXIV_ID: 400,
-            ErrorCode.ARXIV_FETCH_FAILED: 502,
-            ErrorCode.PDF_PARSE_FAILED: 422,
-            ErrorCode.NO_TEXT_LAYER: 422,
-            ErrorCode.RATE_LIMITED: 429,
-        }
-        status_code = status_map.get(code, 500)
-        raise KairosError(
-            code=code,
-            message=message,
-            status_code=status_code,
-        )
-
-    # Return intermediate JobState while queued or running
+    # Return JobState on 200 across all statuses (QUEUED, RUNNING, COMPLETED, FAILED)
     return Response(
         content=job.state.model_dump_json(),
         media_type="application/json",

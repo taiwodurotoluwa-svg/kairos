@@ -55,6 +55,25 @@ class LLMClient:
         self.last_used_model: str = ""
         self.last_used_provider: str = ""
         self.call_count: int = 0
+        self._clients: dict[str, AsyncOpenAI] = {}
+
+    def _get_client(self, p: Provider) -> AsyncOpenAI:
+        if p.name not in self._clients:
+            self._clients[p.name] = AsyncOpenAI(
+                base_url=p.base_url,
+                api_key=p.api_key or "none",
+                timeout=self.settings.llm_timeout_seconds,
+            )
+        return self._clients[p.name]
+
+    async def aclose(self) -> None:
+        """Close all persistent AsyncOpenAI client connections (Opt 2)."""
+        for client in list(self._clients.values()):
+            try:
+                await client.close()
+            except Exception:
+                pass
+        self._clients.clear()
 
     async def complete_json(
         self,
@@ -78,89 +97,84 @@ class LLMClient:
             if p.name in self.disabled:
                 continue
 
-            # Safely manage client lifecycle to prevent connection/socket leaks
-            async with AsyncOpenAI(
-                base_url=p.base_url,
-                api_key=p.api_key or "none",
-                timeout=self.settings.llm_timeout_seconds,
-            ) as client:
-                messages = [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ]
+            client = self._get_client(p)
+            messages = [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ]
 
-                use_response_format = True
+            use_response_format = True
 
-                for attempt in range(max(1, self.settings.llm_max_retries)):
-                    text = ""
-                    try:
-                        async with self.sem:
-                            kwargs: dict[str, Any] = {
-                                "model": p.model,
-                                "messages": messages,
-                                "temperature": temperature,
-                                "max_tokens": max_tokens,
-                            }
-                            if use_response_format:
-                                kwargs["response_format"] = {"type": "json_object"}
+            for attempt in range(max(1, self.settings.llm_max_retries)):
+                text = ""
+                try:
+                    async with self.sem:
+                        kwargs: dict[str, Any] = {
+                            "model": p.model,
+                            "messages": messages,
+                            "temperature": temperature,
+                            "max_tokens": max_tokens,
+                        }
+                        if use_response_format:
+                            kwargs["response_format"] = {"type": "json_object"}
 
-                            try:
+                        try:
+                            resp = await client.chat.completions.create(**kwargs)
+                        except BadRequestError as bad_req:
+                            # Some local models or endpoints reject response_format parameter
+                            if use_response_format and "response_format" in str(bad_req).lower():
+                                use_response_format = False
+                                kwargs.pop("response_format", None)
                                 resp = await client.chat.completions.create(**kwargs)
-                            except BadRequestError as bad_req:
-                                # Some local models or endpoints reject response_format parameter
-                                if use_response_format and "response_format" in str(bad_req).lower():
-                                    use_response_format = False
-                                    kwargs.pop("response_format", None)
-                                    resp = await client.chat.completions.create(**kwargs)
-                                else:
-                                    raise
+                            else:
+                                raise
 
-                        text = resp.choices[0].message.content or ""
-                        parsed = parse_json_object(text)
-                        validated = validate(parsed)
-                        self.last_used_model = p.model
-                        self.last_used_provider = p.name
-                        self.call_count += 1
-                        return validated, p.name, p.model
+                    text = resp.choices[0].message.content or ""
+                    parsed = parse_json_object(text)
+                    validated = validate(parsed)
+                    self.last_used_model = p.model
+                    self.last_used_provider = p.name
+                    self.call_count += 1
+                    return validated, p.name, p.model
 
-                    except (InvalidJSON, ValueError) as err:
-                        # Catch JSON parsing error or Pydantic ValidationError (subclass of ValueError)
-                        last_error = f"{p.name}: invalid output ({err})"
-                        if attempt + 1 < self.settings.llm_max_retries:
-                            # Append corrective retry dialog formatted from template
-                            messages = list(messages) + [
-                                {"role": "assistant", "content": text},
-                                {
-                                    "role": "user",
-                                    "content": CORRECTIVE_RETRY_TEMPLATE.format(error_message=str(err)),
-                                },
-                            ]
-                            continue
-                        break
+                except (InvalidJSON, ValueError) as err:
+                    # Catch JSON parsing error or Pydantic ValidationError (subclass of ValueError)
+                    last_error = f"{p.name}: invalid output ({err})"
+                    if attempt + 1 < self.settings.llm_max_retries:
+                        # Append corrective retry dialog formatted from template
+                        messages = list(messages) + [
+                            {"role": "assistant", "content": text},
+                            {
+                                "role": "user",
+                                "content": CORRECTIVE_RETRY_TEMPLATE.format(error_message=str(err)),
+                            },
+                        ]
+                        continue
+                    break
 
-                    except AuthenticationError:
-                        self.disabled.add(p.name)
-                        last_error = f"{p.name}: authentication failed"
-                        break
+                except AuthenticationError:
+                    self.disabled.add(p.name)
+                    last_error = f"{p.name}: authentication failed"
+                    break
 
-                    except RateLimitError as rle:
-                        last_error = f"{p.name}: rate limited"
-                        if attempt == 0:
-                            await asyncio.sleep(_retry_after(rle))
-                            continue
-                        break
+                except RateLimitError as rle:
+                    last_error = f"{p.name}: rate limited"
+                    if attempt == 0:
+                        await asyncio.sleep(_retry_after(rle))
+                        continue
+                    break
 
-                    except (APITimeoutError, APIConnectionError) as net_err:
-                        last_error = f"{p.name}: connection error ({net_err.__class__.__name__})"
-                        break
+                except (APITimeoutError, APIConnectionError) as net_err:
+                    last_error = f"{p.name}: connection error ({net_err.__class__.__name__})"
+                    break
 
-                    except APIStatusError as status_err:
-                        last_error = f"{p.name}: HTTP {status_err.status_code}"
-                        break
+                except APIStatusError as status_err:
+                    last_error = f"{p.name}: HTTP {status_err.status_code}"
+                    break
 
-                    except Exception as exc:
-                        last_error = f"{p.name}: unexpected error ({exc})"
-                        break
+                except Exception as exc:
+                    last_error = f"{p.name}: unexpected error ({exc})"
+                    break
 
         # Scrub any provider API keys before raising
         for p in self.providers:

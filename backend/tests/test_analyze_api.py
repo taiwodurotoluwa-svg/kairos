@@ -12,6 +12,7 @@ from app.schemas import (
     AnalysisResult,
     AnalysisStats,
     ConsensusReport,
+    ErrorBody,
     ErrorCode,
     FixtureProvenance,
     JobStatus,
@@ -178,15 +179,38 @@ def test_get_analysis_status_and_result():
     assert state["stage"] == "REFEREE"
     assert state["progress_pct"] == 85
 
-    # 3. Completed job
+    # 3. Completed job (02-api-contracts.md §3.6 returns 200 -> JobState with result populated)
     dummy_res = _make_dummy_analysis_result(aid)
     rec.complete(dummy_res)
     res_complete = client.get(f"/api/v1/analyze/{aid}")
     assert res_complete.status_code == 200
     comp_data = res_complete.json()
     assert comp_data["analysis_id"] == aid
-    assert comp_data["mode"] == "LIVE"
-    assert comp_data["consensus"]["consensus_score"] == 80
+    assert comp_data["status"] == "COMPLETED"
+    result = comp_data["result"] if "result" in comp_data and comp_data["result"] is not None else comp_data
+    assert result["mode"] == "LIVE"
+    assert result["consensus"]["consensus_score"] == 80
+
+    # Test raw unwrap query param ?raw=true
+    res_raw = client.get(f"/api/v1/analyze/{aid}?raw=true")
+    assert res_raw.status_code == 200
+    assert res_raw.json()["mode"] == "LIVE"
+
+    # 4. Failed job returns 200 JobState with error per §3.7 (never HTTP 500)
+    aid_fail = store.generate_analysis_id()
+    rec_fail = store.create_job(aid_fail)
+    rec_fail.fail(
+        ErrorBody(
+            code=ErrorCode.LLM_PROVIDER_UNAVAILABLE,
+            message="All configured LLM providers failed.",
+        )
+    )
+    res_failed = client.get(f"/api/v1/analyze/{aid_fail}")
+    assert res_failed.status_code == 200
+    fail_data = res_failed.json()
+    assert fail_data["status"] == "FAILED"
+    assert fail_data["error"]["code"] == ErrorCode.LLM_PROVIDER_UNAVAILABLE.value
+    assert "All configured LLM providers failed." in fail_data["error"]["message"]
 
 
 def test_stream_events_sse_unknown_job():
@@ -208,3 +232,54 @@ def test_stream_events_sse_e2e():
         lines = [line for line in response.iter_lines() if line]
         assert any("complete" in l for l in lines)
 
+
+
+def test_analyze_arxiv_ids_json_array_parsing():
+    """Resolves F-01: Verifies that arxiv_ids as a JSON-encoded string array is accepted."""
+    with patch("app.api.analyze.run_pipeline"):
+        res = client.post(
+            "/api/v1/analyze",
+            data={"arxiv_ids": '["1711.05225", "1901.07042"]'},
+        )
+        assert res.status_code == 202
+        assert "analysis_id" in res.json()
+
+
+def test_analyze_upload_file_too_large_returns_413():
+    """Resolves F-04 & Opt 3: Upload exceeding max_file_mb returns HTTP 413 early."""
+    get_rate_limiter().reset()
+    # Generate content exceeding default 20MB limit
+    oversized = b"%PDF-1.4 " + b"0" * (21 * 1024 * 1024)
+    files = [
+        ("files", ("huge.pdf", oversized, "application/pdf")),
+        ("files", ("p2.pdf", b"%PDF-1.4 valid", "application/pdf")),
+    ]
+    res = client.post("/api/v1/analyze", files=files)
+    assert res.status_code == 413
+    data = res.json()
+    assert data["error"]["code"] == ErrorCode.FILE_TOO_LARGE.value
+
+
+def test_stream_events_sse_failed_emits_error_response():
+    """Resolves F-03: SSE stream emits ErrorResponse on failed event."""
+    store = get_job_store()
+    aid = store.generate_analysis_id()
+    rec = store.create_job(aid)
+    rec.fail(
+        ErrorBody(
+            code=ErrorCode.LLM_PROVIDER_UNAVAILABLE,
+            message="Provider failover exhausted.",
+        )
+    )
+
+    with client.stream("GET", f"/api/v1/analyze/{aid}/events") as response:
+        assert response.status_code == 200
+        lines = [line for line in response.iter_lines() if line]
+        assert any("failed" in l for l in lines)
+        # Find data line after failed event
+        data_lines = [l for l in lines if l.startswith("data:")]
+        assert len(data_lines) > 0
+        import json
+        last_event_data = json.loads(data_lines[-1].replace("data:", "").strip())
+        assert "error" in last_event_data
+        assert last_event_data["error"]["code"] == ErrorCode.LLM_PROVIDER_UNAVAILABLE.value

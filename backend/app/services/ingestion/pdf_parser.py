@@ -9,8 +9,13 @@ _MUPDF_LOCK = threading.Lock()
 
 
 def _dehyphenate(text: str) -> str:
-    """Rejoins words split across line-breaks with hyphens: 'multi-\\npaper' -> 'multipaper'."""
-    return re.sub(r"(\w+)-\n(\w+)", r"\1\2", text)
+    """Rejoins soft-hyphenated words split across line breaks while preserving compound hyphens (Opt 4)."""
+    def _repl(m: re.Match) -> str:
+        prefix, suffix = m.group(1), m.group(2)
+        if prefix.lower() in {"self", "multi", "cross", "non", "pre", "post", "co", "low", "high", "out", "inter", "intra"} or prefix.isdigit():
+            return f"{prefix}-{suffix}"
+        return f"{prefix}{suffix}"
+    return re.sub(r"(\w+)-\n([a-z]\w*)", _repl, text)
 
 
 def _clean_text(text: str) -> str:

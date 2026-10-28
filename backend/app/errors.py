@@ -46,11 +46,13 @@ def install_error_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(Exception)
     async def _handle_unhandled(_: Request, exc: Exception) -> JSONResponse:
+        settings = get_settings()
+        details = None if settings.app_env == "production" else {"type": exc.__class__.__name__, "detail": str(exc)}
         body = ErrorResponse(
             error=ErrorBody(
                 code=ErrorCode.INTERNAL_ERROR,
                 message="An unexpected internal error occurred.",
-                details={"type": exc.__class__.__name__, "detail": str(exc)},
+                details=details,
             )
         ).model_dump(mode="json")
         return JSONResponse(status_code=500, content=body)

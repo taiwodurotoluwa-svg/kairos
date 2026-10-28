@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import inspect
+
 import asyncio
 import logging
 import time
@@ -93,6 +95,7 @@ async def run_pipeline(
             arxiv_ids=arxiv_ids,
             settings=settings,
         )
+        raw_files.clear()  # Opt 3: release raw PDF bytes from RAM immediately
 
         sectioned_papers = ingested_batch.papers
         warnings.extend(ingested_batch.warnings)
@@ -116,21 +119,46 @@ async def run_pipeline(
             message="Extracting scientific claims and verifying quotes against source text...",
         )
 
-        # Run Stage 1 extractions concurrently (bounded by llm_client.sem)
-        extraction_tasks = [
-            extract_claims_from_paper(
-                sec_paper=sec,
-                llm_client=llm_client,
-                settings=settings,
-            )
-            for sec in sectioned_papers
-        ]
-        extraction_results = await asyncio.gather(*extraction_tasks)
+        completed_count = 0
+        total_papers = len(sectioned_papers)
+
+        async def _extract_with_progress(sec):
+            nonlocal completed_count
+            try:
+                res = await extract_claims_from_paper(
+                    sec_paper=sec,
+                    llm_client=llm_client,
+                    settings=settings,
+                )
+                completed_count += 1
+                pct = 25 + int(28 * (completed_count / max(1, total_papers)))
+                job_record.publish_progress(
+                    stage=PipelineStage.EXTRACTION,
+                    status=JobStatus.RUNNING,
+                    progress_pct=pct,
+                    message=f"Extracted {len(res[1])} verified claims from {res[0].citation_label} ({completed_count}/{total_papers}).",
+                )
+                return res
+            except Exception as exc:
+                completed_count += 1
+                return exc
+
+        extraction_results = await asyncio.gather(
+            *[_extract_with_progress(sec) for sec in sectioned_papers]
+        )
 
         all_papers: list[PaperMetadata] = []
         all_claims: list[ExtractedClaim] = []
+        all_provider_unavailable = True
 
-        for paper_meta, claims, paper_warnings in extraction_results:
+        for idx, item in enumerate(extraction_results):
+            if isinstance(item, Exception):
+                if not (isinstance(item, KairosError) and item.code == ErrorCode.LLM_PROVIDER_UNAVAILABLE):
+                    all_provider_unavailable = False
+                warnings.append(f"Excluded paper p{idx + 1} due to extraction error: {item}")
+                continue
+            all_provider_unavailable = False
+            paper_meta, claims, paper_warnings = item
             warnings.extend(paper_warnings)
             if len(claims) == 0:
                 warnings.append(
@@ -139,6 +167,14 @@ async def run_pipeline(
                 continue
             all_papers.append(paper_meta)
             all_claims.extend(claims)
+
+        # If every paper failed due to provider unavailable, re-raise it
+        if len(all_papers) == 0 and all_provider_unavailable and extraction_results:
+            first_err = extraction_results[0]
+            if isinstance(first_err, KairosError):
+                raise first_err
+
+        sectioned_papers.clear()  # Opt 3: release sectioned paper text from RAM
 
         # Guard surviving counts per 03-open-weight-models.md §6
         if len(all_papers) < settings.min_papers or len(all_claims) < 2:
@@ -371,3 +407,8 @@ async def run_pipeline(
         )
         job_record.fail(err.to_body())
         raise err
+    finally:
+        if llm_client and hasattr(llm_client, "aclose"):
+            close_coro = llm_client.aclose()
+            if inspect.isawaitable(close_coro):
+                await close_coro

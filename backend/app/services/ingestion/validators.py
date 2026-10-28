@@ -31,7 +31,7 @@ def validate_inputs(
             raise KairosError(
                 ErrorCode.FILE_TOO_LARGE,
                 f"File '{filename}' exceeds {settings.max_file_mb}MB limit ({file_len / (1024 * 1024):.1f}MB).",
-                400
+                413
             )
 
         total_bytes += file_len
@@ -39,7 +39,7 @@ def validate_inputs(
             raise KairosError(
                 ErrorCode.FILE_TOO_LARGE,
                 f"Total file size exceeds {settings.max_total_mb}MB limit ({total_bytes / (1024 * 1024):.1f}MB).",
-                400
+                413
             )
 
         # Check magic bytes (%PDF-)
