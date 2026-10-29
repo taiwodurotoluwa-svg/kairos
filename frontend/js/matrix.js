@@ -620,6 +620,37 @@
   }
 
   /**
+   * Applies a systematic research objective focus to the matrix
+   */
+  function applyResearchObjective(objectiveQuery) {
+    var banner = document.getElementById("matrix-objective-banner");
+    var bannerText = document.getElementById("matrix-objective-text");
+    var searchInput = document.getElementById("matrix-search");
+    var query = String(objectiveQuery || "").trim();
+
+    if (query) {
+      if (banner) banner.hidden = false;
+      if (bannerText) bannerText.textContent = query;
+      if (searchInput) searchInput.value = query;
+      setSearch(query);
+    } else {
+      clearResearchObjective();
+    }
+  }
+
+  /**
+   * Clears the research objective focus and restores all claims
+   */
+  function clearResearchObjective() {
+    var banner = document.getElementById("matrix-objective-banner");
+    var searchInput = document.getElementById("matrix-search");
+    if (banner) banner.hidden = true;
+    if (searchInput) searchInput.value = "";
+    global.KAIROS_RESEARCH_OBJECTIVE = "";
+    setSearch("");
+  }
+
+  /**
    * Set Search Query
    */
   function setSearch(query) {
@@ -653,6 +684,11 @@
       searchInput.addEventListener("input", function (e) {
         setSearch(e.target.value);
       });
+    }
+
+    var clearObjectiveBtn = document.getElementById("btn-clear-objective");
+    if (clearObjectiveBtn) {
+      clearObjectiveBtn.addEventListener("click", clearResearchObjective);
     }
 
     // Dismiss active provenance popovers on Escape key (P3-02)
@@ -692,6 +728,8 @@
     setBaseline: setBaseline,
     setFilter: setFilter,
     setSearch: setSearch,
+    applyResearchObjective: applyResearchObjective,
+    clearResearchObjective: clearResearchObjective,
     init: initControls,
     getState: function () {
       return Object.assign({}, state);

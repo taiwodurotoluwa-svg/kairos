@@ -60,6 +60,9 @@
     md.push("## 1. Corpus Metadata & Pipeline Telemetry");
     md.push("");
     md.push("- **Research Domain:** " + (p.preset_id || "scientific_corpus").toUpperCase());
+    if (global.KAIROS_RESEARCH_OBJECTIVE) {
+      md.push("- **Systematic Review Focus / Objective:** `" + global.KAIROS_RESEARCH_OBJECTIVE + "`");
+    }
     md.push("- **Schema Version:** v" + (p.schema_version || "1.0.0"));
     md.push("- **Fixture Provenance:** `" + (p.fixture_provenance || "NOT_APPLICABLE") + "`");
     md.push("- **Papers Analysed:** " + (stats.paper_count || (p.papers ? p.papers.length : 0)));

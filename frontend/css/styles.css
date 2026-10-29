@@ -2125,6 +2125,102 @@ h2 em {
   align-items: center;
 }
 
+/* --------------------------------------------------------------------------
+   Systematic Review Objective & Focus Area (Milestone P5 Enhancement)
+   -------------------------------------------------------------------------- */
+.objective-box {
+  margin-top: 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 3px 3px 0 var(--site-secondary);
+  padding: 16px;
+}
+
+.objective-label {
+  display: block;
+  font: 700 11px/1.2 var(--site-font-mono);
+  color: var(--site-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.objective-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.objective-chips-title {
+  font: 700 10px var(--site-font-mono);
+  color: var(--site-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.objective-chip {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font: 600 11px var(--site-font-body);
+  color: var(--site-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.objective-chip:hover,
+.objective-chip.active {
+  background: var(--site-primary);
+  color: #FFFFFF;
+  border-color: var(--site-primary);
+}
+
+.matrix-objective-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #EEF2FF;
+  border: 1.5px solid var(--site-primary);
+  box-shadow: 3px 3px 0 var(--site-primary);
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.objective-banner-tag {
+  font: 800 11px var(--site-font-mono);
+  color: var(--site-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.objective-banner-text {
+  font-weight: 700;
+  color: var(--site-secondary);
+  flex: 1;
+}
+
+.btn-clear-objective {
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-primary);
+  color: var(--site-primary);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font: 700 10.5px var(--site-font-mono);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-clear-objective:hover {
+  background: var(--site-primary);
+  color: #FFFFFF;
+}
+
 /* Screen Reader Only Utility */
 .sr-only {
   position: absolute;

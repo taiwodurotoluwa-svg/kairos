@@ -240,6 +240,28 @@
                     />
                     <button id="btn-add-arxiv" type="button" class="btn btn-dark btn-sm">Add arXiv Paper</button>
                   </div>
+
+                  <!-- Systematic Review Objective & Focus Area Input -->
+                  <div class="objective-box">
+                    <label for="research-objective-input" class="objective-label">
+                      🎯 Systematic Review Objective &amp; Focus Area:
+                    </label>
+                    <input
+                      type="text"
+                      id="research-objective-input"
+                      class="input-text"
+                      placeholder="e.g. Compare methodology differences, hardware artifacts, and diagnostic sensitivity..."
+                      aria-label="Specific research objective or area of interest"
+                    />
+                    <div class="objective-chips" role="group" aria-label="Suggested research focus areas">
+                      <span class="objective-chips-title">Quick Focus:</span>
+                      <button type="button" class="objective-chip" data-focus="methodology">Methodology &amp; Hardware</button>
+                      <button type="button" class="objective-chip" data-focus="sensitivity">Accuracy &amp; Sensitivity</button>
+                      <button type="button" class="objective-chip" data-focus="quantization">Quantization &amp; Latency</button>
+                      <button type="button" class="objective-chip" data-focus="clinical">Clinical Real-World Deployment</button>
+                    </div>
+                  </div>
+
                   <div id="ingest-feedback" class="status-caption" style="color:var(--site-accent-coral); font-weight:700; margin-top:8px;" role="status"></div>
                 </div>
 
@@ -529,6 +551,13 @@
                 <p class="view-description">
                   Pin a baseline study to compare claims across papers. The reference study stays sticky on the left during horizontal scrolling. Hover or focus any cell to inspect verbatim quotes and NLI referee rationales.
                 </p>
+              </div>
+
+              <!-- Active Systematic Review Objective Banner -->
+              <div id="matrix-objective-banner" class="matrix-objective-banner" hidden>
+                <span class="objective-banner-tag">🎯 Active Review Focus:</span>
+                <span id="matrix-objective-text" class="objective-banner-text"></span>
+                <button type="button" id="btn-clear-objective" class="btn-clear-objective" title="Clear research focus and view all claims">✕ View All Claims</button>
               </div>
 
               <!-- Matrix Controls Toolbar -->
