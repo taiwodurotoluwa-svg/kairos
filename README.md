@@ -79,7 +79,7 @@ kairos/
 
 ## Reproducible local setup (about 5 minutes)
 
-Prerequisites: Python 3.11+, Node.js 20+, a free [Groq](https://console.groq.com) API key **or** a Hugging Face token **or** [Ollama](https://ollama.com) with `llama3.2:3b` pulled.
+Prerequisites: Python 3.11+, a free [Groq](https://console.groq.com) API key **or** a Hugging Face token **or** [Ollama](https://ollama.com) with `llama3.2:3b` pulled.
 
 ```bash
 git clone https://github.com/taiwodurotoluwa-svg/kairos.git
@@ -91,14 +91,11 @@ python -m venv venv
 venv\Scripts\activate            # Windows PowerShell   (macOS/Linux: source venv/bin/activate)
 pip install -r requirements.txt
 copy .env.example .env           # macOS/Linux: cp .env.example .env ; then add GROQ_API_KEY or HF_TOKEN
+python -m scripts.sync_fixtures  # mirrors /fixtures/*.json into /frontend/fixtures/
 uvicorn app.main:app --reload --port 8000
 
-# 2) Frontend (new terminal)
-cd frontend
-npm install
-copy .env.example .env.local     # macOS/Linux: cp .env.example .env.local
-npm run sync:fixtures
-npm run dev                      # http://localhost:3000
+# 2) Frontend (new terminal from repo root — zero-build Vanilla HTML5/CSS3/ES6)
+python -m http.server 5500 --directory frontend   # http://localhost:5500 (or VS Code Live Server on :5500)
 ```
 
 Presets work with **no API key at all**: choose a preset in the UI. Live analysis needs one provider configured.
@@ -106,8 +103,8 @@ Presets work with **no API key at all**: choose a preset in the UI. Live analysi
 Run the tests:
 
 ```bash
-cd backend && pytest -q
-cd frontend && npm run lint && npm run typecheck && npm run test && npm run build
+cd backend && pytest -v
+python -m scripts.verify_fixture_quotes
 ```
 
 > Status: this README describes the target product. Milestone progress is tracked in the playbooks under `docs/duro/` and `docs/peace/`. Where a step above is not merged yet, the playbook for that milestone is authoritative.

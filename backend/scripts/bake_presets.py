@@ -98,3 +98,5 @@ async def bake_all_presets() -> None:
 
 if __name__ == "__main__":
     asyncio.run(bake_all_presets())
+    from scripts.sync_fixtures import sync_fixtures
+    sync_fixtures()
