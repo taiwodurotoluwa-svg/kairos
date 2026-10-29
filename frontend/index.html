@@ -45,8 +45,14 @@
             </select>
           </div>
 
-          <div class="status" title="Connected to local inference engine">
-            <span class="pulse" aria-hidden="true"></span> Research, connected
+          <!-- Backend Mode Switcher (Milestone P5) -->
+          <div class="mode-toggle-group" role="radiogroup" aria-label="Backend operating mode">
+            <button type="button" id="btn-mode-offline" class="mode-toggle-btn active" role="radio" aria-checked="true" title="Use pre-computed offline presets">Presets</button>
+            <button type="button" id="btn-mode-live" class="mode-toggle-btn" role="radio" aria-checked="false" title="Connect to live FastAPI pipeline on :8000">Live API</button>
+          </div>
+
+          <div id="connection-status" class="status" title="Pipeline operating state">
+            <span class="pulse" aria-hidden="true"></span> <span id="status-text">Presets (Offline)</span>
           </div>
         </div>
       </header>
@@ -663,7 +669,7 @@
               <div class="view-section-header">
                 <h3 class="view-heading">Consensus Synthesis &amp; Research Gaps</h3>
                 <p class="view-description">
-                  Executive synthesis and uncorroborated claims. Score ring gauge and Markdown export activate in Milestone P5.
+                  Executive synthesis of cross-paper agreements, top contradiction debates, and uncorroborated research gaps. Download publication-ready Markdown reports or raw contract JSON.
                 </p>
               </div>
               <div id="consensus-shell-content" aria-live="polite"></div>
@@ -759,6 +765,7 @@
   <script src="js/matrix.js"></script>
   <script src="js/drawer.js"></script>
   <script src="js/graph.js"></script>
+  <script src="js/consensus.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

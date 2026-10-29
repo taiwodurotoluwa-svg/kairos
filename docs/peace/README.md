@@ -200,10 +200,10 @@ Argon 4 (Gemini 1.5 Pro with High Thinking, temperature 0.2 in Google AI Studio)
 4. Final accessibility, responsive styling, and presentation audit.
 
 ### Acceptance Criteria:
-- [ ] Consensus view accurately reflects stats and clusters from active payload.
-- [ ] Seamless fallback between live FastAPI server and local mock presets.
-- [ ] Markdown export generates clean formatted report.
-- [ ] Local review file `reviews/P5_review.txt` generated for Argon 4 review.
+- [x] Consensus view accurately reflects stats and clusters from active payload.
+- [x] Seamless fallback between live FastAPI server and local mock presets.
+- [x] Markdown export generates clean formatted report.
+- [x] Local review file `reviews/P5_review.txt` generated for Argon 4 review.
 
 ---
 

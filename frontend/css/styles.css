@@ -244,6 +244,21 @@ button {
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
 }
 
+.status.status-live .pulse {
+  background: var(--site-accent-mint);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.25);
+}
+
+.status.status-presets .pulse {
+  background: var(--site-primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.25);
+}
+
+.status.status-error .pulse {
+  background: var(--site-accent-coral);
+  box-shadow: 0 0 0 4px rgba(255, 51, 102, 0.25);
+}
+
 /* --------------------------------------------------------------------------
    Hero Section & Interactive Paper Orbit Art
    -------------------------------------------------------------------------- */
@@ -2108,6 +2123,383 @@ h2 em {
   grid-template-columns: auto 1fr auto;
   gap: 20px;
   align-items: center;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Milestone P5: Consensus Score Gauge, Synthesis Sections & Export
+   -------------------------------------------------------------------------- */
+.consensus-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Consensus Top Hero Banner: Score Gauge + Executive Summary */
+.consensus-hero {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 28px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 5px 5px 0 var(--site-secondary);
+  padding: 28px;
+}
+
+@media (max-width: 840px) {
+  .consensus-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.gauge-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #FAF9F6;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 3px 3px 0 var(--site-secondary);
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.gauge-svg-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 12px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-bg-circle {
+  fill: none;
+  stroke: #E2E8F0;
+  stroke-width: 10;
+}
+
+.gauge-fill-circle {
+  fill: none;
+  stroke: var(--site-primary);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s;
+}
+
+.gauge-center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-pct {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--site-secondary);
+}
+
+.gauge-caption {
+  font: 700 9px var(--site-font-mono);
+  text-transform: uppercase;
+  color: var(--site-ink-muted);
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.gauge-verdict-pill {
+  font: 800 10.5px var(--site-font-mono);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--site-secondary);
+  letter-spacing: 0.04em;
+}
+
+.consensus-summary-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.consensus-summary-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+
+.consensus-executive-quote {
+  font: italic 400 1.05rem/1.65 var(--site-font-heading);
+  background: var(--site-surface-iris);
+  border-left: 3.5px solid var(--site-primary);
+  padding: 14px 18px;
+  margin: 0 0 16px;
+  color: var(--site-secondary);
+}
+
+.consensus-export-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid #CBD5E1;
+}
+
+.btn-export {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 2.5px 2.5px 0 var(--site-secondary);
+  padding: 7px 14px;
+  font: 700 11px var(--site-font-mono);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: transform 0.12s, background-color 0.12s, box-shadow 0.12s;
+  color: var(--site-secondary);
+}
+
+.btn-export:hover {
+  background: var(--site-gold-soft);
+  transform: translateY(-1px);
+  box-shadow: 3.5px 3.5px 0 var(--site-secondary);
+}
+
+.btn-export-primary {
+  background: var(--site-secondary);
+  color: #FFFFFF;
+  box-shadow: 2.5px 2.5px 0 var(--site-primary);
+}
+
+.btn-export-primary:hover {
+  background: #1E293B;
+  color: #FFFFFF;
+}
+
+/* Consensus Breakdown 2-Column Grid (Agreements & Contradictions) */
+.consensus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 840px) {
+  .consensus-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.consensus-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 4px 4px 0 var(--site-secondary);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.consensus-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--site-secondary);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.consensus-card-heading {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.agreements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.agreement-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-left: 4px solid #059669;
+  padding: 12px 14px;
+}
+
+.agreement-item-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #064E3B;
+  font-weight: 500;
+}
+
+.contradictions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contradiction-item {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+  border-left: 4px solid var(--site-accent-coral);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contradiction-headline {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #881337;
+  line-height: 1.4;
+}
+
+.contradiction-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Research Gaps Section */
+.gaps-container {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.gap-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  box-shadow: 4px 4px 0 var(--site-secondary);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gap-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gap-statement {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--site-secondary);
+}
+
+.gap-reason {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--site-ink-muted);
+}
+
+.gap-quote {
+  font: italic 400 0.85rem/1.5 var(--site-font-heading);
+  background: #FAF9F6;
+  border-left: 2.5px solid var(--site-primary);
+  padding: 8px 10px;
+  margin: 4px 0 0;
+  color: var(--site-secondary);
+}
+
+/* Recommended Next Steps List */
+.next-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.next-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  padding: 12px 16px;
+  box-shadow: 2px 2px 0 #CBD5E1;
+}
+
+.next-step-num {
+  font: 800 12px var(--site-font-mono);
+  color: #FFFFFF;
+  background: var(--site-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  shrink: 0;
+}
+
+.next-step-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--site-secondary);
+}
+
+/* Mode Switcher Pill in Topbar */
+.mode-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid var(--site-secondary);
+  border-radius: 999px;
+  padding: 2px;
+  box-shadow: 2px 2px 0 var(--site-secondary);
+}
+
+.mode-toggle-btn {
+  padding: 4px 10px;
+  font: 700 10px var(--site-font-mono);
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--site-secondary);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.mode-toggle-btn.active {
+  background: var(--site-secondary);
+  color: #FFFFFF;
 }
 
 /* --------------------------------------------------------------------------

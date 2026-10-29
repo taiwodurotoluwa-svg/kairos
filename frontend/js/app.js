@@ -99,6 +99,12 @@
         }
       }, 50);
     }
+
+    if (viewName === "consensus" && global.KairosConsensus && global.KairosConsensus.render) {
+      if (state.payload) {
+        global.KairosConsensus.render(state.payload);
+      }
+    }
   }
 
   function initTabs() {
@@ -281,6 +287,11 @@
   }
 
   function renderConsensusShell(payload) {
+    if (global.KairosConsensus && global.KairosConsensus.render) {
+      global.KairosConsensus.render(payload);
+      return;
+    }
+
     var container = document.getElementById("consensus-shell-content");
     if (!container) return;
     container.textContent = "";
@@ -477,7 +488,78 @@
     }
   }
 
+  function initModeToggle() {
+    var btnOffline = document.getElementById("btn-mode-offline");
+    var btnLive = document.getElementById("btn-mode-live");
+    var statusText = document.getElementById("status-text");
+    var connStatus = document.getElementById("connection-status");
+
+    function setOfflineUI() {
+      if (btnOffline) {
+        btnOffline.classList.add("active");
+        btnOffline.setAttribute("aria-checked", "true");
+      }
+      if (btnLive) {
+        btnLive.classList.remove("active");
+        btnLive.setAttribute("aria-checked", "false");
+      }
+      if (statusText) statusText.textContent = "Presets (Offline)";
+      if (connStatus) {
+        connStatus.classList.remove("status-live", "status-error");
+        connStatus.classList.add("status-presets");
+      }
+      if (global.KairosApi && global.KairosApi.setApiMode) {
+        global.KairosApi.setApiMode("local");
+      }
+    }
+
+    async function tryLiveUI() {
+      if (statusText) statusText.textContent = "Probing :8000...";
+      var check = global.KairosApi && global.KairosApi.checkLiveBackendHealth
+        ? await global.KairosApi.checkLiveBackendHealth()
+        : { online: false };
+
+      if (check.online) {
+        if (btnOffline) {
+          btnOffline.classList.remove("active");
+          btnOffline.setAttribute("aria-checked", "false");
+        }
+        if (btnLive) {
+          btnLive.classList.add("active");
+          btnLive.setAttribute("aria-checked", "true");
+        }
+        if (statusText) statusText.textContent = "Live (FastAPI :8000)";
+        if (connStatus) {
+          connStatus.classList.remove("status-presets", "status-error");
+          connStatus.classList.add("status-live");
+        }
+        if (global.KairosApi && global.KairosApi.setApiMode) {
+          global.KairosApi.setApiMode("live");
+        }
+        loadPreset(state.activePreset);
+      } else {
+        if (statusText) statusText.textContent = "Backend offline (Presets active)";
+        setTimeout(setOfflineUI, 2000);
+      }
+    }
+
+    if (btnOffline) {
+      btnOffline.addEventListener("click", function () {
+        setOfflineUI();
+        loadPreset(state.activePreset);
+      });
+    }
+
+    if (btnLive) {
+      btnLive.addEventListener("click", function () {
+        tryLiveUI();
+      });
+    }
+  }
+
   function initControls() {
+    initModeToggle();
+
     var selectEl = document.getElementById("preset-select");
     if (selectEl) {
       selectEl.addEventListener("change", function (event) {
