@@ -2,6 +2,8 @@
 
 **Multi-paper literature synthesis and contradiction engine, built on open-weight models.**
 
+[![Live Web App (Vercel)](https://img.shields.io/badge/Live_Web_App-Vercel-000000?logo=vercel&logoColor=white)](https://kairos-frontend-one.vercel.app/)
+[![Live API (Render)](https://img.shields.io/badge/Live_API-Render-46E3B7?logo=render&logoColor=black)](https://kairos-yo50.onrender.com/docs)
 ![OPEN//BUILD 2026](https://img.shields.io/badge/OPEN%2F%2FBUILD-2026-60A5FA)
 ![License: MIT](https://img.shields.io/badge/license-MIT-10B981)
 ![Open-weight models only](https://img.shields.io/badge/models-open--weight%20only-A78BFA)
@@ -12,7 +14,8 @@
 
 **Built with Llama & Open-Weight Models.** Kairos uses Meta Llama 3.1 / 3.2 models under their community licences, plus Apache-2.0 (`Qwen3.8-27B`) and MIT (`BAAI/bge-small-en-v1.5`) licensed models. See the [model and licence table](#open-weight-models-and-licence-compliance).
 
-**Live Production Backend API:** [https://kairos-yo50.onrender.com](https://kairos-yo50.onrender.com) · **Interactive Swagger Docs:** [https://kairos-yo50.onrender.com/docs](https://kairos-yo50.onrender.com/docs) · **Health Status:** [https://kairos-yo50.onrender.com/api/v1/health](https://kairos-yo50.onrender.com/api/v1/health)
+- **Live Web Application (Vercel):** [https://kairos-frontend-one.vercel.app/](https://kairos-frontend-one.vercel.app/)
+- **Live Production Backend API (Render):** [https://kairos-yo50.onrender.com](https://kairos-yo50.onrender.com) · **Interactive Swagger Docs:** [https://kairos-yo50.onrender.com/docs](https://kairos-yo50.onrender.com/docs) · **Health Status:** [https://kairos-yo50.onrender.com/api/v1/health](https://kairos-yo50.onrender.com/api/v1/health)
 
 ---
 
