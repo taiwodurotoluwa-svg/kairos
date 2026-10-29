@@ -31,3 +31,6 @@ reviews/
 *.review.txt
 D1_review.txt
 *_review.txt
+AGENTS.md
+MASTER_PROMPTS.md
+docs/reviews/

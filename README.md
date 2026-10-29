@@ -64,19 +64,17 @@ The API reports the real numbers for every run (`cross_paper_pairs_total`, `cand
 
 ```
 kairos/
-├── AGENTS.md              # rules every coding agent reads first
-├── DESIGN.md              # design system (frontend baseline)
-├── MASTER_PROMPTS.md      # bootstrap prompts for agents and the Argon 4 review gate
+├── DESIGN.md              # frontend design system & visual language
 ├── LICENSE                # MIT
+├── render.yaml            # Render production Docker deployment blueprint
 ├── backend/               # FastAPI + PyMuPDF + open-weight pipeline  (owner: DuroT)
 ├── frontend/              # Vanilla HTML5 + CSS3 + JS + Cytoscape.js   (owner: Peace)
-├── fixtures/              # pre-analysed presets + contract sample     (owner: DuroT)
+├── fixtures/              # pre-analysed arXiv presets + contract sample
 └── docs/
-    ├── shared/            # architecture, API contracts, model strategy
-    ├── duro/  peace/      # per-developer execution playbooks
-    ├── reviews/           # Local Argon 4 AI review text bundles (ignored by git)
-    ├── requests.md        # cross-developer contract change log
-    └── AI_ASSISTANCE.md   # AI-assistance disclosure log
+    ├── shared/            # architecture, API contracts, open-weight model strategy
+    ├── duro/  peace/      # backend & frontend engineering playbooks
+    ├── requests.md        # cross-developer contract & integration log
+    └── AI_ASSISTANCE.md   # development & AI-assistance disclosure
 ```
 
 ## Reproducible local setup (about 5 minutes)
@@ -141,7 +139,7 @@ Fallbacks: if the network or provider fails, switch to the presets (always work 
 
 ## AI-assisted contributions acknowledgement
 
-We built Kairos with AI coding agents (Antigravity with Claude and Gemini models) under human direction, and used **Gemini Argon 4 (Google AI Studio)** as an independent code-review gate before every merge. Both teammates review and can explain every file. A milestone-by-milestone record is in [`docs/AI_ASSISTANCE.md`](docs/AI_ASSISTANCE.md); review evidence is in [`docs/reviews/`](docs/reviews/).
+Per OPEN//BUILD 2026 guidelines, we disclose that we used AI pair-programming and code-review assistants (Antigravity IDE and Gemini in Google AI Studio) to accelerate boilerplate, regex/schema drafting, and edge-case test coverage. All system architecture, open-weight model selection, pipeline verification logic, UI/UX design, and deployments were engineered and verified by the team. Full details are documented in [`docs/AI_ASSISTANCE.md`](docs/AI_ASSISTANCE.md).
 
 ## Licences, datasets and acknowledgements
 

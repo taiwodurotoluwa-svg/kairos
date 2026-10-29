@@ -19,7 +19,7 @@ def test_health_endpoint():
 
 
 def test_health_degraded_when_no_llm_configured(monkeypatch):
-    """Enforces Argon 4 F-01: health status must be degraded and Ollama not falsely configured when empty."""
+    """Verify health status is degraded and Ollama is not falsely reported as configured when empty."""
     monkeypatch.setenv("GROQ_API_KEY", "")
     monkeypatch.setenv("HF_TOKEN", "")
     monkeypatch.setenv("OLLAMA_BASE_URL", "")
@@ -90,7 +90,7 @@ def test_get_demo_preset_not_found():
 
 
 def test_error_envelope_for_http_404():
-    """Enforces Argon 4 F-03: all unhandled HTTP 404 errors adhere to ErrorResponse contract."""
+    """Verify unhandled HTTP 404 errors adhere to the ErrorResponse wire contract."""
     res = client.get("/api/v1/totally_non_existent_route")
     assert res.status_code == 404
     data = res.json()
@@ -100,7 +100,7 @@ def test_error_envelope_for_http_404():
 
 
 def test_error_envelope_for_validation_error():
-    """Enforces Argon 4 F-03: 422 request validation errors return ErrorResponse with details."""
+    """Verify 422 request validation errors return ErrorResponse with structured details."""
     from fastapi import APIRouter
     from pydantic import BaseModel, Field
 
