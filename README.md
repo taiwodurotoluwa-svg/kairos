@@ -10,7 +10,9 @@
 
 > *AI belongs to everyone. Build for a world you understand. Make it open.* — OPEN//BUILD 2026, organised by Open Source Community Africa (OSCA) Ile-Ife.
 
-**Built with Llama.** Kairos uses Meta Llama 3.1 / 3.2 models under their community licences, plus Apache-2.0 and MIT licensed models. See the [model and licence table](#open-weight-models-and-licence-compliance).
+**Built with Llama & Open-Weight Models.** Kairos uses Meta Llama 3.1 / 3.2 models under their community licences, plus Apache-2.0 (`Qwen3.8-27B`) and MIT (`BAAI/bge-small-en-v1.5`) licensed models. See the [model and licence table](#open-weight-models-and-licence-compliance).
+
+**Live Production Backend API:** [https://kairos-yo50.onrender.com](https://kairos-yo50.onrender.com) · **Interactive Swagger Docs:** [https://kairos-yo50.onrender.com/docs](https://kairos-yo50.onrender.com/docs) · **Health Status:** [https://kairos-yo50.onrender.com/api/v1/health](https://kairos-yo50.onrender.com/api/v1/health)
 
 ---
 
@@ -52,7 +54,7 @@ The API reports the real numbers for every run (`cross_paper_pairs_total`, `cand
 | Role | Model | Where it runs | Licence | Notes |
 | :--- | :--- | :--- | :--- | :--- |
 | Extraction, referee, consensus writer (primary) | `meta-llama/Llama-3.1-8B-Instruct` | Groq (`llama-3.1-8b-instant`) → Hugging Face Inference | Llama 3.1 Community License | Attribution: "Built with Llama" |
-| Alternative LLM | `Qwen/Qwen2.5-7B-Instruct` | Hugging Face Inference | Apache-2.0 | Configurable via env |
+| Primary / Regional Fallback LLM | `Qwen/Qwen3.8-27B` (`qwen/qwen3.8-27b`) / `Qwen/Qwen2.5-7B-Instruct` | Groq / Hugging Face Inference | Apache-2.0 | Auto-fallback & configurable via env |
 | Offline fallback LLM | `meta-llama/Llama-3.2-3B-Instruct` (`llama3.2:3b`) | Local Ollama | Llama 3.2 Community License | Runs on a laptop, no internet |
 | Embeddings | `BAAI/bge-small-en-v1.5` | Local (FastEmbed / ONNX) | MIT | 33M parameters, 384 dimensions |
 
