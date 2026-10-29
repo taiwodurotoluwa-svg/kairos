@@ -26,11 +26,11 @@
       <header class="topbar">
         <a class="wordmark" href="#top" aria-label="Kairos home">kairos<span>.</span></a>
         
-        <nav class="toplinks" aria-label="Main navigation">
-          <a href="#method">How it works</a>
-          <a href="#dispute">Dispute lab</a>
-          <a href="#ingest">Ingestion hub</a>
-          <a href="#workspace">Evidence map</a>
+        <nav class="toplinks" role="tablist" aria-label="Main navigation">
+          <a href="#overview" class="nav-page-link active" data-page="overview" role="tab" aria-selected="true" tabindex="0">Overview</a>
+          <a href="#ingest" class="nav-page-link" data-page="ingest" role="tab" aria-selected="false" tabindex="-1">Ingestion Hub</a>
+          <a href="#dispute" class="nav-page-link" data-page="dispute" role="tab" aria-selected="false" tabindex="-1">Dispute Lab</a>
+          <a href="#matrix" class="nav-page-link" data-page="matrix" role="tab" aria-selected="false" tabindex="-1">Synthesis Matrix</a>
         </nav>
 
         <div class="topbar-right">
@@ -53,252 +53,313 @@
 
       <!-- Main Content Area -->
       <main id="top">
-        <!-- Hero Section -->
-        <section class="hero" aria-label="Product introduction">
-          <div class="hero-text">
-            <div class="kicker">Open-source literature synthesis</div>
-            <h1>Kairos<span class="period">.</span></h1>
-            <div class="hero-claim">Research was never meant to <em>whisper.</em></div>
-            <p class="hero-copy">Papers agree. Papers disagree. Somewhere between them is a better question. Kairos connects evidence, surfaces contradictions, and helps you see what a single paper can’t.</p>
-            <div class="actions">
-              <a class="btn btn-primary" href="#dispute">Enter the dispute lab <span aria-hidden="true">↗</span></a>
-              <a class="btn btn-light" href="#ingest">Ingest papers <span aria-hidden="true">↓</span></a>
-            </div>
-          </div>
-
-          <!-- Conceptual Illustration: Papers in Conversation -->
-          <div class="hero-art" aria-label="Conceptual illustration of two scientific papers in conversation">
-            <div class="orbit" aria-hidden="true"></div>
-            <div class="tiny-note">FIG. 01 / EVIDENCE IN MOTION</div>
-            
-            <article class="paper" aria-label="Study A claim snippet">
-              <div class="mini">STUDY A · 2024</div>
-              <h3>“The effect was <span class="highlight">significant</span>.”</h3>
-              <p>Across a controlled sample, the intervention produced a measurable improvement under specific conditions...</p>
-              <p>— Findings, p. 08</p>
-            </article>
-
-            <article class="paper paper-two" aria-label="Study B claim snippet">
-              <div class="mini">STUDY B · 2025</div>
-              <h3>“We found no meaningful effect.”</h3>
-              <p>Replication under a broader population did not produce the same outcome...</p>
-              <p>— Results, p. 11</p>
-            </article>
-
-            <div class="stamp" aria-hidden="true">SAME<br />FIELD.<br />NEW<br />QUESTIONS.</div>
-            <div class="annotation" aria-hidden="true">wait, how?</div>
-          </div>
-        </section>
-
-        <!-- Ticker Strip -->
-        <div class="ticker" role="region" aria-label="Scientific method principles">
-          <span><b>01 /</b> Read across papers</span>
-          <span><b>02 /</b> Find the friction</span>
-          <span><b>03 /</b> Follow the evidence</span>
-          <span>Curiosity is a method ↗</span>
-        </div>
-
-        <!-- The Dispute Lab (Contradiction Face-Off) -->
-        <section class="section" id="dispute" aria-labelledby="dispute-heading">
-          <div class="section-head">
-            <div>
-              <div class="overline">The dispute lab / 001</div>
-              <h2 id="dispute-heading">When the evidence<br />doesn’t <em>agree.</em></h2>
-            </div>
-            <p class="section-intro">Contradictions aren’t dead ends. They’re invitations to look closer. Put two claims side by side and investigate the gap.</p>
-          </div>
-
-          <div class="evidence-grid">
-            <!-- Study A Card -->
-            <article class="evidence coral" id="dispute-card-a">
-              <div class="paper-label">
-                <span><i class="dotlabel" aria-hidden="true"></i><span id="dispute-a-label">Study A / claim</span></span>
-                <span id="dispute-a-tag">01—A</span>
+        <!-- ==============================================================
+             PAGE 1: OVERVIEW & STORY
+             ============================================================== -->
+        <div id="page-overview" class="page-view">
+          <!-- Hero Section -->
+          <section class="hero" aria-label="Product introduction">
+            <div class="hero-text">
+              <div class="kicker">Open-source literature synthesis</div>
+              <h1>Kairos<span class="period">.</span></h1>
+              <div class="hero-claim">Research was never meant to <em>whisper.</em></div>
+              <p class="hero-copy">Papers agree. Papers disagree. Somewhere between them is a better question. Kairos connects evidence, surfaces contradictions, and helps you see what a single paper can’t.</p>
+              <div class="actions">
+                <a class="btn btn-primary" href="#dispute" data-navigate-page="dispute">Enter the dispute lab <span aria-hidden="true">↗</span></a>
+                <a class="btn btn-light" href="#ingest" data-navigate-page="ingest">Ingest papers <span aria-hidden="true">↓</span></a>
               </div>
-              <blockquote id="dispute-a-quote">“The intervention significantly improved long-term recall.”</blockquote>
-              <div class="evidence-foot">
-                <span id="dispute-a-foot">Controlled sample · n=240</span>
-                <span id="dispute-a-year">2024 ↗</span>
-              </div>
-            </article>
-
-            <!-- VS Badge -->
-            <div class="versus" aria-hidden="true"><span>VS.</span></div>
-
-            <!-- Study B Card -->
-            <article class="evidence teal" id="dispute-card-b">
-              <div class="paper-label">
-                <span><i class="dotlabel" aria-hidden="true"></i><span id="dispute-b-label">Study B / claim</span></span>
-                <span id="dispute-b-tag">02—B</span>
-              </div>
-              <blockquote id="dispute-b-quote">“No reliable improvement was observed after four weeks.”</blockquote>
-              <div class="evidence-foot">
-                <span id="dispute-b-foot">Replication · n=612</span>
-                <span id="dispute-b-year">2025 ↗</span>
-              </div>
-            </article>
-          </div>
-
-          <!-- NLI Referee Panel -->
-          <div class="referee">
-            <div>
-              <div class="overline" style="color:#FFB703">Referee notes / preview</div>
-              <h3 id="referee-heading">Not so fast.</h3>
             </div>
-            <p id="referee-copy">These claims may not be direct opposites. The studies could differ in follow-up duration, participant profile, or how “improvement” was measured. <strong>A contradiction is a signal to inspect the methods—not a verdict.</strong></p>
-            <button id="inspect-btn" type="button">Inspect another angle ↗</button>
-          </div>
-        </section>
 
-        <!-- Milestone P2: Ingestion Hub & Paper Management -->
-        <section class="section" id="ingest" aria-labelledby="ingest-heading">
-          <div class="section-head">
-            <div>
-              <div class="overline">Milestone P2 / Ingestion Hub</div>
-              <h2 id="ingest-heading">Bring your papers.<br />Stage the <em>evidence.</em></h2>
+            <!-- Conceptual Illustration: Papers in Conversation -->
+            <div class="hero-art" aria-label="Conceptual illustration of two scientific papers in conversation">
+              <div class="orbit" aria-hidden="true"></div>
+              <div class="tiny-note">FIG. 01 / EVIDENCE IN MOTION</div>
+              
+              <article class="paper" aria-label="Study A claim snippet">
+                <div class="mini">STUDY A · 2024</div>
+                <h3>“The effect was <span class="highlight">significant</span>.”</h3>
+                <p>Across a controlled sample, the intervention produced a measurable improvement under specific conditions...</p>
+                <p>— Findings, p. 08</p>
+              </article>
+
+              <article class="paper paper-two" aria-label="Study B claim snippet">
+                <div class="mini">STUDY B · 2025</div>
+                <h3>“We found no meaningful effect.”</h3>
+                <p>Replication under a broader population did not produce the same outcome...</p>
+                <p>— Results, p. 11</p>
+              </article>
+
+              <div class="stamp" aria-hidden="true">SAME<br />FIELD.<br />NEW<br />QUESTIONS.</div>
+              <div class="annotation" aria-hidden="true">wait, how?</div>
             </div>
-            <p class="section-intro">Add 2 to 10 scientific papers via PDF drag-and-drop or arXiv ID to begin automated cross-paper synthesis.</p>
+          </section>
+
+          <!-- Ticker Strip -->
+          <div class="ticker" role="region" aria-label="Scientific method principles">
+            <span><b>01 /</b> Read across papers</span>
+            <span><b>02 /</b> Find the friction</span>
+            <span><b>03 /</b> Follow the evidence</span>
+            <span>Curiosity is a method ↗</span>
           </div>
 
-          <div class="ingest-wrapper">
-            <div class="ingest-grid">
-              <!-- Left: Upload & Input Zone -->
+          <!-- Feature Evidence Map Card in Overview -->
+          <section class="section" style="padding-top:40px; padding-bottom:40px;">
+            <div class="feature">
               <div>
-                <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
-                  <div class="dropzone-icon" aria-hidden="true">📄</div>
-                  <h3>Drag &amp; Drop Research PDFs</h3>
-                  <p>Drop your scientific papers here, or click to browse files from your computer.</p>
-                  <span class="dropzone-limits">PDF only · 2 to 10 papers · &le; 20MB per file</span>
-                  <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden />
-                </div>
-
-                <!-- ArXiv URL / ID Input -->
-                <div class="arxiv-box">
-                  <input
-                    type="text"
-                    id="arxiv-input"
-                    class="input-text"
-                    placeholder="e.g. 2309.12345 or https://arxiv.org/abs/2309.12345"
-                    aria-label="arXiv Paper ID or URL"
-                  />
-                  <button id="btn-add-arxiv" type="button" class="btn btn-dark btn-sm">Add arXiv Paper</button>
-                </div>
-                <div id="ingest-feedback" class="status-caption" style="color:var(--site-accent-coral); font-weight:700; margin-top:8px;" role="status"></div>
-              </div>
-
-              <!-- Right: Staged Papers Queue -->
-              <div>
-                <div class="queue-header">
-                  <div class="queue-title">Staged Papers Queue</div>
-                  <span id="queue-count-badge" class="queue-badge">3 / 10</span>
-                </div>
-                <ul id="queue-list" class="queue-list" aria-label="Staged papers list"></ul>
-
-                <div class="queue-actions">
-                  <span style="font: 700 11px var(--site-font-mono); color: var(--site-ink-muted);">
-                    Requires 2–10 papers
-                  </span>
-                  <button id="btn-synthesize" type="button" class="btn btn-primary">
-                    Synthesize Papers <span aria-hidden="true">↗</span>
-                  </button>
+                <div class="overline">Beyond the summary</div>
+                <h2>See the shape<br />of the <em>evidence.</em></h2>
+                <p>Research is more than a stack of abstracts. It’s a network of shared findings, competing assumptions, and unanswered questions. Kairos brings those relationships into view.</p>
+                <div class="actions" style="margin-top:20px;">
+                  <a class="btn btn-primary" href="#matrix" data-navigate-page="matrix">Open Synthesis Matrix ↗</a>
+                  <a class="btn btn-light" href="#dispute" data-navigate-page="dispute">Explore Sample Dispute ↗</a>
                 </div>
               </div>
-            </div>
-
-            <!-- 4-Stage Open-Weight Pipeline Simulator -->
-            <div id="pipeline-card" class="pipeline-card" hidden>
-              <div class="pipeline-head">
-                <span class="pipeline-title">Open-Weight Synthesis Pipeline Running</span>
-                <span class="mono-tag" style="background:#FFFFFF; border:1px solid var(--site-secondary); padding:3px 8px;">SIMULATION</span>
-              </div>
-              <div class="pipeline-steps">
-                <div id="pstep-1" class="pipeline-step active">
-                  <span class="pipeline-step-num">Step 01 / Ingest</span>
-                  <span class="pipeline-step-name">Chunking PDFs (pdftotext)</span>
-                </div>
-                <div id="pstep-2" class="pipeline-step">
-                  <span class="pipeline-step-num">Step 02 / Extract</span>
-                  <span class="pipeline-step-name">Claims (Llama-3.1-8B)</span>
-                </div>
-                <div id="pstep-3" class="pipeline-step">
-                  <span class="pipeline-step-num">Step 03 / Filter</span>
-                  <span class="pipeline-step-name">Pairs (BGE-small-v1.5)</span>
-                </div>
-                <div id="pstep-4" class="pipeline-step">
-                  <span class="pipeline-step-num">Step 04 / Referee</span>
-                  <span class="pipeline-step-name">NLI Contradictions</span>
-                </div>
-              </div>
-              <div class="pipeline-progress-bar">
-                <div id="pipeline-progress-fill" class="pipeline-progress-fill"></div>
-              </div>
-              <div id="pipeline-status-text" class="pipeline-status-text" role="status" aria-live="polite">
-                Stage 1/4: Ingesting &amp; Chunking PDFs...
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Process / Methodology Section -->
-        <section class="section" id="method" aria-labelledby="method-heading">
-          <div class="section-head">
-            <div>
-              <div class="overline">A better way through the literature</div>
-              <h2 id="method-heading">From scattered papers<br />to <em>connected thinking.</em></h2>
-            </div>
-            <p class="section-intro">A research workflow built to make the relationships between studies easier to see, inspect, and question.</p>
-          </div>
-
-          <div class="process">
-            <article class="step">
-              <span class="step-num">STEP 01 / INGEST</span>
-              <div class="step-art" aria-hidden="true">
-                <div class="mini-sheet"><i></i><i></i><i></i></div>
-                <div class="mini-sheet"><i></i><i></i><i></i></div>
-                <div class="mini-sheet"><i></i><i></i><i></i></div>
-              </div>
-              <h3>Bring the papers.</h3>
-              <p>Start with research sources and build a working collection. Keep the original evidence close at hand.</p>
-            </article>
-
-            <article class="step">
-              <span class="step-num">STEP 02 / COMPARE</span>
-              <div class="step-art" aria-hidden="true">
-                <svg viewBox="0 0 180 100" width="180" height="100" fill="none">
-                  <path d="M8 18 C52 18 48 78 88 50 S135 18 172 30" stroke="#4F46E5" stroke-width="2" />
-                  <path d="M8 80 C50 80 53 28 88 50 S132 78 172 65" stroke="#FF3366" stroke-width="2" />
-                  <circle cx="88" cy="50" r="8" fill="#FFB703" stroke="#0A0F1D" stroke-width="2" />
-                  <circle cx="8" cy="18" r="5" fill="#4F46E5" />
-                  <circle cx="8" cy="80" r="5" fill="#FF3366" />
-                  <circle cx="172" cy="30" r="5" fill="#4F46E5" />
-                  <circle cx="172" cy="65" r="5" fill="#FF3366" />
+              
+              <div class="map-visual" aria-label="Illustrative network of research evidence">
+                <svg viewBox="0 0 440 300" fill="none" aria-hidden="true">
+                  <g stroke="#A6A9C8" stroke-width="1.5">
+                    <path d="M48 62L140 100L214 50L300 100L386 52" />
+                    <path d="M48 62L75 205L170 240L260 180L386 220" />
+                    <path d="M140 100L170 240M214 50L260 180M300 100L260 180M75 205L140 100M300 100L386 220" />
+                  </g>
+                  <g fill="#4F46E5" stroke="#0A0F1D" stroke-width="1.5">
+                    <circle cx="48" cy="62" r="8" />
+                    <circle cx="214" cy="50" r="8" />
+                    <circle cx="386" cy="52" r="8" />
+                    <circle cx="170" cy="240" r="8" />
+                  </g>
+                  <g fill="#00D2C4" stroke="#0A0F1D" stroke-width="1.5">
+                    <circle cx="140" cy="100" r="10" />
+                    <circle cx="300" cy="100" r="10" />
+                    <circle cx="75" cy="205" r="7" />
+                  </g>
+                  <g fill="#FF3366" stroke="#0A0F1D" stroke-width="1.5">
+                    <circle cx="260" cy="180" r="12" />
+                    <circle cx="386" cy="220" r="8" />
+                  </g>
+                  <circle cx="260" cy="180" r="22" stroke="#FF3366" stroke-dasharray="3 4" />
                 </svg>
+                <div class="map-label">EVIDENCE MAP <span>· ILLUSTRATIVE</span></div>
               </div>
-              <h3>Let ideas meet.</h3>
-              <p>Compare claims, methods, assumptions, and outcomes to understand where findings align or diverge.</p>
-            </article>
+            </div>
+          </section>
 
-            <article class="step">
-              <span class="step-num">STEP 03 / INVESTIGATE</span>
-              <div class="step-art" aria-hidden="true">
-                <div class="mini-sheet" style="background:#FFE3EA"><i></i><i></i><i></i></div>
-                <div class="mini-sheet" style="background:#DDFBF6"><i></i><i></i><i></i></div>
-                <div class="mini-sheet" style="background:#FFB703"><i></i><i></i><i></i></div>
+          <!-- Process / Methodology Section -->
+          <section class="section" id="method" aria-labelledby="method-heading" style="padding-top:40px;">
+            <div class="section-head">
+              <div>
+                <div class="overline">A better way through the literature</div>
+                <h2 id="method-heading">From scattered papers<br />to <em>connected thinking.</em></h2>
               </div>
-              <h3>Follow the why.</h3>
-              <p>Trace the rationale back to source passages. Turn a neat summary into a more nuanced understanding.</p>
-            </article>
-          </div>
-        </section>
+              <p class="section-intro">A research workflow built to make the relationships between studies easier to see, inspect, and question.</p>
+            </div>
 
-        <!-- Evidence Map Feature & Workspace Views -->
-        <section class="section" id="workspace" aria-labelledby="workspace-heading">
+            <div class="process">
+              <article class="step">
+                <span class="step-num">STEP 01 / INGEST</span>
+                <div class="step-art" aria-hidden="true">
+                  <div class="mini-sheet"><i></i><i></i><i></i></div>
+                  <div class="mini-sheet"><i></i><i></i><i></i></div>
+                  <div class="mini-sheet"><i></i><i></i><i></i></div>
+                </div>
+                <h3>Bring the papers.</h3>
+                <p>Start with research sources and build a working collection. Keep the original evidence close at hand.</p>
+              </article>
+
+              <article class="step">
+                <span class="step-num">STEP 02 / COMPARE</span>
+                <div class="step-art" aria-hidden="true">
+                  <svg viewBox="0 0 180 100" width="180" height="100" fill="none">
+                    <path d="M8 18 C52 18 48 78 88 50 S135 18 172 30" stroke="#4F46E5" stroke-width="2" />
+                    <path d="M8 80 C50 80 53 28 88 50 S132 78 172 65" stroke="#FF3366" stroke-width="2" />
+                    <circle cx="88" cy="50" r="8" fill="#FFB703" stroke="#0A0F1D" stroke-width="2" />
+                    <circle cx="8" cy="18" r="5" fill="#4F46E5" />
+                    <circle cx="8" cy="80" r="5" fill="#FF3366" />
+                    <circle cx="172" cy="30" r="5" fill="#4F46E5" />
+                    <circle cx="172" cy="65" r="5" fill="#FF3366" />
+                  </svg>
+                </div>
+                <h3>Let ideas meet.</h3>
+                <p>Compare claims, methods, assumptions, and outcomes to understand where findings align or diverge.</p>
+              </article>
+
+              <article class="step">
+                <span class="step-num">STEP 03 / INVESTIGATE</span>
+                <div class="step-art" aria-hidden="true">
+                  <div class="mini-sheet" style="background:#FFE3EA"><i></i><i></i><i></i></div>
+                  <div class="mini-sheet" style="background:#DDFBF6"><i></i><i></i><i></i></div>
+                  <div class="mini-sheet" style="background:#FFB703"><i></i><i></i><i></i></div>
+                </div>
+                <h3>Follow the why.</h3>
+                <p>Trace the rationale back to source passages. Turn a neat summary into a more nuanced understanding.</p>
+              </article>
+            </div>
+          </section>
+        </div><!-- /#page-overview -->
+
+        <!-- ==============================================================
+             PAGE 2: INGESTION HUB
+             ============================================================== -->
+        <div id="page-ingest" class="page-view" hidden>
+          <!-- Milestone P2: Ingestion Hub & Paper Management -->
+          <section class="section" id="ingest" aria-labelledby="ingest-heading">
+            <div class="section-head">
+              <div>
+                <div class="overline">Paper Ingestion Hub</div>
+                <h2 id="ingest-heading">Bring your papers.<br />Stage the <em>evidence.</em></h2>
+              </div>
+              <p class="section-intro">Add 2 to 10 scientific papers via PDF drag-and-drop or arXiv ID to begin automated cross-paper synthesis.</p>
+            </div>
+
+            <div class="ingest-wrapper">
+              <div class="ingest-grid">
+                <!-- Left: Upload & Input Zone -->
+                <div>
+                  <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Drop PDF files here or click to browse">
+                    <div class="dropzone-icon" aria-hidden="true">📄</div>
+                    <h3>Drag &amp; Drop Research PDFs</h3>
+                    <p>Drop your scientific papers here, or click to browse files from your computer.</p>
+                    <span class="dropzone-limits">PDF only · 2 to 10 papers · &le; 20MB per file</span>
+                    <input type="file" id="file-input" accept=".pdf,application/pdf" multiple hidden />
+                  </div>
+
+                  <!-- ArXiv URL / ID Input -->
+                  <div class="arxiv-box">
+                    <input
+                      type="text"
+                      id="arxiv-input"
+                      class="input-text"
+                      placeholder="e.g. 2309.12345 or https://arxiv.org/abs/2309.12345"
+                      aria-label="arXiv Paper ID or URL"
+                    />
+                    <button id="btn-add-arxiv" type="button" class="btn btn-dark btn-sm">Add arXiv Paper</button>
+                  </div>
+                  <div id="ingest-feedback" class="status-caption" style="color:var(--site-accent-coral); font-weight:700; margin-top:8px;" role="status"></div>
+                </div>
+
+                <!-- Right: Staged Papers Queue -->
+                <div>
+                  <div class="queue-header">
+                    <div class="queue-title">Staged Papers Queue</div>
+                    <span id="queue-count-badge" class="queue-badge">3 / 10</span>
+                  </div>
+                  <ul id="queue-list" class="queue-list" aria-label="Staged papers list"></ul>
+
+                  <div class="queue-actions">
+                    <span style="font: 700 11px var(--site-font-mono); color: var(--site-ink-muted);">
+                      Requires 2–10 papers
+                    </span>
+                    <button id="btn-synthesize" type="button" class="btn btn-primary">
+                      Synthesize Papers <span aria-hidden="true">↗</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4-Stage Open-Weight Pipeline Simulator -->
+              <div id="pipeline-card" class="pipeline-card" hidden>
+                <div class="pipeline-head">
+                  <span class="pipeline-title">Open-Weight Synthesis Pipeline Running</span>
+                  <span class="mono-tag" style="background:#FFFFFF; border:1px solid var(--site-secondary); padding:3px 8px;">SIMULATION</span>
+                </div>
+                <div class="pipeline-steps">
+                  <div id="pstep-1" class="pipeline-step active">
+                    <span class="pipeline-step-num">Step 01 / Ingest</span>
+                    <span class="pipeline-step-name">Chunking PDFs (pdftotext)</span>
+                  </div>
+                  <div id="pstep-2" class="pipeline-step">
+                    <span class="pipeline-step-num">Step 02 / Extract</span>
+                    <span class="pipeline-step-name">Claims (Llama-3.1-8B)</span>
+                  </div>
+                  <div id="pstep-3" class="pipeline-step">
+                    <span class="pipeline-step-num">Step 03 / Filter</span>
+                    <span class="pipeline-step-name">Pairs (BGE-small-v1.5)</span>
+                  </div>
+                  <div id="pstep-4" class="pipeline-step">
+                    <span class="pipeline-step-num">Step 04 / Referee</span>
+                    <span class="pipeline-step-name">NLI Contradictions</span>
+                  </div>
+                </div>
+                <div class="pipeline-progress-bar">
+                  <div id="pipeline-progress-fill" class="pipeline-progress-fill"></div>
+                </div>
+                <div id="pipeline-status-text" class="pipeline-status-text" role="status" aria-live="polite">
+                  Stage 1/4: Ingesting &amp; Chunking PDFs...
+                </div>
+              </div>
+            </div>
+          </section>
+        </div><!-- /#page-ingest -->
+
+        <!-- ==============================================================
+             PAGE 3: DISPUTE LAB
+             ============================================================== -->
+        <div id="page-dispute" class="page-view" hidden>
+          <!-- The Dispute Lab (Contradiction Face-Off) -->
+          <section class="section" id="dispute" aria-labelledby="dispute-heading">
+            <div class="section-head">
+              <div>
+                <div class="overline">The dispute lab</div>
+                <h2 id="dispute-heading">When the evidence<br />doesn’t <em>agree.</em></h2>
+              </div>
+              <p class="section-intro">Contradictions aren’t dead ends. They’re invitations to look closer. Put two claims side by side and investigate the gap.</p>
+            </div>
+
+            <div class="evidence-grid">
+              <!-- Study A Card -->
+              <article class="evidence coral" id="dispute-card-a">
+                <div class="paper-label">
+                  <span><i class="dotlabel" aria-hidden="true"></i><span id="dispute-a-label">Study A / claim</span></span>
+                  <span id="dispute-a-tag">01—A</span>
+                </div>
+                <blockquote id="dispute-a-quote">“The intervention significantly improved long-term recall.”</blockquote>
+                <div class="evidence-foot">
+                  <span id="dispute-a-foot">Controlled sample · n=240</span>
+                  <span id="dispute-a-year">2024 ↗</span>
+                </div>
+              </article>
+
+              <!-- VS Badge -->
+              <div class="versus" aria-hidden="true"><span>VS.</span></div>
+
+              <!-- Study B Card -->
+              <article class="evidence teal" id="dispute-card-b">
+                <div class="paper-label">
+                  <span><i class="dotlabel" aria-hidden="true"></i><span id="dispute-b-label">Study B / claim</span></span>
+                  <span id="dispute-b-tag">02—B</span>
+                </div>
+                <blockquote id="dispute-b-quote">“No reliable improvement was observed after four weeks.”</blockquote>
+                <div class="evidence-foot">
+                  <span id="dispute-b-foot">Replication · n=612</span>
+                  <span id="dispute-b-year">2025 ↗</span>
+                </div>
+              </article>
+            </div>
+
+            <!-- NLI Referee Panel -->
+            <div class="referee">
+              <div>
+                <div class="overline" style="color:#FFB703">Referee notes / preview</div>
+                <h3 id="referee-heading">Not so fast.</h3>
+              </div>
+              <p id="referee-copy">These claims may not be direct opposites. The studies could differ in follow-up duration, participant profile, or how “improvement” was measured. <strong>A contradiction is a signal to inspect the methods—not a verdict.</strong></p>
+              <button id="inspect-btn" type="button">Inspect another angle ↗</button>
+            </div>
+          </section>
+        </div><!-- /#page-dispute -->
+
+        <!-- ==============================================================
+             PAGE 4: SYNTHESIS MATRIX & WORKSPACE
+             ============================================================== -->
+        <div id="page-matrix" class="page-view" hidden>
+          <!-- Workspace Views -->
+          <section class="section" id="workspace" aria-labelledby="workspace-heading">
           <div class="feature">
             <div>
               <div class="overline">Beyond the summary</div>
               <h2 id="workspace-heading">See the shape<br />of the <em>evidence.</em></h2>
               <p>Research is more than a stack of abstracts. It’s a network of shared findings, competing assumptions, and unanswered questions. Kairos helps bring those relationships into view.</p>
-              <a class="btn btn-primary" href="#dispute">Explore sample dispute ↗</a>
+              <a class="btn btn-primary" href="#dispute" data-navigate-page="dispute">Explore sample dispute ↗</a>
             </div>
             
             <div class="map-visual" aria-label="Illustrative network of research evidence">
@@ -455,13 +516,63 @@
               </div>
             </nav>
 
-            <!-- View 1: Comparison Matrix (Extended in P3) -->
+            <!-- View 1: Comparison Matrix (Milestone P3) -->
             <section id="view-matrix" class="workspace-view" role="tabpanel" aria-labelledby="tab-matrix">
               <div class="view-section-header">
-                <h3 class="view-heading">Study Comparison Corpus</h3>
+                <h3 class="view-heading">Cross-Paper Synthesis Matrix</h3>
                 <p class="view-description">
-                  Loaded paper metadata and extracted claims. Pinned baseline comparison matrix activates in Milestone P3.
+                  Pin a baseline study to compare claims across papers. The reference study stays sticky on the left during horizontal scrolling. Hover or focus any cell to inspect verbatim quotes and NLI referee rationales.
                 </p>
+              </div>
+
+              <!-- Matrix Controls Toolbar -->
+              <div class="matrix-toolbar">
+                <div class="matrix-toolbar-left">
+                  <div class="matrix-baseline-picker">
+                    <label for="matrix-baseline-select">Pinned Baseline Reference:</label>
+                    <select id="matrix-baseline-select" class="matrix-baseline-select" aria-label="Select pinned baseline reference study"></select>
+                  </div>
+                </div>
+
+                <div class="matrix-toolbar-right">
+                  <input
+                    type="search"
+                    id="matrix-search"
+                    class="matrix-search-input"
+                    placeholder="Filter claims or topics..."
+                    aria-label="Filter matrix by topic or claim"
+                  />
+                  <span id="matrix-row-count-badge" class="queue-badge">0 rows</span>
+                </div>
+              </div>
+
+              <!-- Signal Filters Bar -->
+              <div class="matrix-filter-group" role="group" aria-label="Filter matrix by evidence signal">
+                <span style="font: 700 10.5px var(--site-font-mono); text-transform: uppercase; color: var(--site-ink-muted); margin-right: 4px;">Filter:</span>
+                <button type="button" class="matrix-filter-pill active" data-signal="ALL" aria-pressed="true">
+                  All Signals
+                </button>
+                <button type="button" class="matrix-filter-pill" data-signal="CONTRADICT" aria-pressed="false" style="color:var(--site-accent-coral);">
+                  ⚠ Contradictions
+                </button>
+                <button type="button" class="matrix-filter-pill" data-signal="AGREE" aria-pressed="false" style="color:var(--site-teal-dark);">
+                  ✓ Agreements
+                </button>
+                <button type="button" class="matrix-filter-pill" data-signal="METHODOLOGY_DELTA" aria-pressed="false" style="color:var(--site-accent-gold);">
+                  ≈ Methodology Differences
+                </button>
+                <button type="button" class="matrix-filter-pill" data-signal="RESEARCH_GAP" aria-pressed="false" style="color:var(--site-primary);">
+                  ◌ Research Gaps
+                </button>
+                <span id="matrix-active-filter-label" class="queue-badge" style="margin-left:auto;">All Evidence Signals</span>
+              </div>
+
+              <!-- Pinned-Baseline Matrix Table Container -->
+              <div id="matrix-table-container" aria-live="polite"></div>
+
+              <!-- Staged Paper Profiles Grid -->
+              <div class="view-section-header" style="margin-top: 36px;">
+                <h4 class="view-heading" style="font-size: 1.25rem;">Staged Paper Profiles</h4>
               </div>
               <div id="matrix-shell-content" class="corpus-grid" aria-live="polite"></div>
             </section>
@@ -491,6 +602,7 @@
             </section>
           </div>
         </section>
+        </div><!-- /#page-matrix -->
       </main>
     </div>
 
@@ -574,6 +686,7 @@
   <!-- Vanilla ES6 Scripts -->
   <script src="js/api.js"></script>
   <script src="js/ingest.js"></script>
+  <script src="js/matrix.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

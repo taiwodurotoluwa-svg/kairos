@@ -443,6 +443,9 @@
     setText("tab-badge-consensus", consensusScore);
 
     renderDisputeLab(payload);
+    if (global.KairosMatrix && global.KairosMatrix.render) {
+      global.KairosMatrix.render(payload);
+    }
     renderMatrixShell(payload);
     renderGraphShell(payload);
     renderConsensusShell(payload);
@@ -512,17 +515,100 @@
     }
   }
 
+  var VALID_PAGES = ["overview", "ingest", "dispute", "matrix"];
+  var activePage = "overview";
+
+  function navigateToPage(pageId, updateHash) {
+    if (VALID_PAGES.indexOf(pageId) === -1) {
+      pageId = "overview";
+    }
+    activePage = pageId;
+
+    VALID_PAGES.forEach(function (pid) {
+      var pageEl = document.getElementById("page-" + pid);
+      if (pageEl) {
+        pageEl.hidden = pid !== pageId;
+      }
+    });
+
+    var navLinks = Array.prototype.slice.call(
+      document.querySelectorAll(".nav-page-link")
+    );
+    navLinks.forEach(function (link) {
+      var target = link.getAttribute("data-page");
+      var isActive = target === pageId;
+      link.classList.toggle("active", isActive);
+      link.setAttribute("aria-selected", isActive ? "true" : "false");
+      link.setAttribute("tabindex", isActive ? "0" : "-1");
+    });
+
+    if (updateHash !== false) {
+      if (window.location.hash !== "#" + pageId) {
+        try {
+          window.history.pushState(null, "", "#" + pageId);
+        } catch (e) {
+          window.location.hash = "#" + pageId;
+        }
+      }
+    }
+
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    } catch (e) {
+      window.scrollTo(0, 0);
+    }
+
+    // When navigating to the matrix page, re-render matrix if payload is already loaded
+    if (pageId === "matrix" && state.payload && global.KairosMatrix && global.KairosMatrix.render) {
+      global.KairosMatrix.render(state.payload);
+    }
+  }
+
+  function initPageRouter() {
+    // 1. Navigation clicks for both topbar nav links and in-page CTAs
+    document.addEventListener("click", function (evt) {
+      var target = evt.target && evt.target.closest
+        ? evt.target.closest("a[data-navigate-page], .nav-page-link")
+        : null;
+      if (target) {
+        var page = target.getAttribute("data-page") || target.getAttribute("data-navigate-page");
+        if (page && VALID_PAGES.indexOf(page) !== -1) {
+          evt.preventDefault();
+          navigateToPage(page, true);
+        }
+      }
+    });
+
+    // 2. Browser Back/Forward history navigation
+    window.addEventListener("hashchange", function () {
+      var hash = window.location.hash.replace(/^#/, "");
+      if (VALID_PAGES.indexOf(hash) !== -1 && hash !== activePage) {
+        navigateToPage(hash, false);
+      }
+    });
+
+    // 3. Initial page determination from URL hash
+    var initialHash = window.location.hash.replace(/^#/, "");
+    if (VALID_PAGES.indexOf(initialHash) !== -1) {
+      navigateToPage(initialHash, false);
+    } else {
+      navigateToPage("overview", false);
+    }
+  }
+
   function boot() {
     initTabs();
     initControls();
     initDisputeControls();
+    initPageRouter();
     loadPreset("radiology");
   }
 
   global.KairosApp = {
     state: state,
     loadPreset: loadPreset,
-    switchView: switchView
+    switchView: switchView,
+    navigateToPage: navigateToPage
   };
 
   if (document.readyState === "loading") {

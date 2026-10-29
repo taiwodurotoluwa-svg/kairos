@@ -27,7 +27,7 @@ sample_papers/temp/
 Thumbs.db
 
 # AI Review Bundles (Local scratch files for Argon 4 review - NEVER committed to git)
-reviews/
+/reviews/
 *.review.txt
 D1_review.txt
 *_review.txt

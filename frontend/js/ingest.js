@@ -322,7 +322,9 @@
         renderQueue();
 
         setTimeout(function () {
-          if (global.KairosApp && global.KairosApp.switchView) {
+          if (global.KairosApp && global.KairosApp.navigateToPage) {
+            global.KairosApp.navigateToPage("matrix", true);
+          } else if (global.KairosApp && global.KairosApp.switchView) {
             global.KairosApp.switchView("matrix", true);
             var workspaceSection = document.getElementById("workspace");
             if (workspaceSection) {
