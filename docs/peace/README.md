@@ -175,10 +175,10 @@ Argon 4 (Gemini 1.5 Pro with High Thinking, temperature 0.2 in Google AI Studio)
    - Escape key and close button smoothly dismiss the drawer.
 
 ### Acceptance Criteria:
-- [ ] Cytoscape graph renders 8 papers and all cross-paper edges without node overlap.
-- [ ] Zoom and pan work smoothly at 60fps.
-- [ ] Clicking any edge opens the dispute drawer with verbatim quote evidence.
-- [ ] Accessible edge list table provided below canvas for keyboard and screen-reader users.
+- [x] Cytoscape graph renders 8 papers and all cross-paper edges without node overlap.
+- [x] Zoom and pan work smoothly at 60fps.
+- [x] Clicking any edge opens the dispute drawer with verbatim quote evidence.
+- [x] Accessible edge list table provided below canvas for keyboard and screen-reader users.
 - [ ] Local review file `reviews/P4_review.txt` generated for Argon 4 review.
 
 ---

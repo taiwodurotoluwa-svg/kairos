@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/styles.css" />
 
   <!-- Approved Cytoscape.js CDN (initialized in P4) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
 </head>
 <body>
   <a href="#top" class="skip-link">Skip to main content</a>
@@ -585,8 +585,76 @@
                   Verified NLI referee edges with verbatim provenance. Interactive Cytoscape network activates in Milestone P4.
                 </p>
               </div>
-              <div id="cy-container-placeholder">
-                <div id="graph-shell-content" class="edge-preview-list" aria-live="polite"></div>
+              <!-- Cytoscape Network & Controls (Milestone P4) -->
+              <div class="graph-toolbar" role="toolbar" aria-label="Contradiction graph tools">
+                <div class="graph-toolbar-group">
+                  <span style="font: 700 11px var(--site-font-mono); text-transform: uppercase; color: var(--site-ink-muted);">Controls:</span>
+                  <button type="button" id="btn-graph-zoom-in" class="graph-btn" aria-label="Zoom in graph">＋ Zoom In</button>
+                  <button type="button" id="btn-graph-zoom-out" class="graph-btn" aria-label="Zoom out graph">－ Zoom Out</button>
+                  <button type="button" id="btn-graph-fit" class="graph-btn" aria-label="Reset graph view and fit to canvas">⛶ Fit View</button>
+                </div>
+
+                <div class="graph-toolbar-group">
+                  <span style="font: 700 11px var(--site-font-mono); text-transform: uppercase; color: var(--site-ink-muted);">Signals:</span>
+                  <label class="graph-filter-toggle">
+                    <input type="checkbox" id="filter-graph-contradict" checked />
+                    <span style="color:var(--site-accent-coral);">⚠ Contradictions</span>
+                  </label>
+                  <label class="graph-filter-toggle">
+                    <input type="checkbox" id="filter-graph-agree" checked />
+                    <span style="color:var(--site-teal-dark);">✓ Agreements</span>
+                  </label>
+                  <label class="graph-filter-toggle">
+                    <input type="checkbox" id="filter-graph-delta" checked />
+                    <span style="color:var(--site-accent-gold);">≈ Differences</span>
+                  </label>
+                  <span id="graph-edge-count-badge" class="queue-badge" style="margin-left:8px;">0 relations</span>
+                </div>
+              </div>
+
+              <!-- Interactive Cytoscape Canvas -->
+              <div id="cy-network" class="cy-network-canvas" role="region" aria-label="Interactive cross-paper contradiction and agreement network graph"></div>
+
+              <!-- Visual Signal Legend Bar -->
+              <div class="graph-legend-strip" aria-label="Graph edge visual signals legend">
+                <span class="graph-legend-item">
+                  <span class="graph-legend-line contradict" aria-hidden="true"></span>
+                  <span>⚠ Contradiction (Ruby Dashed)</span>
+                </span>
+                <span class="graph-legend-item">
+                  <span class="graph-legend-line agree" aria-hidden="true"></span>
+                  <span>✓ Agreement (Lagoon Solid)</span>
+                </span>
+                <span class="graph-legend-item">
+                  <span class="graph-legend-line delta" aria-hidden="true"></span>
+                  <span>≈ Methodology Difference (Amber Dotted)</span>
+                </span>
+              </div>
+
+              <!-- Accessible Edge Relations Table (Screen-Reader & Keyboard Fallback) -->
+              <div class="graph-table-section">
+                <div class="view-section-header" style="margin-bottom: 14px;">
+                  <h4 class="view-heading" style="font-size: 1.15rem;">Verified Claim Relations Table</h4>
+                  <p class="view-description">Accessible cross-paper evidence relationships with NLI referee confidence and verbatim provenance citations.</p>
+                </div>
+                <div id="graph-shell-content" class="graph-table-wrapper" aria-live="polite">
+                  <table class="graph-edge-table" aria-label="Cross-paper verified evidence relationships">
+                    <thead>
+                      <tr>
+                        <th scope="col">Source Study (Claim A)</th>
+                        <th scope="col">Target Study (Claim B)</th>
+                        <th scope="col">Evidence Signal</th>
+                        <th scope="col">NLI Confidence &amp; Referee</th>
+                        <th scope="col">Inspect Details</th>
+                      </tr>
+                    </thead>
+                    <tbody id="graph-edge-table-body">
+                      <tr>
+                        <td colspan="5" style="text-align:center; padding:20px; color:var(--site-ink-muted);">Loading relation edges…</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </section>
 
@@ -609,10 +677,12 @@
     <!-- Slide-over Dispute Inspection Drawer (P4) -->
     <aside id="drawer-evidence" class="evidence-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" aria-hidden="true" hidden>
       <div class="drawer-header">
-        <h2 id="drawer-title">Evidence Inspection</h2>
+        <h2 id="drawer-title">Dispute &amp; Evidence Inspection</h2>
+        <button type="button" id="drawer-close-btn" class="drawer-close" aria-label="Close evidence inspection drawer">✕</button>
       </div>
-      <div id="drawer-body"></div>
+      <div id="drawer-body" class="drawer-body"></div>
     </aside>
+    <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
 
     <!-- Synthetic Data Provenance Warning Banner -->
     <div id="synthetic-banner" class="synthetic-banner" role="status" aria-live="polite" hidden>
@@ -687,6 +757,8 @@
   <script src="js/api.js"></script>
   <script src="js/ingest.js"></script>
   <script src="js/matrix.js"></script>
+  <script src="js/drawer.js"></script>
+  <script src="js/graph.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

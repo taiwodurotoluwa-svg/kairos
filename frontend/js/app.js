@@ -88,6 +88,17 @@
         panel.hidden = !isActive;
       }
     });
+
+    if (viewName === "graph" && global.KairosGraph) {
+      setTimeout(function () {
+        if (state.payload) {
+          global.KairosGraph.render(state.payload);
+        }
+        if (typeof global.KairosGraph.resize === "function") {
+          global.KairosGraph.resize();
+        }
+      }, 50);
+    }
   }
 
   function initTabs() {
@@ -264,35 +275,9 @@
   }
 
   function renderGraphShell(payload) {
-    var container = document.getElementById("graph-shell-content");
-    if (!container) return;
-    container.textContent = "";
-
-    (payload.edges || []).forEach(function (edge) {
-      var card = createEl("article", "edge-card");
-
-      var badge = createSignalBadge(edge.relation);
-      var desc = createEl("div");
-      var title = createEl("div", "paper-card-title", edge.explanation || "NLI relation identified.");
-      var meta = createEl("div", "paper-card-meta", "Confidence: " + (edge.confidence * 100).toFixed(0) + "% · Edge ID: " + edge.edge_id);
-      desc.appendChild(title);
-      desc.appendChild(meta);
-
-      // Patched P2-07: Wire Inspect button to scroll to Dispute Lab
-      var inspectBtn = createEl("button", "btn btn-sm btn-light", "Inspect");
-      inspectBtn.type = "button";
-      inspectBtn.addEventListener("click", function () {
-        var disputeSection = document.getElementById("dispute");
-        if (disputeSection) {
-          disputeSection.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-
-      card.appendChild(badge);
-      card.appendChild(desc);
-      card.appendChild(inspectBtn);
-      container.appendChild(card);
-    });
+    if (global.KairosGraph && global.KairosGraph.render) {
+      global.KairosGraph.render(payload);
+    }
   }
 
   function renderConsensusShell(payload) {

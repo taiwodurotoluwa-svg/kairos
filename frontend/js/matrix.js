@@ -514,6 +514,20 @@
               popover.appendChild(qCite);
             }
 
+            if (cellData.edge) {
+              var drawerBtn = createEl("button", "btn-inspect-edge", "Inspect in Dispute Drawer ↗");
+              drawerBtn.type = "button";
+              drawerBtn.style.marginTop = "10px";
+              drawerBtn.style.width = "100%";
+              drawerBtn.addEventListener("click", function (evt) {
+                evt.stopPropagation();
+                if (global.KairosDrawer && global.KairosDrawer.open) {
+                  global.KairosDrawer.open(cellData.edge, drawerBtn);
+                }
+              });
+              popover.appendChild(drawerBtn);
+            }
+
             tdComp.appendChild(compInner);
             tdComp.appendChild(popover);
             tdComp.setAttribute("aria-expanded", "false");
