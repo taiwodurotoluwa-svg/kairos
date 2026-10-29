@@ -142,4 +142,4 @@ Per OPEN//BUILD 2026 guidelines, we disclose that we used AI pair-programming an
 - Kairos source code: **MIT** (see [`LICENSE`](LICENSE)).
 - Models: see the table above. Llama 3.1 / 3.2 are under their respective Meta community licences.
 - Libraries: FastAPI, Pydantic, PyMuPDF (AGPL-3.0 / commercial, used here as a dependency for a non-commercial hackathon prototype; review before commercial redistribution), FastEmbed, scikit-learn, Cytoscape.js.
-- Demo presets are built from real, openly licensed papers listed in `fixtures/presets_manifest.json` (added in D5). No PDFs are committed unless their licence allows redistribution.
+- Demo presets are built from real, openly licensed papers listed in `fixtures/presets_manifest.json`. No PDFs are committed unless their licence allows redistribution.

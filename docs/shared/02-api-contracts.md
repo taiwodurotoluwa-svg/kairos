@@ -1,7 +1,7 @@
 # 02 — API Contracts (Single Source of Truth)
 
-> **Owner:** DuroT (backend). **Consumers:** Peace (frontend) and every coding agent.
-> **Schema version:** `1.0.0`. Any change requires an entry in [`../requests.md`](../requests.md), approval from **both** developers, and a `schema_version` bump in `backend/app/schemas.py` **and** `frontend/src/lib/types.ts` in the same PR cycle.
+> **Backend Lead:** Durotoluwa Taiwo (`@taiwodurotoluwa-svg`). **Frontend Lead:** Oluwanifemi Ojewusi (`@Peaceyy28`).
+> **Schema version:** `1.0.0`. Any schema change requires a synchronized `schema_version` update in `backend/app/schemas.py` and `frontend/js/api.js`.
 
 ## 0. Conventions (read before anything else)
 
@@ -20,7 +20,7 @@
 
 ## 1. Pydantic v2 models (Python 3.11+)
 
-Copy this block verbatim into `backend/app/schemas.py` (Milestone D1). A validation script in the repo (`backend/tests/test_contract.py`) loads `fixtures/contract_sample.json` through `AnalysisResult` on every test run.
+Canonical Pydantic v2 contract implemented in `backend/app/schemas.py`. A validation script in the repo (`backend/tests/test_contract.py`) loads `fixtures/contract_sample.json` through `AnalysisResult` on every test run.
 
 ```python
 # backend/app/schemas.py

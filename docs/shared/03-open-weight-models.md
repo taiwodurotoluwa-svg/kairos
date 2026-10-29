@@ -113,7 +113,7 @@ Backend maps the model's flat claim fields into `ExtractedClaim` + `Provenance` 
 - **Post-processing:** L2-normalise every vector, so cosine similarity = dot product.
 - **Preload** the model at application startup (and bake it into the Docker image) so the first request is not delayed.
 
-### 4.1 Threshold tuning procedure (done in D4, results recorded here)
+### 4.1 Threshold tuning procedure
 
 BGE similarity scores are compressed into a high range, so a default cannot be trusted blindly.
 1. Build `backend/tests/data/tuning_pairs.json`: at least 30 claim pairs written/selected by the humans from real papers, each labelled `related` or `unrelated`.
@@ -228,11 +228,11 @@ Applies to every claim from Stage 1, before embedding.
 - **Provider limits:** free tiers are rate limited; response times vary.
 - **Licences:** Llama terms apply (attribution, acceptable use). Open weights are not necessarily open source.
 
-## 8. Model-id verification checklist (start of D3, and again before submission)
+## 8. Model-id verification checklist
 
 Provider catalogues change. Before relying on defaults:
 1. Open the Groq models page and confirm `llama-3.1-8b-instant` is available; note its free-tier rate limits.
 2. Confirm `meta-llama/Llama-3.1-8B-Instruct` is served by the Hugging Face router for your account (and that the licence is accepted).
 3. Run `ollama pull llama3.2:3b`.
 4. If a default id has changed, update `.env.example`, this file's §1 table and `AnalysisResult.models` generation in the same PR, **keeping the model open-weight**. Choose `Qwen/Qwen2.5-7B-Instruct` (Apache-2.0) as the first substitute.
-5. Record the verified date and provider limits in `docs/requests.md` (row type `INFO`).
+5. Update `backend/.env.example` and `backend/app/config.py` if default model IDs change.

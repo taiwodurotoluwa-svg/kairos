@@ -4,42 +4,50 @@ __pycache__/
 *$py.class
 *.so
 .Python
-venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments & caches
 .venv/
+venv/
+ENV/
 env/
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
-.coverage
-htmlcov/
-
-# FastEmbed / Hugging Face local caches
 .cache/
-fastembed_cache/
+.fastembed_cache/
 
-# Node / Frontend
-node_modules/
-.next/
-out/
-dist/
-
-# Environment & secrets
+# Secrets & environment
 .env
 .env.*
 !.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
 
-# OS / Editor
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# OS / IDE
 .DS_Store
 Thumbs.db
-
-# Local notes & internal scratch files
-*.review.txt
-*_review.txt
-AGENTS.md
-MASTER_PROMPTS.md
-promt!.md
-OPEN--BUILD-2026-Challenge-Brief.pdf
-docs/reviews/
-docs/duro/
-docs/peace/
-docs/requests.md
+.vscode/
+.idea/
+*.swp
+*.swo

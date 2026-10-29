@@ -122,7 +122,7 @@ S[i, j] = -1  if paper(i) == paper(j)    # mask same-paper pairs
 
 **Clustering:** `AgglomerativeClustering(n_clusters=None, metric="cosine", linkage="average", distance_threshold=CLUSTER_DISTANCE_THRESHOLD)` on `E`. Clusters containing fewer than 2 claims **or fewer than 2 distinct papers** are discarded (their claims get `cluster_id = None`). Cluster `label` = `topic_hint` of the claim closest to the cluster centroid. `mean_similarity` = mean pairwise cosine within the cluster.
 
-`SIMILARITY_THRESHOLD` (default 0.65) is a **starting value**; D4 must tune it on real fixtures (see `03-open-weight-models.md` §4).
+`SIMILARITY_THRESHOLD` (default 0.65) is tuned on calibration pairs via `backend/scripts/tune_threshold.py` (see `03-open-weight-models.md` §4).
 
 ## 5. Stage 3 — Batched NLI referee
 
