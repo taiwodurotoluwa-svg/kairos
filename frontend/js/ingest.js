@@ -333,6 +333,9 @@
               workspaceSection.scrollIntoView({ behavior: "smooth" });
             }
           }
+          if (global.KairosMatrix && global.KairosMatrix.applyResearchObjective) {
+            global.KairosMatrix.applyResearchObjective(global.KAIROS_RESEARCH_OBJECTIVE);
+          }
         }, 600);
         return;
       }
@@ -472,6 +475,9 @@
           if (global.KairosApp && global.KairosApp.navigateToPage) {
             global.KairosApp.navigateToPage("matrix", true);
           }
+          if (global.KairosMatrix && global.KairosMatrix.applyResearchObjective) {
+            global.KairosMatrix.applyResearchObjective(global.KAIROS_RESEARCH_OBJECTIVE);
+          }
           resolve(payload);
         } catch (err) {
           reject(err);
@@ -598,6 +604,31 @@
         synthesizePapers();
       });
     }
+
+    // Bind Systematic Review Objective input and chips
+    var objectiveInput = document.getElementById("research-objective-input");
+    var objectiveChips = Array.prototype.slice.call(
+      document.querySelectorAll(".objective-chip")
+    );
+
+    if (objectiveInput) {
+      objectiveInput.addEventListener("input", function (e) {
+        global.KAIROS_RESEARCH_OBJECTIVE = e.target.value.trim();
+      });
+    }
+
+    objectiveChips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        objectiveChips.forEach(function (c) { c.classList.remove("active"); });
+        chip.classList.add("active");
+        var focus = chip.getAttribute("data-focus");
+        var chipText = chip.textContent;
+        if (objectiveInput) {
+          objectiveInput.value = chipText;
+        }
+        global.KAIROS_RESEARCH_OBJECTIVE = focus;
+      });
+    });
 
     renderQueue();
   }
