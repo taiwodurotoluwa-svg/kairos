@@ -26,6 +26,7 @@ app = FastAPI(title="Kairos API", version=settings.app_version, lifespan=lifespa
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
+    allow_origin_regex=settings.cors_allow_origin_regex or None,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
@@ -34,3 +35,16 @@ install_error_handlers(app)
 app.include_router(health.router, prefix="/api/v1")
 app.include_router(demo.router, prefix="/api/v1")
 app.include_router(analyze.router, prefix="/api/v1")
+
+
+@app.get("/", tags=["root"])
+def root_info() -> dict[str, str]:
+    """Root service discovery endpoint for live deployment links."""
+    return {
+        "service": "Kairos Literature Synthesis & Contradiction Mapping API",
+        "version": settings.app_version,
+        "status": "online",
+        "health_url": "/api/v1/health",
+        "demo_presets_url": "/api/v1/demo",
+        "docs_url": "/docs",
+    }

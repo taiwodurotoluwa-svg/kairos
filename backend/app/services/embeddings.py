@@ -22,7 +22,7 @@ class FastEmbedEmbedder:
         from fastembed import TextEmbedding
 
         self.model_name = model_name
-        self._model = TextEmbedding(model_name)
+        self._model = TextEmbedding(model_name, threads=2)
 
     def embed(self, texts: list[str]) -> np.ndarray:
         if not texts:

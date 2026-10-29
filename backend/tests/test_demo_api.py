@@ -122,3 +122,27 @@ def test_error_envelope_for_validation_error():
     assert data["error"]["code"] == ErrorCode.INTERNAL_ERROR.value
     assert data["error"]["message"] == "Request validation error"
     assert "errors" in data["error"]["details"]
+
+
+
+def test_root_endpoint():
+    res = client.get("/")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "online"
+    assert data["health_url"] == "/api/v1/health"
+
+
+def test_vercel_cors_origin_regex():
+    res = client.get(
+        "/api/v1/health",
+        headers={"Origin": "https://kairos-openbuild.vercel.app"},
+    )
+    assert res.status_code == 200
+    assert res.headers.get("access-control-allow-origin") == "https://kairos-openbuild.vercel.app"
+
+
+def test_get_demo_preset_by_filename_alias():
+    res = client.get("/api/v1/demo/demo_radiology_8papers")
+    assert res.status_code == 200
+    assert res.json()["preset_id"] == "radiology"

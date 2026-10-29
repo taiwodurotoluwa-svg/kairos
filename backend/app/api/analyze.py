@@ -57,6 +57,8 @@ async def submit_analysis(
     # Read uploaded file contents with early size bound check (Opt 3)
     raw_files: list[tuple[str, bytes]] = []
     max_bytes = settings.max_file_mb * 1024 * 1024
+    max_total_bytes = settings.max_total_mb * 1024 * 1024
+    running_total_bytes = 0
     for f in files:
         if f.filename:
             content = await f.read(max_bytes + 1)
@@ -64,6 +66,13 @@ async def submit_analysis(
                 raise KairosError(
                     ErrorCode.FILE_TOO_LARGE,
                     f"File '{f.filename}' exceeds maximum allowed size ({settings.max_file_mb}MB).",
+                    status_code=413,
+                )
+            running_total_bytes += len(content)
+            if running_total_bytes > max_total_bytes:
+                raise KairosError(
+                    ErrorCode.FILE_TOO_LARGE,
+                    f"Total uploaded size exceeds maximum allowed ({settings.max_total_mb}MB).",
                     status_code=413,
                 )
             raw_files.append((f.filename, content))
@@ -185,7 +194,11 @@ async def stream_analysis_events(
         finally:
             job_store.unsubscribe(analysis_id, queue)
 
-    return EventSourceResponse(event_generator(), ping=15)
+    return EventSourceResponse(
+        event_generator(),
+        ping=15,
+        headers={"X-Accel-Buffering": "no", "Cache-Control": "no-cache, no-transform"},
+    )
 
 
 @router.get(

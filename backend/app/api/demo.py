@@ -27,8 +27,16 @@ def _resolve_fixture_path(filename: str) -> Path:
     return candidate1
 
 
+PRESET_ALIASES: dict[str, str] = {
+    "demo_radiology_8papers": "radiology",
+    "demo_llm_quantization_6papers": "llm_quantization",
+    "demo_microgrids_6papers": "microgrids",
+}
+
+
 @lru_cache(maxsize=16)
 def _load(preset_id: str) -> AnalysisResult:
+    preset_id = PRESET_ALIASES.get(preset_id, preset_id)
     if preset_id not in PRESETS:
         raise KairosError(ErrorCode.PRESET_NOT_FOUND, f"Unknown preset '{preset_id}'.", 404)
     path = _resolve_fixture_path(PRESETS[preset_id][0])

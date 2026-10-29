@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     app_env: str = "development"
     app_version: str = "1.0.0"
     cors_allow_origins: str = "http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500,http://localhost:5173"
+    cors_allow_origin_regex: str = r"^https://.*\.vercel\.app$"
     fixtures_dir: str = _resolve_default_fixtures_dir()
 
     min_papers: int = 2
