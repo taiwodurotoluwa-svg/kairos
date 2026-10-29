@@ -503,7 +503,7 @@
         btnLive.classList.remove("active");
         btnLive.setAttribute("aria-checked", "false");
       }
-      if (statusText) statusText.textContent = "Presets (Offline)";
+      if (statusText) statusText.textContent = "Presets (Instant)";
       if (connStatus) {
         connStatus.classList.remove("status-live", "status-error");
         connStatus.classList.add("status-presets");
@@ -541,7 +541,7 @@
         }
         loadPreset(state.activePreset);
       } else {
-        if (statusText) statusText.textContent = "Backend offline (Presets active)";
+        if (statusText) statusText.textContent = "Presets (Instant)";
         setTimeout(setOfflineUI, 2500);
       }
     }
@@ -558,6 +558,11 @@
         tryLiveUI();
       });
     }
+
+    // Automatically connect to Live Render API on startup after initial fast render
+    setTimeout(function () {
+      tryLiveUI();
+    }, 100);
   }
 
   function initControls() {

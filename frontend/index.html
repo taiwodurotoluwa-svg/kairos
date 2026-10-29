@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Kairos — Open-source literature synthesis and contradiction engine for scientific papers." />
   <title>Kairos — Research, in conversation</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230F172A'/%3E%3Ctext x='14' y='46' font-family='Georgia,serif' font-size='42' font-weight='700' fill='%23FFFFFF'%3Ek%3C/text%3E%3Ccircle cx='47' cy='42' r='6' fill='%23F43F5E'/%3E%3C/svg%3E" />
 
   <!-- Typography: Newsreader (editorial serif), Plus Jakarta Sans (body/headings), Space Mono (monospace) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,12 +48,12 @@
 
           <!-- Backend Mode Switcher (Milestone P5) -->
           <div class="mode-toggle-group" role="radiogroup" aria-label="Backend operating mode">
-            <button type="button" id="btn-mode-offline" class="mode-toggle-btn active" role="radio" aria-checked="true" title="Use pre-computed offline presets">Presets</button>
-            <button type="button" id="btn-mode-live" class="mode-toggle-btn" role="radio" aria-checked="false" title="Connect to live FastAPI pipeline on Render (kairos-yo50.onrender.com)">Live API</button>
+            <button type="button" id="btn-mode-offline" class="mode-toggle-btn" role="radio" aria-checked="false" title="Use pre-computed instant presets">Presets</button>
+            <button type="button" id="btn-mode-live" class="mode-toggle-btn active" role="radio" aria-checked="true" title="Connected to live FastAPI pipeline on Render (kairos-yo50.onrender.com)">Live API</button>
           </div>
 
-          <div id="connection-status" class="status" title="Pipeline operating state">
-            <span class="pulse" aria-hidden="true"></span> <span id="status-text">Presets (Offline)</span>
+          <div id="connection-status" class="status status-live" title="Pipeline operating state">
+            <span class="pulse" aria-hidden="true"></span> <span id="status-text">Live (Render API)</span>
           </div>
         </div>
       </header>
