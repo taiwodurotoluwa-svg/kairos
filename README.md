@@ -135,7 +135,7 @@ Fallbacks: if the network or provider fails, switch to the presets (always work 
 | Name | University | Role | GitHub |
 | :--- | :--- | :--- | :--- |
 | Durotoluwa Taiwo (DuroT) | Obafemi Awolowo University, Ile-Ife (OAU) | Backend, open-weight pipeline | [@taiwodurotoluwa-svg](https://github.com/taiwodurotoluwa-svg) |
-| Oluwanifemi Peace (Peace) | Obafemi Awolowo University, Ile-Ife (OAU) | Frontend, UX and design | [@Peaceyy28](https://github.com/Peaceyy28) |
+| Oluwanifemi Ojewusi (Peace) | Obafemi Awolowo University, Ile-Ife (OAU) | Frontend, UX and design | [@Peaceyy28](https://github.com/Peaceyy28) |
 
 ## AI-assisted contributions acknowledgement
 

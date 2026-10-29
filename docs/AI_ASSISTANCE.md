@@ -1,6 +1,6 @@
 # Development & AI-Assistance Disclosure
 
-Per the **OPEN//BUILD 2026** guidelines, this document outlines how our team (**Durotoluwa Taiwo** and **Oluwanifemi Peace**, Obafemi Awolowo University, Ile-Ife) designed and built **Kairos**, and where AI development tools were used during the five-day hackathon sprint.
+Per the **OPEN//BUILD 2026** guidelines, this document outlines how our team (**Durotoluwa Taiwo** and **Oluwanifemi Ojewusi (Peace)**, Obafemi Awolowo University, Ile-Ife) designed and built **Kairos**, and where AI development tools were used during the five-day hackathon sprint.
 
 ---
 

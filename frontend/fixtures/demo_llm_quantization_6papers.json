@@ -1,0 +1,902 @@
+{
+  "schema_version": "1.0.0",
+  "analysis_id": "demo-llm_quantization-v1",
+  "mode": "DEMO",
+  "preset_id": "llm_quantization",
+  "fixture_provenance": "REAL_PIPELINE_OUTPUT",
+  "generated_at": "2026-10-28T09:21:07.618828Z",
+  "papers": [
+    {
+      "paper_id": "p1",
+      "short_label": "P1",
+      "citation_label": "Frantar et al. (2023)",
+      "palette_index": 0,
+      "source": "ARXIV",
+      "arxiv_id": "2210.17323",
+      "filename": "arxiv_2210.17323.pdf",
+      "title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+      "authors": [
+        "Elias Frantar",
+        "Saleh Ashkboos",
+        "Torsten Hoefler",
+        "Dan Alistarh"
+      ],
+      "year": 2023,
+      "page_count": 16,
+      "sections_found": [
+        "ABSTRACT",
+        "METHODOLOGY",
+        "OTHER"
+      ],
+      "dataset": "WikiText2, Penn Treebank, C4, LAMBADA",
+      "sample_size": "Not reported",
+      "methodology": "One-shot weight quantization based on approximate second-order information",
+      "primary_metric": "Perplexity",
+      "limitations": "Not reported",
+      "core_conclusion": "GPTQ enables 175B parameter models to run on a single GPU with negligible accuracy loss and significant inference speedups.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p2",
+      "short_label": "P2",
+      "citation_label": "Lin et al. (n.d.)",
+      "palette_index": 1,
+      "source": "ARXIV",
+      "arxiv_id": "2306.00978",
+      "filename": "arxiv_2306.00978.pdf",
+      "title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+      "authors": [
+        "Ji Lin",
+        "Jiaming Tang",
+        "Haotian Tang",
+        "Shang Yang",
+        "Wei-Ming Chen",
+        "Wei-Chen Wang",
+        "Guangxuan Xiao",
+        "Xingyu Dang",
+        "Chuang Gan",
+        "Song Han"
+      ],
+      "year": null,
+      "page_count": 15,
+      "sections_found": [
+        "ABSTRACT",
+        "EXPERIMENTAL_SETUP",
+        "RESULTS",
+        "LIMITATIONS",
+        "OTHER"
+      ],
+      "dataset": "Pile, WikiText-2, COCO Captioning, VQAv2, GQA, VizWiz, SQA-I, VQA-T, POPE, MME, MMB, SEED, llava-bench, MM-Vet",
+      "sample_size": "80 sample questions",
+      "methodology": "Activation-aware Weight Quantization (AWQ) using equivalent transformation to scale salient weight channels based on activation statistics, with a group size of 128 for INT4/INT3 quantization.",
+      "primary_metric": "Perplexity, CIDEr, Accuracy, GPT-4 evaluation score",
+      "limitations": "Not reported",
+      "core_conclusion": "AWQ outperforms existing work on various language modeling and domain-specific benchmarks, achieving excellent quantization performance for instruction-tuned and multi-modal LMs with negligible performance loss.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p4",
+      "short_label": "P4",
+      "citation_label": "Dettmers et al. (n.d.)",
+      "palette_index": 3,
+      "source": "ARXIV",
+      "arxiv_id": "2305.14314",
+      "filename": "arxiv_2305.14314.pdf",
+      "title": "QLORA: Efficient Finetuning of Quantized LLMs",
+      "authors": [
+        "Tim Dettmers",
+        "Artidoro Pagnoni",
+        "Ari Holtzman",
+        "Luke Zettlemoyer"
+      ],
+      "year": null,
+      "page_count": 26,
+      "sections_found": [
+        "ABSTRACT",
+        "EXPERIMENTAL_SETUP",
+        "RESULTS",
+        "OTHER"
+      ],
+      "dataset": "Vicuna, Alpaca, FLAN v2, MMLU, GLUE, Super-NaturalInstructions",
+      "sample_size": "Not reported",
+      "methodology": "QLORA finetuning using 4-bit NormalFloat (NF4) quantization, Double Quantization, and Paged Optimizers with Low Rank Adapters (LoRA).",
+      "primary_metric": "Vicuna benchmark score, MMLU 5-shot accuracy, GLUE Accuracy, RougeL",
+      "limitations": "Current chatbot benchmarks are not trustworthy to accurately evaluate the performance levels of chatbots.",
+      "core_conclusion": "QLORA finetuning on a small high-quality dataset leads to state-of-the-art results, even when using smaller models than the previous SoTA.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "paper_id": "p5",
+      "short_label": "P5",
+      "citation_label": "Shao et al. (2024)",
+      "palette_index": 4,
+      "source": "ARXIV",
+      "arxiv_id": "2308.13137",
+      "filename": "arxiv_2308.13137.pdf",
+      "title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+      "authors": [
+        "Wenqi Shao",
+        "Mengzhao Chen",
+        "Zhaoyang Zhang",
+        "Peng Xu",
+        "Lirui Zhao",
+        "Zhiqian Li",
+        "Kaipeng Zhang",
+        "Peng Gao",
+        "Yu Qiao",
+        "Ping Luo"
+      ],
+      "year": 2024,
+      "page_count": 25,
+      "sections_found": [
+        "ABSTRACT",
+        "EXPERIMENTAL_SETUP",
+        "METHODOLOGY",
+        "CONCLUSION",
+        "OTHER"
+      ],
+      "dataset": "WikiText2, PTB, C4, PIQA, ARC, BoolQ, HellaSwag",
+      "sample_size": "128 samples",
+      "methodology": "Omnidirectionally calibrated Quantization (OmniQuant) using Learnable Weight Clipping (LWC) and Learnable Equivalent Transformation (LET) within a differentiable framework.",
+      "primary_metric": "Perplexity (PPL) and Zero-shot Accuracy",
+      "limitations": "Not reported",
+      "core_conclusion": "OmniQuant achieves superior performance in diverse quantization settings (W4A4, W6A6, W4A16, W3A16, W2A16) while maintaining computational efficiency, outperforming baselines like GPTQ and AWQ.",
+      "extraction_model": "qwen/qwen3.8-27b"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "p1-c1",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "quantization accuracy",
+      "statement": "GPTQ loses only 0.03 perplexity at 4-bit on the OPT-175B model, while RTN drops 2.2 points.",
+      "metric_value": "0.03 perplexity",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "For example, GPTQ loses\nonly 0.03 perplexity at 4-bit on the 175B model, while RTN drops 2.2 points, performing worse than\nthe 10× smaller full-precision 13B model."
+      }
+    },
+    {
+      "claim_id": "p1-c2",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "inference speedup",
+      "statement": "GPTQ achieves end-to-end inference speedups of around 3.25x on NVIDIA A100 GPUs and 4.5x on NVIDIA A6000 GPUs compared to FP16.",
+      "metric_value": "3.25x, 4.5x",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We show experimentally that these improvements can be leveraged for end-to-end inference\nspeedups over FP16, of around 3.25x when using high-end GPUs (NVIDIA A100)\nand 4.5x when using more cost-effective ones (NVIDIA A6000)."
+      }
+    },
+    {
+      "claim_id": "p1-c3",
+      "paper_id": "p1",
+      "claim_type": "METHOD",
+      "topic_hint": "quantization runtime",
+      "statement": "GPTQ can quantize GPT models with 175 billion parameters in approximately four GPU hours.",
+      "metric_value": "four GPU hours",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Speciﬁcally, GPTQ can quantize GPT models with\n175 billion parameters in approximately four GPU hours, reducing the bitwidth\ndown to 3 or 4 bits per weight, with negligible accuracy degradation relative to the\nuncompressed baseline."
+      }
+    },
+    {
+      "claim_id": "p1-c4",
+      "paper_id": "p1",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "memory efficiency",
+      "statement": "The 3-bit quantized OPT-175B model fits into a single 80GB A100 GPU, whereas standard FP16 execution requires five such GPUs.",
+      "metric_value": "single 80GB A100 GPU",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Hence, we can actually ﬁt\nthe entire quantized model into a single 80GB A100 GPU, which can be executed by dynamically\ndequantizing layers as they are required during inference (the model would not fully ﬁt using 4\nbits). For reference, standard FP16 execution requires 5x80GB GPUs"
+      }
+    },
+    {
+      "claim_id": "p1-c5",
+      "paper_id": "p1",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "model compression",
+      "statement": "GPTQ more than doubles the compression gains relative to previously-proposed one-shot quantization methods while preserving accuracy.",
+      "metric_value": "doubles compression gains",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our method more than doubles the compression gains relative to previously-proposed one-shot quantization methods, preserving accuracy,\nallowing us for the ﬁrst time to execute an 175 billion-parameter model inside a\nsingle GPU for generative inference."
+      }
+    },
+    {
+      "claim_id": "p2-c1",
+      "paper_id": "p2",
+      "claim_type": "METHOD",
+      "topic_hint": "salient weight protection",
+      "statement": "AWQ finds that protecting only 1% salient weights can greatly reduce quantization error by referring to the activation distribution rather than weights.",
+      "metric_value": "1%",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Protecting\nonly 1% salient weights can greatly reduce quantization error. To identify salient weight channels, we should\nrefer to the activation distribution, not weights."
+      }
+    },
+    {
+      "claim_id": "p2-c2",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "inference speedup",
+      "statement": "TinyChat, the inference framework implemented alongside AWQ, offers more than 3× speedup over the Huggingface FP16 implementation on both desktop and mobile GPUs.",
+      "metric_value": "3×",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "With kernel fusion and platform-aware weight packing, TinyChat offers\nmore than 3× speedup over the Huggingface FP16 implementation on both desktop and mobile GPUs."
+      }
+    },
+    {
+      "claim_id": "p2-c3",
+      "paper_id": "p2",
+      "claim_type": "METHOD",
+      "topic_hint": "quantization group size",
+      "statement": "The study uses a group size of 128 for weight-only grouped quantization and focuses on INT4/INT3 quantization to preserve LLM performance.",
+      "metric_value": "128",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "We used a group size of 128 throughout the work,\nexcept otherwise specified. We focus on INT4/INT3 quantization since they are able to mostly preserve the LLMs’\nperformance"
+      }
+    },
+    {
+      "claim_id": "p2-c4",
+      "paper_id": "p2",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "COCO captioning accuracy",
+      "statement": "AWQ reduces the quantization degradation on COCO Captioning from 4.57 to 1.17 under INT4-g128 settings for the OpenFlamingo-9B model.",
+      "metric_value": "1.17",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Activation-aware Weight Quantization reduces the quantization\ndegradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4× model size reduction with negligible performance loss."
+      }
+    },
+    {
+      "claim_id": "p2-c5",
+      "paper_id": "p2",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "generalization to modalities",
+      "statement": "AWQ demonstrates generalization to different modalities and in-context learning workloads by outperforming existing methods on visual language models like OpenFlamingo-9B.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Activation-aware Weight Quantization outperforms existing methods under zero-shot and various few-shot settings, demonstrating the\ngenerability to different modalities and in-context learning workloads."
+      }
+    },
+    {
+      "claim_id": "p4-c1",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "Guanaco benchmark performance",
+      "statement": "The Guanaco model family reaches 99.3% of the performance level of ChatGPT on the Vicuna benchmark after 24 hours of finetuning on a single GPU.",
+      "metric_value": "99.3%",
+      "cluster_id": null,
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our best model family, which we name Guanaco, outperforms\nall previous openly released models on the Vicuna benchmark, reaching 99.3%\nof the performance level of ChatGPT while only requiring 24 hours of finetuning\non a single GPU."
+      }
+    },
+    {
+      "claim_id": "p4-c2",
+      "paper_id": "p4",
+      "claim_type": "METHOD",
+      "topic_hint": "QLORA memory optimization",
+      "statement": "QLORA reduces memory usage enough to finetune a 65B parameter model on a single 48GB GPU by backpropagating gradients through a frozen, 4-bit quantized pretrained language model into Low Rank Adapters.",
+      "metric_value": "65B parameter model on a single 48GB GPU",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We present QLORA, an efficient finetuning approach that reduces memory usage enough to finetune a 65B parameter model on a single 48GB GPU while\npreserving full 16-bit finetuning task performance. QLORA backpropagates gradients through a frozen, 4-bit quantized pretrained language model into Low Rank\nAdapters (LoRA)."
+      }
+    },
+    {
+      "claim_id": "p4-c3",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "NF4 quantization perplexity",
+      "statement": "The NFloat4 + DQ data type achieves a mean Pile Common Crawl perplexity of 27.41, which is lower than the 34.34 achieved by Int4 and 31.07 by Float4 (E2M1).",
+      "metric_value": "27.41",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "Data type\nMean PPL\nInt4\n34.34\nFloat4 (E2M1)\n31.07\nFloat4 (E3M0)\n29.48\nNFloat4 + DQ\n27.41"
+      }
+    },
+    {
+      "claim_id": "p4-c4",
+      "paper_id": "p4",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "QLORA vs 16-bit finetuning",
+      "statement": "QLORA with NF4 and Double Quantization replicates the performance of fully finetuned 16-bit baselines on GLUE and Super-NaturalInstructions, suggesting performance lost to quantization is recovered by adapter finetuning.",
+      "metric_value": "Not reported",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "In both datasets, we observe that 16-bit, 8-bit,\nand 4-bit adapter methods replicate the performance of the fully\nfinetuned 16-bit baseline. This suggests that the performance lost\ndue to the imprecise quantization can be fully recovered through\nadapter finetuning after quantization."
+      }
+    },
+    {
+      "claim_id": "p4-c5",
+      "paper_id": "p4",
+      "claim_type": "LIMITATION",
+      "topic_hint": "chatbot benchmark reliability",
+      "statement": "The authors find that current chatbot benchmarks are not trustworthy to accurately evaluate the performance levels of chatbots.",
+      "metric_value": "Not reported",
+      "cluster_id": null,
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Furthermore, we find that current chatbot benchmarks are not trustworthy to accurately\nevaluate the performance levels of chatbots."
+      }
+    },
+    {
+      "claim_id": "p4-c6",
+      "paper_id": "p4",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "small dataset finetuning efficacy",
+      "statement": "QLORA finetuning on a small high-quality dataset leads to state-of-the-art results, even when using smaller models than the previous state-of-the-art.",
+      "metric_value": "Not reported",
+      "cluster_id": "cl-1",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our results show that QLoRA\nfinetuning on a small high-quality dataset leads to state-of-the-art results, even\nwhen using smaller models than the previous SoTA."
+      }
+    },
+    {
+      "claim_id": "p5-c1",
+      "paper_id": "p5",
+      "claim_type": "METHOD",
+      "topic_hint": "quantization optimization components",
+      "statement": "OmniQuant comprises two innovative components including Learnable Weight Clipping (LWC) and Learnable Equivalent Transformation (LET) to optimize quantization parameters.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "OmniQuant comprises two innovative\ncomponents including Learnable Weight Clipping (LWC) and Learnable Equivalent Transformation (LET)."
+      }
+    },
+    {
+      "claim_id": "p5-c2",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "training efficiency",
+      "statement": "The LLaMA-2 model family size 7-70B can be processed with OmniQuant on a single A100-40G GPU within 1-16 hours using 128 samples.",
+      "metric_value": "1-16 hours",
+      "cluster_id": "cl-1",
+      "is_research_gap": true,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "the LLaMA-2 model family size\n7-70B can be processed with OmniQuant on a single A100-40G GPU within 1-\n16 hours using 128 sample"
+      }
+    },
+    {
+      "claim_id": "p5-c3",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "W2A16 perplexity performance",
+      "statement": "For LLaMA-1-7B W2A16 quantization, OmniQuant achieves a WikiText2 perplexity of 15.47, significantly lower than GPTQ's 2.1e3 and RTN's 1.1e5.",
+      "metric_value": "15.47",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "OmniQuant\n15.47\n13.21\n8.71\n7.58\n37.37\n17.21\n7.81"
+      }
+    },
+    {
+      "claim_id": "p5-c4",
+      "paper_id": "p5",
+      "claim_type": "EMPIRICAL_RESULT",
+      "topic_hint": "W4A4 accuracy performance",
+      "statement": "On LLaMA-1-7B W4A4 quantization, OmniQuant achieves an average zero-shot accuracy of 52.65, outperforming OS+ (48.43) and LLM-QAT+SQ (46.43).",
+      "metric_value": "52.65",
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "W4A4\nOmniQuant\n66.15\n45.20\n31.14\n63.51\n56.44\n53.43\n52.65"
+      }
+    },
+    {
+      "claim_id": "p5-c5",
+      "paper_id": "p5",
+      "claim_type": "CONCLUSION",
+      "topic_hint": "overall method effectiveness",
+      "statement": "Extensive experiments validate OmniQuant’s superior performance across diverse quantization configurations such as W4A4, W6A6, W4A16, W3A16, and W2A16.",
+      "metric_value": null,
+      "cluster_id": "cl-1",
+      "is_research_gap": false,
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Extensive experiments validate OmniQuant’s superior performance across diverse quantization configurations such as W4A4 (4-bit\nweight, 4-bit activation), W6A6, W4A16, W3A16, and W2A16."
+      }
+    }
+  ],
+  "clusters": [
+    {
+      "cluster_id": "cl-1",
+      "label": "quantization runtime",
+      "claim_ids": [
+        "p1-c1",
+        "p1-c2",
+        "p1-c3",
+        "p1-c4",
+        "p1-c5",
+        "p2-c1",
+        "p2-c2",
+        "p2-c3",
+        "p2-c4",
+        "p2-c5",
+        "p4-c2",
+        "p4-c3",
+        "p4-c4",
+        "p4-c6",
+        "p5-c1",
+        "p5-c2",
+        "p5-c3",
+        "p5-c4",
+        "p5-c5"
+      ],
+      "paper_ids": [
+        "p1",
+        "p2",
+        "p4",
+        "p5"
+      ],
+      "mean_similarity": 0.712
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "e-p1c4-p4c2",
+      "source_claim_id": "p1-c4",
+      "target_claim_id": "p4-c2",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Hence, we can actually ﬁt\nthe entire quantized model into a single 80GB A100 GPU, which can be executed by dynamically\ndequantizing layers as they are required during inference (the model would not fully ﬁt using 4\nbits). For reference, standard FP16 execution requires 5x80GB GPUs"
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We present QLORA, an efficient finetuning approach that reduces memory usage enough to finetune a 65B parameter model on a single 48GB GPU while\npreserving full 16-bit finetuning task performance. QLORA backpropagates gradients through a frozen, 4-bit quantized pretrained language model into Low Rank\nAdapters (LoRA)."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.95,
+      "cosine_similarity": 0.7864,
+      "explanation": "Frantar et al. (2023) focuses on inference memory for a 175B model on 80GB GPUs, while Dettmers et al. (n.d.) focuses on finetuning memory for a 65B model on 48GB GPUs. The tasks (inference vs. finetuning) and hardware constraints differ, so the claims are not directly comparable but both support the utility of quantization for memory reduction.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c2-p2c2",
+      "source_claim_id": "p1-c2",
+      "target_claim_id": "p2-c2",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "We show experimentally that these improvements can be leveraged for end-to-end inference\nspeedups over FP16, of around 3.25x when using high-end GPUs (NVIDIA A100)\nand 4.5x when using more cost-effective ones (NVIDIA A6000)."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "With kernel fusion and platform-aware weight packing, TinyChat offers\nmore than 3× speedup over the Huggingface FP16 implementation on both desktop and mobile GPUs."
+      },
+      "relation": "AGREE",
+      "confidence": 0.95,
+      "cosine_similarity": 0.8331,
+      "explanation": "Both Frantar et al. (2023) and Lin et al. (n.d.) report inference speedups of approximately 3x or higher for 4-bit quantization compared to FP16 baselines.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c1-p4c4",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p4-c4",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "For example, GPTQ loses\nonly 0.03 perplexity at 4-bit on the 175B model, while RTN drops 2.2 points, performing worse than\nthe 10× smaller full-precision 13B model."
+      },
+      "target": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "In both datasets, we observe that 16-bit, 8-bit,\nand 4-bit adapter methods replicate the performance of the fully\nfinetuned 16-bit baseline. This suggests that the performance lost\ndue to the imprecise quantization can be fully recovered through\nadapter finetuning after quantization."
+      },
+      "relation": "AGREE",
+      "confidence": 0.95,
+      "cosine_similarity": 0.7758,
+      "explanation": "Both Frantar et al. (2023) and Dettmers et al. (n.d.) report that 4-bit quantization preserves model performance with negligible accuracy loss, supporting the same finding.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c1-p5c3",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p5-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "For example, GPTQ loses\nonly 0.03 perplexity at 4-bit on the 175B model, while RTN drops 2.2 points, performing worse than\nthe 10× smaller full-precision 13B model."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "OmniQuant\n15.47\n13.21\n8.71\n7.58\n37.37\n17.21\n7.81"
+      },
+      "relation": "AGREE",
+      "confidence": 0.9,
+      "cosine_similarity": 0.7936,
+      "explanation": "Both Frantar et al. (2023) and Shao et al. (2024) demonstrate that GPTQ significantly outperforms RTN in terms of perplexity, with RTN showing severe degradation.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c5-p2c3",
+      "source_claim_id": "p1-c5",
+      "target_claim_id": "p2-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our method more than doubles the compression gains relative to previously-proposed one-shot quantization methods, preserving accuracy,\nallowing us for the ﬁrst time to execute an 175 billion-parameter model inside a\nsingle GPU for generative inference."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "EXPERIMENTAL_SETUP",
+        "page_number": 7,
+        "verbatim_quote": "We used a group size of 128 throughout the work,\nexcept otherwise specified. We focus on INT4/INT3 quantization since they are able to mostly preserve the LLMs’\nperformance"
+      },
+      "relation": "AGREE",
+      "confidence": 0.9,
+      "cosine_similarity": 0.7665,
+      "explanation": "Both Frantar et al. (2023) and Lin et al. (n.d.) assert that their respective quantization methods preserve LLM accuracy while enabling significant compression or efficiency gains.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c5-p5c3",
+      "source_claim_id": "p1-c5",
+      "target_claim_id": "p5-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our method more than doubles the compression gains relative to previously-proposed one-shot quantization methods, preserving accuracy,\nallowing us for the ﬁrst time to execute an 175 billion-parameter model inside a\nsingle GPU for generative inference."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "OmniQuant\n15.47\n13.21\n8.71\n7.58\n37.37\n17.21\n7.81"
+      },
+      "relation": "AGREE",
+      "confidence": 0.9,
+      "cosine_similarity": 0.7116,
+      "explanation": "Both claims support the finding that advanced quantization methods (GPTQ and OmniQuant) significantly outperform baseline methods (RTN) in preserving model accuracy or reducing perplexity.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p2c5-p5c5",
+      "source_claim_id": "p2-c5",
+      "target_claim_id": "p5-c5",
+      "source": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Activation-aware Weight Quantization outperforms existing methods under zero-shot and various few-shot settings, demonstrating the\ngenerability to different modalities and in-context learning workloads."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Extensive experiments validate OmniQuant’s superior performance across diverse quantization configurations such as W4A4 (4-bit\nweight, 4-bit activation), W6A6, W4A16, W3A16, and W2A16."
+      },
+      "relation": "METHODOLOGY_DELTA",
+      "confidence": 0.85,
+      "cosine_similarity": 0.7027,
+      "explanation": "Both papers claim their respective quantization methods (AWQ vs. OmniQuant) outperform existing baselines. The difference is explained by the distinct methodologies and specific datasets used in each study.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c5-p5c5",
+      "source_claim_id": "p1-c5",
+      "target_claim_id": "p5-c5",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our method more than doubles the compression gains relative to previously-proposed one-shot quantization methods, preserving accuracy,\nallowing us for the ﬁrst time to execute an 175 billion-parameter model inside a\nsingle GPU for generative inference."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Extensive experiments validate OmniQuant’s superior performance across diverse quantization configurations such as W4A4 (4-bit\nweight, 4-bit activation), W6A6, W4A16, W3A16, and W2A16."
+      },
+      "relation": "AGREE",
+      "confidence": 0.85,
+      "cosine_similarity": 0.7793,
+      "explanation": "Both Frantar et al. (2023) and Shao et al. (2024) claim their respective quantization methods (GPTQ and OmniQuant) achieve superior performance or compression gains compared to previous baselines while preserving accuracy. They point in the same direction regarding the effectiveness of advanced quantization techniques.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c1-p2c4",
+      "source_claim_id": "p1-c1",
+      "target_claim_id": "p2-c4",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "For example, GPTQ loses\nonly 0.03 perplexity at 4-bit on the 175B model, while RTN drops 2.2 points, performing worse than\nthe 10× smaller full-precision 13B model."
+      },
+      "target": {
+        "paper_id": "p2",
+        "paper_title": "AWQ: ACTIVATION-AWARE WEIGHT QUANTIZATION FOR ON-DEVICE LLM COMPRESSION AND ACCELERATION",
+        "section": "RESULTS",
+        "page_number": 8,
+        "verbatim_quote": "Activation-aware Weight Quantization reduces the quantization\ndegradation (32-shot) from 4.57 to 1.17 under INT4-g128, providing 4× model size reduction with negligible performance loss."
+      },
+      "relation": "AGREE",
+      "confidence": 0.85,
+      "cosine_similarity": 0.75,
+      "explanation": "Both Frantar et al. (2023) and Lin et al. (n.d.) demonstrate that their respective quantization methods (GPTQ and AWQ) achieve negligible performance degradation at 4-bit precision compared to baselines.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    },
+    {
+      "edge_id": "e-p1c3-p5c3",
+      "source_claim_id": "p1-c3",
+      "target_claim_id": "p5-c3",
+      "source": {
+        "paper_id": "p1",
+        "paper_title": "GPTQ: ACCURATE POST-TRAINING QUANTIZATION FOR GENERATIVE PRE-TRAINED TRANSFORMERS",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Speciﬁcally, GPTQ can quantize GPT models with\n175 billion parameters in approximately four GPU hours, reducing the bitwidth\ndown to 3 or 4 bits per weight, with negligible accuracy degradation relative to the\nuncompressed baseline."
+      },
+      "target": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "RESULTS",
+        "page_number": 7,
+        "verbatim_quote": "OmniQuant\n15.47\n13.21\n8.71\n7.58\n37.37\n17.21\n7.81"
+      },
+      "relation": "AGREE",
+      "confidence": 0.85,
+      "cosine_similarity": 0.7178,
+      "explanation": "Both claims support the effectiveness of quantization methods; Frantar et al. (2023) highlights GPTQ's efficiency, and Shao et al. (2024) shows OmniQuant outperforms GPTQ in extreme low-bit settings.",
+      "cluster_id": "cl-1",
+      "referee_model": "qwen/qwen3.8-27b"
+    }
+  ],
+  "gaps": [
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p4-c6",
+      "claim_id": "p4-c6",
+      "paper_id": "p4",
+      "statement": "QLORA finetuning on a small high-quality dataset leads to state-of-the-art results, even when using smaller models than the previous state-of-the-art.",
+      "provenance": {
+        "paper_id": "p4",
+        "paper_title": "QLORA: Efficient Finetuning of Quantized LLMs",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "Our results show that QLoRA\nfinetuning on a small high-quality dataset leads to state-of-the-art results, even\nwhen using smaller models than the previous SoTA."
+      },
+      "best_match_similarity": 0.6946,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.69)."
+    },
+    {
+      "signal": "RESEARCH_GAP",
+      "gap_id": "gap-p5-c2",
+      "claim_id": "p5-c2",
+      "paper_id": "p5",
+      "statement": "The LLaMA-2 model family size 7-70B can be processed with OmniQuant on a single A100-40G GPU within 1-16 hours using 128 samples.",
+      "provenance": {
+        "paper_id": "p5",
+        "paper_title": "OmniQuant: Omnidirectionally Calibrated Quantization for Large Language Models",
+        "section": "ABSTRACT",
+        "page_number": 1,
+        "verbatim_quote": "the LLaMA-2 model family size\n7-70B can be processed with OmniQuant on a single A100-40G GPU within 1-\n16 hours using 128 sample"
+      },
+      "best_match_similarity": 0.6999,
+      "reason": "No cross-paper claim exceeds similarity threshold (best match: 0.70)."
+    }
+  ],
+  "consensus": {
+    "consensus_score": 90,
+    "executive_summary": "Four studies on LLM quantization converge on the effectiveness of advanced techniques like GPTQ, AWQ, and OmniQuant. Consensus holds that 4-bit quantization preserves accuracy with negligible loss and yields significant inference speedups. While methodologies differ between inference and finetuning contexts, all support memory reduction. No direct contradictions exist in the provided data, though methodology deltas highlight distinct hardware and task constraints. Notable gaps include the specific efficiency of QLORA finetuning on small datasets and the computational feasibility of OmniQuant on single GPUs for large model families.",
+    "agreed_findings": [
+      "4-bit quantization preserves model performance with negligible accuracy loss.",
+      "Advanced quantization methods achieve inference speedups of approximately 3x or higher compared to FP16.",
+      "GPTQ and OmniQuant significantly outperform baseline methods like RTN in perplexity and accuracy.",
+      "Quantization methods enable significant compression or efficiency gains while maintaining LLM accuracy."
+    ],
+    "top_contradictions": [],
+    "gap_ids": [
+      "gap-p4-c6",
+      "gap-p5-c2"
+    ],
+    "recommended_next_steps": [
+      "Conduct a unified benchmark comparing GPTQ, AWQ, and OmniQuant on identical hardware to isolate methodology effects from environmental differences.",
+      "Investigate the impact of QLORA finetuning on smaller model families to validate the claim of state-of-the-art results with reduced data.",
+      "Analyze the computational overhead of OmniQuant's learnable parameters to determine scalability beyond single-GPU constraints for larger model sizes."
+    ]
+  },
+  "stats": {
+    "paper_count": 4,
+    "claim_count": 21,
+    "cross_paper_pairs_total": 165,
+    "candidate_pairs": 58,
+    "referee_pairs_evaluated": 58,
+    "referee_calls": 15,
+    "pair_reduction_pct": 64.8,
+    "stage_latency_ms": {
+      "ingestion_ms": 7067,
+      "extraction_ms": 293493,
+      "embedding_ms": 234,
+      "clustering_ms": 2,
+      "referee_ms": 331805,
+      "consensus_ms": 5482,
+      "total_ms": 638083
+    }
+  },
+  "models": [
+    {
+      "role": "EXTRACTION",
+      "model_id": "qwen/qwen3.8-27b",
+      "provider": "groq",
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
+    },
+    {
+      "role": "EMBEDDING",
+      "model_id": "BAAI/bge-small-en-v1.5",
+      "provider": "fastembed-local",
+      "license": "MIT",
+      "license_url": "https://huggingface.co/BAAI/bge-small-en-v1.5/blob/main/LICENSE",
+      "parameter_count": "33M"
+    },
+    {
+      "role": "REFEREE",
+      "model_id": "qwen/qwen3.8-27b",
+      "provider": "groq",
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
+    },
+    {
+      "role": "CONSENSUS_WRITER",
+      "model_id": "qwen/qwen3.8-27b",
+      "provider": "groq",
+      "license": "Apache-2.0",
+      "license_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "parameter_count": "27B"
+    }
+  ],
+  "warnings": [
+    "Excluded paper p3 due to extraction error: All LLM providers failed (groq: rate limited). Use a demo preset or check LLM credentials.",
+    "Excluded paper p6 due to extraction error: All LLM providers failed (groq: rate limited). Use a demo preset or check LLM credentials."
+  ]
+}
