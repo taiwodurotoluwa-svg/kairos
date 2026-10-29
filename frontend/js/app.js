@@ -514,7 +514,10 @@
     }
 
     async function tryLiveUI() {
-      if (statusText) statusText.textContent = "Probing :8000...";
+      var targetBase = global.KairosApi && global.KairosApi.getBaseUrl ? global.KairosApi.getBaseUrl() : "https://kairos-yo50.onrender.com";
+      var isRender = targetBase.indexOf("onrender.com") !== -1;
+      if (statusText) statusText.textContent = isRender ? "Waking Render server..." : "Probing backend...";
+      
       var check = global.KairosApi && global.KairosApi.checkLiveBackendHealth
         ? await global.KairosApi.checkLiveBackendHealth()
         : { online: false };
@@ -528,7 +531,7 @@
           btnLive.classList.add("active");
           btnLive.setAttribute("aria-checked", "true");
         }
-        if (statusText) statusText.textContent = "Live (FastAPI :8000)";
+        if (statusText) statusText.textContent = isRender ? "Live (Render API)" : "Live (FastAPI :8000)";
         if (connStatus) {
           connStatus.classList.remove("status-presets", "status-error");
           connStatus.classList.add("status-live");
@@ -539,7 +542,7 @@
         loadPreset(state.activePreset);
       } else {
         if (statusText) statusText.textContent = "Backend offline (Presets active)";
-        setTimeout(setOfflineUI, 2000);
+        setTimeout(setOfflineUI, 2500);
       }
     }
 
@@ -671,9 +674,24 @@
     loadPreset("radiology");
   }
 
+  function loadPayload(payload, meta) {
+    state.payload = payload;
+    state.activePreset = meta && meta.preset_id ? meta.preset_id : "live_analysis";
+    renderPayload(payload, meta || { preset_id: "live_analysis", title: "Live Synthesis Result" });
+    var eventDetail = {
+      presetId: state.activePreset,
+      payload: payload,
+      source: "live",
+      activeView: state.activeView
+    };
+    global.dispatchEvent(new CustomEvent("state:loaded", { detail: eventDetail }));
+    document.dispatchEvent(new CustomEvent("state:loaded", { detail: eventDetail }));
+  }
+
   global.KairosApp = {
     state: state,
     loadPreset: loadPreset,
+    loadPayload: loadPayload,
     switchView: switchView,
     navigateToPage: navigateToPage
   };

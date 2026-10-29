@@ -330,13 +330,6 @@
 
     wrapper.appendChild(hero);
 
-    // Animate the circular gauge fill stroke
-    setTimeout(function () {
-      var circumference = 2 * Math.PI * 45; // ~282.7
-      var offset = circumference - (score / 100) * circumference;
-      fillCircle.style.strokeDashoffset = String(offset);
-    }, 80);
-
     // 2. Breakdown Grid: Key Agreements & Top Contradictions
     var grid = createEl("div", "consensus-grid");
 

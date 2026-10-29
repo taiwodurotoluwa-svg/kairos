@@ -81,7 +81,17 @@
     return payload;
   }
 
+  var LIVE_API_BASE_URL = "https://kairos-yo50.onrender.com";
+  var LOCAL_API_BASE_URL = "http://localhost:8000";
   var activeApiMode = "local";
+
+  /**
+   * Resolves the active base URL, prioritizing window overrides, then Render, then localhost.
+   */
+  function getBaseUrl() {
+    if (global.KAIROS_API_BASE_URL) return global.KAIROS_API_BASE_URL;
+    return LIVE_API_BASE_URL;
+  }
 
   /**
    * Returns current API mode ("local" or "live").
@@ -105,7 +115,7 @@
   /**
    * Checks whether the live FastAPI backend is reachable and healthy on /api/v1/health.
    * Cancels any pending in-flight probe to prevent race conditions (P5-03).
-   * Times out after 2000ms and fails cleanly without uncaught console errors.
+   * Timeout set to 15000ms so free Render instances have time to wake up.
    * @param {string} [baseUrl]
    * @returns {Promise<{online: boolean, data?: Object, aborted?: boolean, error?: any}>}
    */
@@ -118,19 +128,20 @@
     healthCheckController = typeof AbortController !== "undefined" ? new AbortController() : null;
     var currentCtrl = healthCheckController;
 
-    var url = (baseUrl || global.KAIROS_API_BASE_URL || "http://localhost:8000").replace(/\/$/, "") + "/api/v1/health";
-    var timer = currentCtrl ? setTimeout(function () { currentCtrl.abort(); }, 2000) : null;
+    var targetUrl = (baseUrl || getBaseUrl()).replace(/\/$/, "") + "/api/v1/health";
+    var timeoutMs = 15000;
+    var timer = currentCtrl ? setTimeout(function () { currentCtrl.abort(); }, timeoutMs) : null;
     try {
-      var res = await fetch(url, {
+      var res = await fetch(targetUrl, {
         headers: { Accept: "application/json" },
         signal: currentCtrl ? currentCtrl.signal : undefined
       });
       if (timer) clearTimeout(timer);
       if (res.ok) {
         var data = await res.json();
-        return { online: true, data: data };
+        return { online: true, data: data, url: targetUrl };
       }
-      return { online: false, status: res.status };
+      return { online: false, status: res.status, url: targetUrl };
     } catch (err) {
       if (timer) clearTimeout(timer);
       if (err && err.name === "AbortError") {
@@ -143,6 +154,19 @@
       }
     }
   }
+
+  /**
+   * Silent background wake-up ping to pre-warm free Render instances on initial page load
+   */
+  function wakeUpBackend() {
+    var targetUrl = getBaseUrl().replace(/\/$/, "") + "/api/v1/health";
+    try {
+      fetch(targetUrl, { mode: "cors", cache: "no-cache" }).catch(function () {});
+    } catch (_e) {}
+  }
+
+  // Pre-warm the backend silently on startup
+  wakeUpBackend();
 
   /**
    * Resolves preset metadata from either a preset_id or a fixture filename stem.
@@ -170,7 +194,7 @@
     }
 
     var apiMode = opts.mode || activeApiMode || global.KAIROS_API_MODE || "local";
-    var baseUrl = opts.baseUrl || global.KAIROS_API_BASE_URL || "http://localhost:8000";
+    var baseUrl = opts.baseUrl || global.KAIROS_API_BASE_URL || getBaseUrl();
 
     if (apiMode === "live") {
       try {
@@ -209,6 +233,8 @@
     fetchPreset: fetchPreset,
     getApiMode: getApiMode,
     setApiMode: setApiMode,
+    getBaseUrl: getBaseUrl,
+    wakeUpBackend: wakeUpBackend,
     checkLiveBackendHealth: checkLiveBackendHealth
   };
 })(window);

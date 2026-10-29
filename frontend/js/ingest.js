@@ -192,6 +192,7 @@
       name: file.name,
       size: file.size,
       type: "pdf",
+      file: file,
       status: "ready"
     });
 
@@ -252,6 +253,7 @@
       name: candidateName,
       size: 1420000,
       type: "arxiv",
+      arxivId: arxivId,
       status: "ready"
     });
 
@@ -360,6 +362,148 @@
     runStage(0);
   }
 
+  function updateStageSteps(stage) {
+    var stageMap = {
+      INGESTION: 1,
+      EXTRACTION: 2,
+      EMBEDDING: 3,
+      CLUSTERING: 3,
+      REFEREE: 4,
+      CONSENSUS: 4
+    };
+    var activeNum = stageMap[stage] || 1;
+    [1, 2, 3, 4].forEach(function (num) {
+      var el = document.getElementById("pstep-" + num);
+      if (el) {
+        if (num < activeNum) el.className = "pipeline-step complete";
+        else if (num === activeNum) el.className = "pipeline-step active";
+        else el.className = "pipeline-step";
+      }
+    });
+  }
+
+  /**
+   * Dispatches live synthesis job to FastAPI / Render backend and streams SSE progress
+   */
+  async function runLivePipeline(baseUrl) {
+    isSimulating = true;
+    renderQueue();
+
+    var card = document.getElementById("pipeline-card");
+    var fill = document.getElementById("pipeline-progress-fill");
+    var statusText = document.getElementById("pipeline-status-text");
+    var btn = document.getElementById("btn-synthesize");
+
+    if (card) card.hidden = false;
+    if (btn) btn.disabled = true;
+    if (statusText) statusText.textContent = "Dispatching analysis job to open-weight pipeline...";
+
+    var formData = new FormData();
+    var arxivIds = [];
+    stagedQueue.forEach(function (p) {
+      if (p.file) {
+        formData.append("files", p.file, p.name);
+      } else if (p.arxivId) {
+        arxivIds.push(p.arxivId);
+      }
+    });
+
+    if (arxivIds.length > 0) {
+      formData.append("arxiv_ids", JSON.stringify(arxivIds));
+    }
+
+    var submitUrl = baseUrl.replace(/\/$/, "") + "/api/v1/analyze";
+    var res = await fetch(submitUrl, {
+      method: "POST",
+      body: formData
+    });
+
+    if (!res.ok) {
+      throw new Error("Analysis job rejected with HTTP " + res.status);
+    }
+
+    var jobData = await res.json();
+    var analysisId = jobData.analysis_id;
+
+    return new Promise(function (resolve, reject) {
+      var eventsUrl = baseUrl.replace(/\/$/, "") + "/api/v1/analyze/" + encodeURIComponent(analysisId) + "/events";
+      var eventSource = new EventSource(eventsUrl);
+
+      eventSource.addEventListener("progress", function (e) {
+        try {
+          var data = JSON.parse(e.data);
+          if (fill && data.progress_pct !== undefined) {
+            fill.style.width = data.progress_pct + "%";
+          }
+          if (statusText && data.message) {
+            statusText.textContent = data.message;
+          }
+          if (data.stage) {
+            updateStageSteps(data.stage);
+          }
+        } catch (_err) {}
+      });
+
+      eventSource.addEventListener("complete", function (e) {
+        eventSource.close();
+        try {
+          var payload = JSON.parse(e.data);
+          if (fill) fill.style.width = "100%";
+          if (statusText) statusText.textContent = "Live synthesis complete! Rendering evidence matrix...";
+          isSimulating = false;
+          renderQueue();
+
+          if (global.KairosApp && global.KairosApp.loadPayload) {
+            global.KairosApp.loadPayload(payload, {
+              preset_id: payload.preset_id || "live_analysis",
+              title: "Live Analysis (" + stagedQueue.length + " papers)"
+            });
+          }
+          if (global.KairosApp && global.KairosApp.navigateToPage) {
+            global.KairosApp.navigateToPage("matrix", true);
+          }
+          resolve(payload);
+        } catch (err) {
+          reject(err);
+        }
+      });
+
+      eventSource.addEventListener("error", function () {
+        eventSource.close();
+        reject(new Error("SSE connection error"));
+      });
+    });
+  }
+
+  /**
+   * Orchestrates live synthesis or falls back to simulation
+   */
+  async function synthesizePapers() {
+    if (isSimulating) return;
+    var feedbackEl = document.getElementById("ingest-feedback");
+    if (stagedQueue.length < MIN_FILES) {
+      if (feedbackEl) {
+        feedbackEl.textContent = "Please stage at least 2 papers to perform cross-paper synthesis.";
+      }
+      return;
+    }
+
+    var isLiveMode = global.KairosApi && global.KairosApi.getApiMode && global.KairosApi.getApiMode() === "live";
+    var hasRealInputs = stagedQueue.some(function (p) { return p.file || p.arxivId; });
+    var baseUrl = global.KairosApi && global.KairosApi.getBaseUrl ? global.KairosApi.getBaseUrl() : "https://kairos-yo50.onrender.com";
+
+    if (isLiveMode || hasRealInputs) {
+      try {
+        await runLivePipeline(baseUrl);
+        return;
+      } catch (err) {
+        console.warn("Live synthesis unreachable or failed, falling back to simulator:", err);
+      }
+    }
+
+    simulatePipeline();
+  }
+
   /**
    * Bind DOM Events
    */
@@ -442,7 +586,7 @@
 
     if (synthesizeBtn) {
       synthesizeBtn.addEventListener("click", function () {
-        simulatePipeline();
+        synthesizePapers();
       });
     }
 
@@ -455,6 +599,7 @@
     addArXivPaper: addArXivPaper,
     removePaper: removePaper,
     simulatePipeline: simulatePipeline,
+    synthesizePapers: synthesizePapers,
     getQueue: function () {
       return stagedQueue.slice();
     }
