@@ -48,7 +48,7 @@
           <!-- Backend Mode Switcher (Milestone P5) -->
           <div class="mode-toggle-group" role="radiogroup" aria-label="Backend operating mode">
             <button type="button" id="btn-mode-offline" class="mode-toggle-btn active" role="radio" aria-checked="true" title="Use pre-computed offline presets">Presets</button>
-            <button type="button" id="btn-mode-live" class="mode-toggle-btn" role="radio" aria-checked="false" title="Connect to live FastAPI pipeline on :8000">Live API</button>
+            <button type="button" id="btn-mode-live" class="mode-toggle-btn" role="radio" aria-checked="false" title="Connect to live FastAPI pipeline on Render (kairos-yo50.onrender.com)">Live API</button>
           </div>
 
           <div id="connection-status" class="status" title="Pipeline operating state">
@@ -266,7 +266,7 @@
               <div id="pipeline-card" class="pipeline-card" hidden>
                 <div class="pipeline-head">
                   <span class="pipeline-title">Open-Weight Synthesis Pipeline Running</span>
-                  <span class="mono-tag" style="background:#FFFFFF; border:1px solid var(--site-secondary); padding:3px 8px;">SIMULATION</span>
+                  <span id="pipeline-mode-badge" class="mono-tag" style="background:#FFFFFF; border:1px solid var(--site-secondary); padding:3px 8px;">OPEN-WEIGHT PIPELINE</span>
                 </div>
                 <div class="pipeline-steps">
                   <div id="pstep-1" class="pipeline-step active">
@@ -414,7 +414,7 @@
             <div class="corpus-eyebrow" style="margin-top:28px;">
               <span id="corpus-preset-tag" class="mono-tag" style="background:var(--site-secondary); color:#fff; padding:4px 8px; font:700 10px var(--site-font-mono);">PRESET: RADIOLOGY</span>
               <span class="meta-separator" aria-hidden="true"> · </span>
-              <span id="corpus-provenance-tag" class="mono-tag" style="border:1px solid var(--site-secondary); padding:3px 8px; font:700 10px var(--site-font-mono);">SYNTHETIC_PLACEHOLDER</span>
+              <span id="corpus-provenance-tag" class="mono-tag" style="border:1px solid var(--site-secondary); padding:3px 8px; font:700 10px var(--site-font-mono);">REAL_PIPELINE_OUTPUT</span>
               <span class="meta-separator" aria-hidden="true"> · </span>
               <span id="corpus-schema-tag" class="mono-tag" style="border:1px solid var(--site-secondary); padding:3px 8px; font:700 10px var(--site-font-mono);">SCHEMA v1.0.0</span>
             </div>
@@ -588,7 +588,7 @@
               <div class="view-section-header">
                 <h3 class="view-heading">Cross-Paper Claim Relations</h3>
                 <p class="view-description">
-                  Verified NLI referee edges with verbatim provenance. Interactive Cytoscape network activates in Milestone P4.
+                  Verified NLI referee edges with verbatim provenance. Click any node to highlight its neighborhood, or click any edge to open the side-by-side Dispute &amp; Provenance Drawer.
                 </p>
               </div>
               <!-- Cytoscape Network & Controls (Milestone P4) -->

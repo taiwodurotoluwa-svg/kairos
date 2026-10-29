@@ -72,8 +72,6 @@ kairos/
 ├── fixtures/              # pre-analysed arXiv presets + contract sample
 └── docs/
     ├── shared/            # architecture, API contracts, open-weight model strategy
-    ├── duro/  peace/      # backend & frontend engineering playbooks
-    ├── requests.md        # cross-developer contract & integration log
     └── AI_ASSISTANCE.md   # development & AI-assistance disclosure
 ```
 
@@ -106,8 +104,6 @@ Run the tests:
 cd backend && pytest -v
 python -m scripts.verify_fixture_quotes
 ```
-
-> Status: this README describes the target product. Milestone progress is tracked in the playbooks under `docs/duro/` and `docs/peace/`. Where a step above is not merged yet, the playbook for that milestone is authoritative.
 
 ## Demo Day guide (8-minute slot: 3 min slides + 5 min live)
 

@@ -1,36 +1,45 @@
 # Python
 __pycache__/
 *.py[cod]
-*.class
+*$py.class
 *.so
 .Python
-env/
 venv/
 .venv/
+env/
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
 
-# Node & Frontend
+# FastEmbed / Hugging Face local caches
+.cache/
+fastembed_cache/
+
+# Node / Frontend
 node_modules/
 .next/
+out/
 dist/
-build/
 
-# Environment variables
+# Environment & secrets
 .env
-.env.local
-*.env
+.env.*
+!.env.example
 
-# Storage & Temporary Files
-backend/uploads/
-sample_papers/temp/
+# OS / Editor
 .DS_Store
 Thumbs.db
 
-# AI Review Bundles (Local scratch files for Argon 4 review - NEVER committed to git)
-reviews/
+# Local notes & internal scratch files
 *.review.txt
-D1_review.txt
 *_review.txt
 AGENTS.md
 MASTER_PROMPTS.md
+promt!.md
+OPEN--BUILD-2026-Challenge-Brief.pdf
 docs/reviews/
+docs/duro/
+docs/peace/
+docs/requests.md
