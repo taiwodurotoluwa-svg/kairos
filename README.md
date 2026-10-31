@@ -40,7 +40,7 @@ Naively comparing every claim with every other claim is quadratic: 8 papers × 5
 ```mermaid
 flowchart LR
     A["2–10 PDFs / arXiv ids"] --> B["PyMuPDF section-aware parsing<br/>page numbers kept"]
-    B --> C["Stage 1 — Llama-3.1-8B<br/>structured metadata + 4–6 claims per paper<br/>(quote verified against PDF text)"]
+    B --> C["Stage 1 — Qwen3.8-27B / Llama-3.1-8B<br/>structured metadata + 4–6 claims per paper<br/>(quote verified against PDF text)"]
     C --> D["Stage 2 — BAAI/bge-small-en-v1.5<br/>384-d embeddings, cosine matrix"]
     D --> E{"similarity ≥ threshold?"}
     E -- "no match anywhere" --> G["Research gap"]
@@ -56,8 +56,8 @@ The API reports the real numbers for every run (`cross_paper_pairs_total`, `cand
 
 | Role | Model | Where it runs | Licence | Notes |
 | :--- | :--- | :--- | :--- | :--- |
-| Extraction, referee, consensus writer (primary) | `meta-llama/Llama-3.1-8B-Instruct` | Groq (`llama-3.1-8b-instant`) → Hugging Face Inference | Llama 3.1 Community License | Attribution: "Built with Llama" |
-| Primary / Regional Fallback LLM | `Qwen/Qwen3.8-27B` (`qwen/qwen3.8-27b`) / `Qwen/Qwen2.5-7B-Instruct` | Groq / Hugging Face Inference | Apache-2.0 | Auto-fallback & configurable via env |
+| Extraction, referee, consensus writer (live production primary) | `Qwen/Qwen3.8-27B` (`qwen/qwen3.8-27b`) / `Qwen/Qwen2.5-7B-Instruct` | Groq (`qwen/qwen3.8-27b`) → Hugging Face Inference | Apache-2.0 | Live Render API primary (`GROQ_MODEL_PRIMARY`) |
+| Extraction, referee, consensus writer (cloud fallback / default) | `meta-llama/Llama-3.1-8B-Instruct` | Groq (`llama-3.1-8b-instant`) → Hugging Face Inference | Llama 3.1 Community License | Attribution: "Built with Llama" |
 | Offline fallback LLM | `meta-llama/Llama-3.2-3B-Instruct` (`llama3.2:3b`) | Local Ollama | Llama 3.2 Community License | Runs on a laptop, no internet |
 | Embeddings | `BAAI/bge-small-en-v1.5` | Local (FastEmbed / ONNX) | MIT | 33M parameters, 384 dimensions |
 

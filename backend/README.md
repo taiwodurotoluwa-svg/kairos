@@ -5,7 +5,7 @@ FastAPI backend engine for **Kairos** — Multi-Paper Literature Synthesis & Con
 Kairos synthesizes 2–10 scientific research papers (via direct PDF uploads or arXiv IDs), extracts empirical claims with verbatim text provenance, maps research gaps, resolves semantic contradictions with open-weight Natural Language Inference (NLI), and streams real-time progress via Server-Sent Events (SSE).
 
 > **Built with Llama**  
-> Runtime language models: `meta-llama/Llama-3.1-8B-Instruct` (primary), `meta-llama/Llama-3.2-3B-Instruct` (fallback), and `Qwen/Qwen2.5-7B-Instruct` (alternative). Runtime embeddings: `BAAI/bge-small-en-v1.5` (33M parameters, 384-dimensional dense vectors). **Zero closed models are invoked in runtime application code.**
+> Runtime language models: `Qwen/Qwen3.8-27B` (live production primary on Groq), `meta-llama/Llama-3.1-8B-Instruct` (cloud fallback / default), and `meta-llama/Llama-3.2-3B-Instruct` (offline Ollama fallback). Runtime embeddings: `BAAI/bge-small-en-v1.5` (33M parameters, 384-dimensional dense vectors). **Zero closed models are invoked in runtime application code.**
 
 ---
 
